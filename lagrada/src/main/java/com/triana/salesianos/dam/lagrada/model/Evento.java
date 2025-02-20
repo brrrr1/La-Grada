@@ -1,9 +1,6 @@
 package com.triana.salesianos.dam.lagrada.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -20,18 +17,22 @@ import java.util.UUID;
 @Table(name = "evento")
 public class Evento {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private UUID id;
-
-    private TipoEvento tipo;
     private String nombre;
     private String descripcion;
     private LocalDateTime fechaYHora;
+
+    @ManyToOne
+    @JoinColumn(name = "equipo1_id")
     private Equipo equipo1;
+
+    @ManyToOne
+    @JoinColumn(name = "equipo2_id")
     private Equipo equipo2;
+
     private int entradasRestantes;
     private int entradasTotales;
     private Double precio;
-
-
 }

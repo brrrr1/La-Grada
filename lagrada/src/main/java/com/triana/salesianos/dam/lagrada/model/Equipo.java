@@ -19,12 +19,10 @@ import java.util.UUID;
 @Table(name = "equipo")
 public class Equipo {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private UUID id;
     private String nombre;
     private String fotoEscudo;
     private String fotoFondo;
-    //private List<Evento> eventos; en principio no
-
-
 }

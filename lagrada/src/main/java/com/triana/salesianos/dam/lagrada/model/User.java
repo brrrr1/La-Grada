@@ -36,8 +36,21 @@ public class User implements UserDetails {
 
     private String correo;
     private String password;
+
+    @ManyToOne
+    @JoinColumn(name = "equipo_favorito_id")
     private Equipo equipoFavorito;
+
+    @ManyToOne
+    @JoinColumn(name = "membresia_id")
     private Membresia membresia;
+
+    @ManyToMany
+    @JoinTable(
+            name = "usuario_evento",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "evento_id")
+    )
     private List<Evento> eventos;
 
     @ElementCollection(fetch = FetchType.EAGER)

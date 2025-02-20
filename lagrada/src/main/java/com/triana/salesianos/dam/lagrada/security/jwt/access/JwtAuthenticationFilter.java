@@ -1,6 +1,7 @@
 package com.triana.salesianos.dam.lagrada.security.jwt.access;
 
 
+import com.triana.salesianos.dam.lagrada.model.User;
 import com.triana.salesianos.dam.lagrada.repo.UserRepository;
 import com.triana.salesianos.dam.lagrada.security.exceptionhandling.JwtException;
 import jakarta.servlet.FilterChain;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -51,7 +51,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 UUID id = jwtService.getUserIdFromAccessToken(token);
 
-                Optional<org.springframework.security.core.userdetails.User> result = userRepository.findById(id);
+                Optional<com.triana.salesianos.dam.lagrada.model.User> result = userRepository.findById(id);
 
                 if (result.isPresent()) {
                     User user = result.get();
