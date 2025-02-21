@@ -4,6 +4,7 @@ import com.triana.salesianos.dam.lagrada.dto.CreateUserRequest;
 import com.triana.salesianos.dam.lagrada.error.ActivationExpiredException;
 import com.triana.salesianos.dam.lagrada.model.User;
 import com.triana.salesianos.dam.lagrada.model.UserRole;
+import com.triana.salesianos.dam.lagrada.repo.MembresiaRepository;
 import com.triana.salesianos.dam.lagrada.repo.UserRepository;
 import com.triana.salesianos.dam.lagrada.util.MailService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     //private final SendGridMailSender mailSender;
     //private final ResendMailSender mailSender;
+
+    private final MembresiaRepository membresiaRepository;
 
     private final MailService mailService;
 
@@ -66,6 +69,13 @@ public class UserService {
                     return userRepository.save(user);
                 })
                 .orElseThrow(() -> new ActivationExpiredException("El código de activación no existe o ha caducado"));
+    }
+
+    //Metodo para comprar una membresia
+    public void buyMembership(UUID userId, UUID membershipId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe el usuario con id " + userId));
+        user.setMembresia(membresiaRepository.findById(membershipId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe la membresia con id " + membershipId)));
+        userRepository.save(user);
     }
 
 
