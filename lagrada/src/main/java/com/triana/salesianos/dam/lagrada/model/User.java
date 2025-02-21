@@ -25,11 +25,13 @@ import java.util.stream.Collectors;
 @Table(name = "usuario")
 public class User implements UserDetails {
 
-    @Id @GeneratedValue(strategy = GenerationType.UUID)
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String nombre;
     private String apellidos;
+
     @NaturalId
     @Column(unique = true, updatable = false)
     private String username;
@@ -41,21 +43,15 @@ public class User implements UserDetails {
     @JoinColumn(name = "equipo_favorito_id")
     private Equipo equipoFavorito;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn(name = "membresia_id")
     private Membresia membresia;
 
-    @ManyToMany
-    @JoinTable(
-            name = "usuario_evento",
-            joinColumns = @JoinColumn(name = "usuario_id"),
-            inverseJoinColumns = @JoinColumn(name = "evento_id")
-    )
-    private List<Evento> eventos;
+    @OneToMany(mappedBy = "usuario")
+    private List<Entrada> entradas;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<UserRole> roles;
-
 
     @Builder.Default
     private boolean enabled = false;

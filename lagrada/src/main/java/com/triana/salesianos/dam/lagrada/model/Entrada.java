@@ -1,12 +1,8 @@
 package com.triana.salesianos.dam.lagrada.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-
 import java.util.UUID;
 
 @Getter
@@ -19,9 +15,15 @@ import java.util.UUID;
 @Table(name = "entrada")
 public class Entrada {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private UUID id;
 
-    private Long usuarioId;
-    private Long eventoId;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private User usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "evento_id", nullable = false)
+    private Evento evento;
 }
