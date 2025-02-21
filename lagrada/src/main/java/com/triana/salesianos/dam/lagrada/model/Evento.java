@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -35,4 +36,7 @@ public class Evento {
     private int entradasRestantes;
     private int entradasTotales;
     private Double precio;
+
+    @OneToMany(mappedBy = "evento")
+    private List<Entrada> entradas;
 }

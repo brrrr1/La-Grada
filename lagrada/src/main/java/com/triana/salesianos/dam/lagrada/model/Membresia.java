@@ -3,8 +3,8 @@ package com.triana.salesianos.dam.lagrada.model;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import java.util.List;
 import java.util.UUID;
-
 
 @Getter
 @Setter
@@ -18,13 +18,17 @@ import java.util.UUID;
 @DiscriminatorColumn(name = "tipo_membresia", discriminatorType = DiscriminatorType.STRING)
 public class Membresia {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private UUID id;
 
     private String nombre;
     private Double precio;
     private String descripcion;
+
+    @Enumerated(EnumType.STRING)
     private TipoMembresia tipo;
 
-
+    @OneToMany(mappedBy = "membresia")
+    private List<User> usuarios;
 }
