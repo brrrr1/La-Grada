@@ -16,13 +16,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@Table(name = "equipo")
-public class Equipo {
+@Table(name = "entrada")
+public class Entrada {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     private UUID id;
-    private String nombre;
-    private String fotoEscudo;
-    private String fotoFondo;
+
+    private Long usuarioId;
+    private Long eventoId;
 }
