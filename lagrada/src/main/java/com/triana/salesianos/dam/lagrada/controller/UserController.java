@@ -76,7 +76,7 @@ public class UserController {
 
     }
 
-    @PostMapping("/activate/account/")
+    @PostMapping("/activate/account")
     public ResponseEntity<?> activateAccount(@RequestBody ActivateAccountRequest req) {
         String token = req.token();
         return ResponseEntity.status(HttpStatus.CREATED)
