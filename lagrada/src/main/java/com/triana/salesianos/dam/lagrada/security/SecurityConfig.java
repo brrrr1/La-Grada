@@ -63,11 +63,17 @@ public class SecurityConfig {
                 .authenticationEntryPoint(authenticationEntryPoint)
                 .accessDeniedHandler(accessDeniedHandler)
         );
-        http.authorizeHttpRequests(authz -> authz
+        /*http.authorizeHttpRequests(authz -> authz
                 .requestMatchers(HttpMethod.POST, "/auth/register", "/auth/login", "/auth/refresh/token","activate/account", "/error").permitAll()
                 .requestMatchers("/me/admin").hasRole("ADMIN")
                 .requestMatchers("/h2-console/**").permitAll()
-                .anyRequest().authenticated());
+                .anyRequest().authenticated());*/
+
+        //Provisional para que se pueda acceder a todo
+        http.authorizeHttpRequests(authz -> authz
+                .anyRequest().permitAll());
+
+
 
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
