@@ -39,13 +39,14 @@ public class User implements UserDetails {
     private String correo;
     private String password;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "equipo_favorito_id")
     private Equipo equipoFavorito;
 
-    @ManyToOne(optional = true)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "membresia_id")
     private Membresia membresia;
+
 
     @OneToMany(mappedBy = "usuario")
     private List<Entrada> entradas;
