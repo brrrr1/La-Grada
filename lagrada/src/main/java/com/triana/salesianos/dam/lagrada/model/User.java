@@ -39,7 +39,7 @@ public class User implements UserDetails {
     private String correo;
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "equipo_favorito_id")
     private Equipo equipoFavorito;
 
@@ -51,8 +51,11 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "usuario")
     private List<Entrada> entradas;
 
+    /*@ElementCollection(fetch = FetchType.EAGER)
+    private Set<UserRole> roles;*/
+
     @ElementCollection(fetch = FetchType.EAGER)
-    private Set<UserRole> roles;
+    protected Set<UserRole> roles;
 
     @Builder.Default
     private boolean enabled = false;
@@ -68,5 +71,10 @@ public class User implements UserDetails {
                 .map(role -> "ROLE_" + role)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toSet());
+    }
+
+    @Override
+    public String toString() {
+        return "User{id=" + id + ", username='" + username + "'}";
     }
 }

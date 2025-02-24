@@ -7,6 +7,7 @@ import com.triana.salesianos.dam.lagrada.repo.*;
 import com.triana.salesianos.dam.lagrada.util.MailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Set;
@@ -119,11 +121,68 @@ public class UserService {
         eventoRepository.save(evento);
     }
 
+    /*@Transactional
     public List<Evento> getNext4EventsOfFavoriteTeam(UUID userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        // Obtenemos los próximos 4 eventos del equipo favorito del usuario
-        return eventoRepository.findNext4EventsByTeam(user.getEquipoFavorito(), PageRequest.of(0, 4));
+        User user = userRepository.findById(userId).orElseThrow();
+
+        // Hibernate podrá inicializar correctamente el equipo favorito
+        Equipo equipo = user.getEquipoFavorito();
+
+        return eventoRepository.findNext4EventsByTeam(equipo, PageRequest.of(0, 4));
+    }*/
+
+
+    public List<Evento> getNext4EventsOfFavoriteTeam(UUID userId) {
+    User user = userRepository.findById(userId).orElseThrow();
+    return eventoRepository.findNext4EventsByTeam(user.getEquipoFavorito(), PageRequest.of(0, 4));
+}
+
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe el usuario con nombre de usuario " + username));
     }
+
+    @Transactional
+    public User getUserWithRoles(UUID id) {
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    /*@Transactional
+    public List<Evento> getEventosPorUsuario(UUID usuarioId) {
+        // Encuentra las entradas del usuario
+        List<Entrada> entradas = entradaRepository.findByUsuarioId(usuarioId);
+
+        // Extrae los eventos de esas entradas
+        return entradas.stream()
+                .map(Entrada::getEvento) // Obtiene el evento asociado a cada entrada
+                .collect(Collectors.toList());
+    }*/
+
+    public List<Evento> obtenerEventosFuturosUsuario(User usuario) {
+        LocalDateTime ahora = LocalDateTime.now();
+        // Obtener los eventos a los que el usuario ha comprado entradas y cuya fecha es posterior a ahora
+        List<Entrada> entradasFuturas = entradaRepository.findByUsuarioAndEventoFechaYHoraAfter(usuario, ahora);
+
+        // Retornar solo los eventos
+        return entradasFuturas.stream()
+                .map(Entrada::getEvento)
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    public List<Evento> obtenerEventosPasadosUsuario(User usuario) {
+        LocalDateTime ahora = LocalDateTime.now();
+        // Obtener los eventos a los que el usuario ha comprado entradas y cuya fecha es anterior a ahora
+        List<Entrada> entradasPasadas = entradaRepository.findByUsuarioAndEventoFechaYHoraBefore(usuario, ahora);
+
+        // Retornar solo los eventos
+        return entradasPasadas.stream()
+                .map(Entrada::getEvento)
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
 
 
 

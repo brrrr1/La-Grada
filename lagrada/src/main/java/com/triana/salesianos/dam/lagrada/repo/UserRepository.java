@@ -1,5 +1,6 @@
 package com.triana.salesianos.dam.lagrada.repo;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.triana.salesianos.dam.lagrada.model.User;
 
@@ -12,5 +13,11 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     Optional<User> findByActivationToken(String activationToken);
 
+
+    //Find por username
+    Optional<User> findByUsername(String username);
+
+    @EntityGraph(attributePaths = "equipoFavorito")
+    Optional<User> findById(UUID id);
 
 }

@@ -1,9 +1,6 @@
 package com.triana.salesianos.dam.lagrada.controller;
 
-import com.triana.salesianos.dam.lagrada.dto.ActivateAccountRequest;
-import com.triana.salesianos.dam.lagrada.dto.CreateUserRequest;
-import com.triana.salesianos.dam.lagrada.dto.LoginRequest;
-import com.triana.salesianos.dam.lagrada.dto.UserResponse;
+import com.triana.salesianos.dam.lagrada.dto.*;
 import com.triana.salesianos.dam.lagrada.model.Evento;
 import com.triana.salesianos.dam.lagrada.model.User;
 import com.triana.salesianos.dam.lagrada.security.jwt.access.JwtService;
@@ -15,7 +12,6 @@ import com.triana.salesianos.dam.lagrada.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,8 +19,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -69,6 +67,8 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+
+
     @GetMapping("/me")
     public UserResponse me(@AuthenticationPrincipal User user) {
         return UserResponse.of(user);
@@ -79,40 +79,63 @@ public class UserController {
         return user;
     }
 
-    @PostMapping("/user/{userId}/buy-membership/{membershipId}")
-    public ResponseEntity<?> buyMembership(@PathVariable UUID userId, @PathVariable UUID membershipId) {
-        userService.buyMembership(userId, membershipId);
+    @PostMapping("/user/buy-membership/{membershipId}")
+    public ResponseEntity<?> buyMembership(@AuthenticationPrincipal User user, @PathVariable UUID membershipId) {
+        userService.buyMembership(user.getId(), membershipId);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/user/{userId}/choose-favorite-team/{teamId}")
-    public ResponseEntity<?> chooseFavoriteTeam(@PathVariable UUID userId, @PathVariable UUID teamId) {
-        userService.chooseFavoriteTeam(userId, teamId);
+    @PostMapping("/user/choose-favorite-team/{teamId}")
+    public ResponseEntity<?> chooseFavoriteTeam(@AuthenticationPrincipal User user, @PathVariable UUID teamId) {
+        userService.chooseFavoriteTeam(user.getId(), teamId);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/user/{userId}/change-favorite-team/{newTeamId}")
-    public ResponseEntity<?> changeFavoriteTeam(@PathVariable UUID userId, @PathVariable UUID newTeamId) {
-        userService.changeFavoriteTeam(userId, newTeamId);
+    @PostMapping("/user/change-favorite-team/{newTeamId}")
+    public ResponseEntity<?> changeFavoriteTeam(@AuthenticationPrincipal User user, @PathVariable UUID newTeamId) {
+        userService.changeFavoriteTeam(user.getId(), newTeamId);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/user/{userId}/buy-ticket/{eventId}")
-    public ResponseEntity<?> buyTicket(@PathVariable UUID userId, @PathVariable UUID eventId) {
-        userService.buyTicket(userId, eventId);
+    @PostMapping("/user/buy-ticket/{eventId}")
+    public ResponseEntity<?> buyTicket(@AuthenticationPrincipal User user, @PathVariable UUID eventId) {
+        userService.buyTicket(user.getId(), eventId);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/user/{userId}/favorite-team-events")
-    public ResponseEntity<List<Evento>> getNext4EventsOfFavoriteTeam(@PathVariable UUID userId) {
-        List<Evento> eventos = userService.getNext4EventsOfFavoriteTeam(userId);
+    @GetMapping("/user/favorite-team-events")
+    public ResponseEntity<List<Evento>> getNext4EventsOfFavoriteTeam(@AuthenticationPrincipal User user) {
+        List<Evento> eventos = userService.getNext4EventsOfFavoriteTeam(user.getId());
         return ResponseEntity.ok(eventos);
     }
 
+    @GetMapping("/eventos-futuros")
+    public ResponseEntity<List<GetEventoDto>> obtenerEventosFuturos(@AuthenticationPrincipal User user) {
+        // Obtener la lista de eventos futuros para el usuario
+        List<Evento> eventosFuturos = userService.obtenerEventosFuturosUsuario(user);
 
+        // Convertir cada evento a GetEventoDto
+        List<GetEventoDto> eventosFuturosDto = eventosFuturos.stream()
+                .map(GetEventoDto::from)
+                .collect(Collectors.toList());
 
+        // Devolver la lista de GetEventoDto
+        return ResponseEntity.ok(eventosFuturosDto);
+    }
 
+    @GetMapping("/eventos-pasados")
+    public ResponseEntity<List<GetEventoDto>> obtenerEventosPasados(@AuthenticationPrincipal User user) {
+        // Obtener la lista de eventos pasados para el usuario
+        List<Evento> eventosPasados = userService.obtenerEventosPasadosUsuario(user);
 
+        // Convertir cada evento a GetEventoDto
+        List<GetEventoDto> eventosPasadosDto = eventosPasados.stream()
+                .map(GetEventoDto::from)
+                .collect(Collectors.toList());
+
+        // Devolver la lista de GetEventoDto
+        return ResponseEntity.ok(eventosPasadosDto);
+    }
 
 
 }
