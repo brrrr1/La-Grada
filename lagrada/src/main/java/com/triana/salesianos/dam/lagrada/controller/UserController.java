@@ -10,6 +10,7 @@ import com.triana.salesianos.dam.lagrada.security.jwt.refresh.RefreshTokenServic
 import com.triana.salesianos.dam.lagrada.service.EventoService;
 import com.triana.salesianos.dam.lagrada.service.UserService;
 import com.triana.salesianos.dam.lagrada.util.SearchCriteria;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +45,7 @@ public class UserController {
     private final EventoService eventoService;
 
     @PostMapping("/auth/register")
-    public ResponseEntity<UserResponse> register(@RequestBody CreateUserRequest createUserRequest) {
+    public ResponseEntity<UserResponse> register(@RequestBody @Valid CreateUserRequest createUserRequest) {
         User user = userService.createUser(createUserRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.of(user));
     }
