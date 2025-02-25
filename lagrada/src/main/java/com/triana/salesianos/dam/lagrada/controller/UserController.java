@@ -9,6 +9,7 @@ import com.triana.salesianos.dam.lagrada.security.jwt.refresh.RefreshTokenReques
 import com.triana.salesianos.dam.lagrada.security.jwt.refresh.RefreshTokenService;
 import com.triana.salesianos.dam.lagrada.service.EventoService;
 import com.triana.salesianos.dam.lagrada.service.UserService;
+import com.triana.salesianos.dam.lagrada.util.SearchCriteria;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +19,22 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
+import lombok.extern.java.Log;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+
+import static org.hibernate.query.sqm.tree.SqmNode.log;
+
 
 @RestController
 @RequiredArgsConstructor
+@Log
 public class UserController {
 
     private final UserService userService;
@@ -148,6 +157,26 @@ public class UserController {
     public ResponseEntity<UserResponse> updateUserPassword(@AuthenticationPrincipal User user, @RequestBody EditUserPasswordDto editUserPasswordDto) {
         User updatedUser = userService.updateUserPassword(user.getId(), editUserPasswordDto);
         return ResponseEntity.ok(UserResponse.of(updatedUser));
+    }
+
+    @GetMapping("/")
+    public List<User> buscar(@RequestParam(value="search", required = false) String search) {
+        log.info(search);
+        List<SearchCriteria> params = new ArrayList<SearchCriteria>();
+        if (search != null) {
+            Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
+            Matcher matcher = pattern.matcher(search + ",");
+            while (matcher.find()) {
+                log.info(matcher.group(1));
+                log.info(matcher.group(2));
+                log.info(matcher.group(3));
+                params.add(new SearchCriteria(matcher.group(1), matcher.group(2), matcher.group(3)));
+            }
+        }
+
+        return userService.search(params);
+
+
     }
 
 
