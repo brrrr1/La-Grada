@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 public class MembresiaEquipo extends Membresia {
 
     @ManyToOne
-    @JoinColumn(name = "equipo_id", nullable = false)
+    @JoinColumn(name = "equipo_id", nullable = true)
     private Equipo equipo;
 
     private int membresiasRestantes;

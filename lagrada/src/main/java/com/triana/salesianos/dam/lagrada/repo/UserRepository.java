@@ -21,4 +21,7 @@ public interface UserRepository extends JpaRepository<User, UUID>, JpaSpecificat
     @EntityGraph(attributePaths = "equipoFavorito")
     Optional<User> findById(UUID id);
 
+    //exists by username
+    boolean existsByUsername(String username);
+
 }

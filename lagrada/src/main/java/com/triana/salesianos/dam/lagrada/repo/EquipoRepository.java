@@ -7,5 +7,8 @@ import java.util.UUID;
 
 public interface EquipoRepository extends JpaRepository<Equipo, UUID> {
 
+    //exists by nombre
+    boolean existsByNombre(String nombre);
+
 
 }

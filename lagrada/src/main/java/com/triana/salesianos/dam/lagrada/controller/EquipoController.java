@@ -3,6 +3,7 @@ package com.triana.salesianos.dam.lagrada.controller;
 import com.triana.salesianos.dam.lagrada.dto.CreateEquipoDto;
 import com.triana.salesianos.dam.lagrada.model.Equipo;
 import com.triana.salesianos.dam.lagrada.service.EquipoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,9 @@ public class EquipoController {
     private final EquipoService equipoService;
 
     // Crear equipo con DTO
+    //Validar que el nombre del equipo no exista
     @PostMapping
-    public ResponseEntity<Equipo> createEquipo(@RequestBody CreateEquipoDto dto) {
+    public ResponseEntity<Equipo> createEquipo(@RequestBody @Valid CreateEquipoDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(equipoService.createEquipo(dto));
     }
 
