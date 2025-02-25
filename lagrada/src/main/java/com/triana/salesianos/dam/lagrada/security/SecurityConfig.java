@@ -70,7 +70,7 @@ public class SecurityConfig {
                 .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated());*/
 
-        http.authorizeHttpRequests(authz -> authz
+        /*http.authorizeHttpRequests(authz -> authz
                 .requestMatchers(HttpMethod.GET, "/evento/proximos").permitAll() // Permitir acceso público a eventos futuros
                 .requestMatchers(HttpMethod.GET, "/equipo/**").permitAll() // Permitir acceso público a equipos (todos y por ID)
                 .requestMatchers(HttpMethod.POST, "/auth/register", "/auth/login", "/auth/refresh/token", "/activate/account", "/error").permitAll()
@@ -84,7 +84,35 @@ public class SecurityConfig {
                 .requestMatchers("/equipo/**").hasRole("ADMIN") // Solo los administradores pueden crear, editar y borrar equipos (POST, PUT, DELETE)
                 .requestMatchers(HttpMethod.GET, "/equipo/**").permitAll() // Todos pueden ver los equipos (GET)
                 .requestMatchers("/evento/**").hasRole("ADMIN")
-                .anyRequest().authenticated());
+                .requestMatchers("/upload/**", "/download/**").hasRole("ADMIN") // Restringir upload y download a ADMIN
+                .anyRequest().authenticated());*/
+
+        http.authorizeHttpRequests(authz -> authz
+                // Rutas públicas
+                .requestMatchers(HttpMethod.GET, "/evento/proximos").permitAll()
+                .requestMatchers(HttpMethod.GET, "/equipo/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/auth/register", "/auth/login", "/auth/refresh/token", "/activate/account", "/error").permitAll()
+                .requestMatchers("/h2-console/**").permitAll()
+
+                // Acceso restringido a ADMIN
+                .requestMatchers("/me/admin", "/search").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/equipo/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/equipo/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/equipo/**").hasRole("ADMIN")
+                .requestMatchers("/evento/**").hasRole("ADMIN")
+                .requestMatchers("/upload/**", "/download/**").hasRole("ADMIN")
+
+                // Rutas autenticadas para usuarios normales
+                .requestMatchers("/me", "/auth/logout").authenticated()
+                .requestMatchers(HttpMethod.POST, "/user/choose-favorite-team/**", "/user/change-favorite-team/**", "/user/buy-ticket/**").authenticated()
+                .requestMatchers("/user/edit-info", "/user/edit-password").authenticated()
+                .requestMatchers("/user/favorite-team-events", "/eventos-futuros", "/eventos-pasados").authenticated()
+
+                // Cualquier otra ruta requiere autenticación
+                .anyRequest().authenticated()
+        );
+
+
 
 
 
