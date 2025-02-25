@@ -1,6 +1,8 @@
 package com.triana.salesianos.dam.lagrada.service;
 
 import com.triana.salesianos.dam.lagrada.dto.CreateUserRequest;
+import com.triana.salesianos.dam.lagrada.dto.EditUserInfoDto;
+import com.triana.salesianos.dam.lagrada.dto.EditUserPasswordDto;
 import com.triana.salesianos.dam.lagrada.error.ActivationExpiredException;
 import com.triana.salesianos.dam.lagrada.model.*;
 import com.triana.salesianos.dam.lagrada.repo.*;
@@ -181,6 +183,41 @@ public class UserService {
                 .map(Entrada::getEvento)
                 .distinct()
                 .collect(Collectors.toList());
+    }
+
+
+    public User updateUserInfo(UUID userId, EditUserInfoDto editUserInfoDto) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+
+        // Actualizar los campos del usuario
+        user.setNombre(editUserInfoDto.nombre());
+        user.setApellidos(editUserInfoDto.apellidos());
+        user.setCorreo(editUserInfoDto.correo());
+
+        // Actualizar el equipo favorito si se proporciona un ID
+        if (editUserInfoDto.equipoFavoritoId() != null) {
+            Equipo equipo = equipoRepository.findById(editUserInfoDto.equipoFavoritoId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipo no encontrado"));
+            user.setEquipoFavorito(equipo);
+        }
+
+        return userRepository.save(user);
+    }
+
+    public User updateUserPassword(UUID userId, EditUserPasswordDto editUserPasswordDto) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+
+        // Verificar que la contraseña antigua es correcta
+        if (!passwordEncoder.matches(editUserPasswordDto.oldPassword(), user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Contraseña antigua incorrecta");
+        }
+
+        // Actualizar la contraseña
+        user.setPassword(passwordEncoder.encode(editUserPasswordDto.newPassword()));
+
+        return userRepository.save(user);
     }
 
 

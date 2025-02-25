@@ -25,9 +25,13 @@ public class EquipoController {
 
     // Ver equipo por id
     @GetMapping("/{id}")
-    public ResponseEntity<Equipo> getEquipoById(UUID id) {
+    public ResponseEntity<Equipo> getEquipoById(@PathVariable UUID id) {
+        if (id == null) {
+            return ResponseEntity.badRequest().body(null);  // O manejarlo de otra forma
+        }
         return ResponseEntity.ok(equipoService.findById(id));
     }
+
 
     //Ver todos los equipos
     @GetMapping

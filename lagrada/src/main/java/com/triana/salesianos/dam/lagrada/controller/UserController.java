@@ -138,4 +138,17 @@ public class UserController {
     }
 
 
+    @PutMapping("/user/edit-info")
+    public ResponseEntity<UserResponse> updateUserInfo(@AuthenticationPrincipal User user, @RequestBody EditUserInfoDto editUserInfoDto) {
+        User updatedUser = userService.updateUserInfo(user.getId(), editUserInfoDto);
+        return ResponseEntity.ok(UserResponse.of(updatedUser));
+    }
+
+    @PutMapping("/user/edit-password")
+    public ResponseEntity<UserResponse> updateUserPassword(@AuthenticationPrincipal User user, @RequestBody EditUserPasswordDto editUserPasswordDto) {
+        User updatedUser = userService.updateUserPassword(user.getId(), editUserPasswordDto);
+        return ResponseEntity.ok(UserResponse.of(updatedUser));
+    }
+
+
 }

@@ -20,6 +20,9 @@ public class EquipoService {
     }
 
     public Equipo findById(UUID id) {
+        if (id == null) {
+            throw new IllegalArgumentException("El ID no puede ser nulo");
+        }
         return equipoRepository.findById(id).orElse(null);
     }
 

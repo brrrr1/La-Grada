@@ -13,4 +13,10 @@ public interface EventoRepository extends JpaRepository<Evento, UUID> {
 
     @Query("SELECT e FROM Evento e WHERE e.fechaYHora > CURRENT_TIMESTAMP AND (e.equipo1 = :equipo OR e.equipo2 = :equipo) ORDER BY e.fechaYHora ASC")
     List<Evento> findNext4EventsByTeam(Equipo equipo, Pageable pageable);
+
+    @Query("SELECT e FROM Evento e WHERE e.fechaYHora > CURRENT_TIMESTAMP ORDER BY e.fechaYHora ASC")
+    List<Evento> findNextEvents(Pageable pageable);
+
+
+
 }

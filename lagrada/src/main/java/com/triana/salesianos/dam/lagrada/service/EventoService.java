@@ -1,6 +1,7 @@
 package com.triana.salesianos.dam.lagrada.service;
 
 import com.triana.salesianos.dam.lagrada.dto.CreateEventoDto;
+import com.triana.salesianos.dam.lagrada.dto.UpdateEventoDto;
 import com.triana.salesianos.dam.lagrada.model.Entrada;
 import com.triana.salesianos.dam.lagrada.model.Equipo;
 import com.triana.salesianos.dam.lagrada.model.Evento;
@@ -10,6 +11,7 @@ import com.triana.salesianos.dam.lagrada.repo.EventoRepository;
 import com.triana.salesianos.dam.lagrada.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,6 +69,54 @@ public class EventoService {
                 .collect(Collectors.toList());
     }*/
 
+    public List<Evento> getAllNextEvents(Pageable pageable) {
+        return eventoRepository.findNextEvents(pageable);
+    }
+
+    @Transactional
+    public Evento updateEvento(UUID eventoId, UpdateEventoDto dto) {
+        Optional<Evento> eventoOpt = eventoRepository.findById(eventoId);
+
+        if (eventoOpt.isPresent()) {
+            Evento evento = eventoOpt.get();
+
+            // Actualizar los campos del evento
+            Optional<Equipo> equipo1 = equipoRepository.findById(dto.equipo1Id());
+            Optional<Equipo> equipo2 = equipoRepository.findById(dto.equipo2Id());
+
+            if (equipo1.isPresent() && equipo2.isPresent()) {
+                evento.setNombre(dto.nombre());
+                evento.setDescripcion(dto.descripcion());
+                evento.setFechaYHora(dto.fechaYHora());
+                evento.setEquipo1(equipo1.get());
+                evento.setEquipo2(equipo2.get());
+                evento.setEntradasTotales(dto.entradasTotales());
+                evento.setEntradasRestantes(dto.entradasTotales());  // Asumimos que las entradas restantes son iguales a las totales al editar
+                evento.setPrecio(dto.precio());
+                evento.setTipoEvento(dto.tipo());
+
+                return eventoRepository.save(evento);
+            } else {
+                throw new RuntimeException("Uno o ambos equipos no existen");
+            }
+        } else {
+            throw new RuntimeException("Evento no encontrado");
+        }
+    }
 
 
+    @Transactional
+    public void deleteEvento(UUID eventoId) {
+        Optional<Evento> eventoOpt = eventoRepository.findById(eventoId);
+
+        if (eventoOpt.isPresent()) {
+            eventoRepository.delete(eventoOpt.get());
+        } else {
+            throw new RuntimeException("Evento no encontrado");
+        }
+    }
 }
+
+
+
+
