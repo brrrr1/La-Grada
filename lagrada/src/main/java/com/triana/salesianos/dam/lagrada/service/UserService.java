@@ -5,13 +5,16 @@ import com.triana.salesianos.dam.lagrada.dto.EditUserInfoDto;
 import com.triana.salesianos.dam.lagrada.dto.EditUserPasswordDto;
 import com.triana.salesianos.dam.lagrada.error.ActivationExpiredException;
 import com.triana.salesianos.dam.lagrada.model.*;
+import com.triana.salesianos.dam.lagrada.query.UserSpecificationBuilder;
 import com.triana.salesianos.dam.lagrada.repo.*;
 import com.triana.salesianos.dam.lagrada.util.MailService;
+import com.triana.salesianos.dam.lagrada.util.SearchCriteria;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -221,6 +224,15 @@ public class UserService {
     }
 
 
+    public List<User> search(List<SearchCriteria> searchCriteriaList) {
+
+        UserSpecificationBuilder userSpecificationBuilder
+                = new UserSpecificationBuilder(searchCriteriaList);
+
+        Specification<User> where = userSpecificationBuilder.build();
+
+        return userRepository.findAll(where);
+    }
 
 
 
