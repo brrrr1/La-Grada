@@ -30,5 +30,6 @@ public class Membresia {
     private TipoMembresia tipo;
 
     @OneToMany(mappedBy = "membresia")
+    @ToString.Exclude
     private List<User> usuarios;
 }

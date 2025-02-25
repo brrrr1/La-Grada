@@ -1,8 +1,6 @@
 package com.triana.salesianos.dam.lagrada.model;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -17,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 public class MembresiaEquipo extends Membresia {
 
     @ManyToOne
+    @JoinColumn(name = "equipo_id", nullable = false)
     private Equipo equipo;
 
     private int membresiasRestantes;

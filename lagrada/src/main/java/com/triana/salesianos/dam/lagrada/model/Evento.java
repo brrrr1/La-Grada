@@ -21,6 +21,7 @@ public class Evento {
     @Id
     @GeneratedValue
     private UUID id;
+
     private String nombre;
     private String descripcion;
     private LocalDateTime fechaYHora;
@@ -37,6 +38,10 @@ public class Evento {
     private int entradasTotales;
     private Double precio;
 
-    @OneToMany(mappedBy = "evento")
+    @Enumerated(EnumType.STRING)
+    private TipoEvento tipoEvento; // Tipo de evento: COTIDIANO, IMPORTANTE, FINAL
+
+    // Relación con entradas en lugar de ManyToMany con usuarios
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Entrada> entradas;
 }
