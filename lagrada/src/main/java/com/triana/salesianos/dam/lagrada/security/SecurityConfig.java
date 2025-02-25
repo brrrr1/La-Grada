@@ -71,20 +71,20 @@ public class SecurityConfig {
                 .anyRequest().authenticated());*/
 
         http.authorizeHttpRequests(authz -> authz
+                .requestMatchers(HttpMethod.GET, "/evento/proximos").permitAll() // Permitir acceso público a eventos futuros
+                .requestMatchers(HttpMethod.GET, "/equipo/**").permitAll() // Permitir acceso público a equipos (todos y por ID)
                 .requestMatchers(HttpMethod.POST, "/auth/register", "/auth/login", "/auth/refresh/token", "/activate/account", "/error").permitAll()
-                .requestMatchers("/me/admin", "/search").hasRole("ADMIN") // Solo los admin pueden acceder
-                .requestMatchers("/me", "/auth/logout").authenticated() // Solo los usuarios autenticados pueden acceder
-                .requestMatchers("/h2-console/**").permitAll() // Permite el acceso al H2 console
+                .requestMatchers("/me/admin", "/search").hasRole("ADMIN")
+                .requestMatchers("/me", "/auth/logout").authenticated()
+                .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/user/choose-favorite-team/{teamId}", "/user/change-favorite-team/{newTeamId}", "/user/buy-ticket/{eventId}")
-                .authenticated() // Solo los usuarios autenticados pueden comprar entradas, cambiar equipo favorito
-                .requestMatchers("/user/edit-info", "/user/edit-password").authenticated() // Usuarios autenticados pueden editar info y contraseña (PUT)
-                .requestMatchers("/user/favorite-team-events", "/eventos-futuros", "/eventos-pasados")
-                .authenticated() // Solo los usuarios autenticados pueden ver estos eventos
+                .authenticated()
+                .requestMatchers("/user/edit-info", "/user/edit-password").authenticated()
+                .requestMatchers("/user/favorite-team-events", "/eventos-futuros", "/eventos-pasados").authenticated()
                 .requestMatchers("/equipo/**").hasRole("ADMIN") // Solo los administradores pueden crear, editar y borrar equipos (POST, PUT, DELETE)
                 .requestMatchers(HttpMethod.GET, "/equipo/**").permitAll() // Todos pueden ver los equipos (GET)
-                .requestMatchers("/evento/**").hasRole("ADMIN") // Solo los admin pueden crear, editar y borrar eventos (POST, PUT, DELETE)
-                .requestMatchers(HttpMethod.GET, "/evento/proximos").permitAll() // Todos pueden ver los eventos futuros (GET)
-                .anyRequest().authenticated()); // El resto de las peticiones requieren autenticación
+                .requestMatchers("/evento/**").hasRole("ADMIN")
+                .anyRequest().authenticated());
 
 
 
