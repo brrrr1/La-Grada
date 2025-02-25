@@ -79,11 +79,11 @@ public class UserController {
         return user;
     }
 
-    @PostMapping("/user/buy-membership/{membershipId}")
+    /*@PostMapping("/user/buy-membership/{membershipId}")
     public ResponseEntity<?> buyMembership(@AuthenticationPrincipal User user, @PathVariable UUID membershipId) {
         userService.buyMembership(user.getId(), membershipId);
         return ResponseEntity.ok().build();
-    }
+    }*/
 
     @PostMapping("/user/choose-favorite-team/{teamId}")
     public ResponseEntity<?> chooseFavoriteTeam(@AuthenticationPrincipal User user, @PathVariable UUID teamId) {
