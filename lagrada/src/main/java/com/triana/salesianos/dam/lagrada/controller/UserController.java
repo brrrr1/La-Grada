@@ -159,7 +159,7 @@ public class UserController {
         return ResponseEntity.ok(UserResponse.of(updatedUser));
     }
 
-    @GetMapping("/")
+    @GetMapping("/search")
     public List<User> buscar(@RequestParam(value="search", required = false) String search) {
         log.info(search);
         List<SearchCriteria> params = new ArrayList<SearchCriteria>();
