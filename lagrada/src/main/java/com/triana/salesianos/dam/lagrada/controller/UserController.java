@@ -85,6 +85,8 @@ public class UserController {
                                             "username": "br1",
                                             "password": "12345678",
                                             "verifyPassword": "12345678"
+                                            "nombre": "Bruno",
+                                            "apellidos": "Delgado Herrero"
                                         }
                                     
 """)))
@@ -249,7 +251,8 @@ public class UserController {
                                             {
                                                 "correo": "cr7@gmail.com",
                                                 "nombre": "Cristiano",
-                                                "apellidos": "Ronaldo"
+                                                "apellidos": "Ronaldo",
+                                                "equipoFavorito": "Real Madrid"
                                             }
                                             """
                             )}
@@ -260,8 +263,10 @@ public class UserController {
     })
     @GetMapping("/me")
     public GetUserDto me(@AuthenticationPrincipal User user) {
-        return new GetUserDto(user.getCorreo(), user.getNombre(), user.getApellidos());
+        String equipoFavorito = (user.getEquipoFavorito() != null) ? user.getEquipoFavorito().getNombre() : null;
+        return new GetUserDto(user.getCorreo(), user.getNombre(), user.getApellidos(), equipoFavorito);
     }
+
 
     @Operation(summary = "Obtiene los detalles del usuario admin que hace la petición")
     @ApiResponses(value = {
@@ -274,7 +279,8 @@ public class UserController {
                                             {
                                                 "correo": "admin@lagrada.com",
                                                 "nombre": "Admin",
-                                                "apellidos": "Administradorez"
+                                                "apellidos": "Administradorez",
+                                                "equipoFavorito": null
                                             }
                                             """
                             )}
@@ -285,8 +291,9 @@ public class UserController {
     })
     @GetMapping("/me/admin")
     public GetUserDto adminMe(@AuthenticationPrincipal User user) {
-        return new GetUserDto(user.getCorreo(), user.getNombre(), user.getApellidos());
+        return new GetUserDto(user.getCorreo(), user.getNombre(), user.getApellidos(), null);
     }
+
 
     /*@PostMapping("/user/buy-membership/{membershipId}")
     public ResponseEntity<?> buyMembership(@AuthenticationPrincipal User user, @PathVariable UUID membershipId) {
@@ -590,11 +597,17 @@ public class UserController {
                             examples = {@ExampleObject(
                                     value = """
                                             [
-                                                {
-                                                    "correo": "cr7@gmail.com",
-                                                    "nombre": "Cristiano",
-                                                    "apellidos": "Ronaldo"
-                                                }
+                                                    {
+                                                        "correo": "cr7@gmail.com",
+                                                        "nombre": "Cristiano",
+                                                        "apellidos": "Ronaldo",
+                                                        "equipoFavorito": "Real Madrid"
+                                                    },
+                                                    {
+                                                        "correo": "messi@gmail.com",
+                                                        "nombre": "Leo",
+                                                        "apellidos": "Messi",
+                                                        "equipoFavorito": "FC Barcelona"
                                             ]
                                             """
                             )}
@@ -619,10 +632,13 @@ public class UserController {
             }
         }
 
-        // Convertimos la lista de User a GetUserDto
         return userService.search(params)
                 .stream()
-                .map(user -> new GetUserDto(user.getCorreo(), user.getNombre(), user.getApellidos()))
+                .map(user -> new GetUserDto(
+                        user.getCorreo(),
+                        user.getNombre(),
+                        user.getApellidos(),
+                        user.getEquipoFavorito() != null ? user.getEquipoFavorito().getNombre() : null))
                 .toList();
     }
 

@@ -47,9 +47,11 @@ public class UserService {
 
     public User createUser(CreateUserRequest createUserRequest) {
         User user = User.builder()
+                .nombre(createUserRequest.nombre())
+                .apellidos(createUserRequest.apellidos())
                 .username(createUserRequest.username())
-                .password(passwordEncoder.encode(createUserRequest.password()))
                 .correo(createUserRequest.correo())
+                .password(passwordEncoder.encode(createUserRequest.password()))
                 .roles(Set.of(UserRole.USER))
                 .activationToken(generateRandomActivationCode())
                 .build();
@@ -64,6 +66,7 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
 
     public String generateRandomActivationCode() {
         return UUID.randomUUID().toString();
@@ -81,13 +84,13 @@ public class UserService {
     }
 
     // Metodo para comprar una membresía
-    public void buyMembership(UUID userId, UUID membershipId) {
+    /*public void buyMembership(UUID userId, UUID membershipId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe el usuario con id " + userId));
         user.setMembresia(membresiaRepository.findById(membershipId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe la membresía con id " + membershipId)));
         userRepository.save(user);
-    }
+    }*/
 
     // Metodo para elegir un equipo favorito
     public void chooseFavoriteTeam(UUID userId, UUID teamId) {
