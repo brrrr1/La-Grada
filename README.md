@@ -79,6 +79,9 @@ http://localhost:8080/swagger-ui.html
 ## Figma
 El diseño de la aplicación está disponible en el siguiente enlace: [Diseño en Figma](https://www.figma.com/design/0kE1LwhCQsRSM8IFBq5KqO/LA-GRADA---M%C3%93VIL?node-id=0-1&t=ara9SiTSo5zwMQGD-1)
 
+![App](https://github.com/user-attachments/assets/d9f8a0cc-53d7-4ba6-a4d9-dcac41bb2f87)
+![App](https://github.com/user-attachments/assets/fb496557-47ea-41b6-9418-63113c7daaad)
+![App](https://github.com/user-attachments/assets/79d07642-0f08-415e-882e-79484dceb8cc)
 
 ![VIVE EL DEPORTE COMO NUNCA ANTES](https://github.com/user-attachments/assets/e4fea73b-fa87-4994-a83f-c8b6322771ff)
 
