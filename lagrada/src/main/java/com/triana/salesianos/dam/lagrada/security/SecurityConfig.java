@@ -88,6 +88,9 @@ public class SecurityConfig {
                 .anyRequest().authenticated());*/
 
         http.authorizeHttpRequests(authz -> authz
+                // Permitir acceso público a eventos de un equipo
+                .requestMatchers(HttpMethod.GET, "/evento/equipo/**").permitAll()
+
                 // Rutas públicas
                 .requestMatchers(HttpMethod.GET, "/evento/proximos").permitAll()
                 .requestMatchers(HttpMethod.GET, "/equipo/**").permitAll()
@@ -111,6 +114,8 @@ public class SecurityConfig {
                 // Cualquier otra ruta requiere autenticación
                 .anyRequest().authenticated()
         );
+
+
 
 
 

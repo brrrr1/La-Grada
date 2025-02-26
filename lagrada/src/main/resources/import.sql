@@ -3,7 +3,7 @@ INSERT INTO equipo (id, nombre, foto_escudo, foto_fondo) VALUES (gen_random_uuid
 INSERT INTO equipo (id, nombre, foto_escudo, foto_fondo) VALUES (gen_random_uuid(), 'FC Barcelona', 'foto_Escudo_fcb.png', 'foto_Fondo_fcb.jpg');
 
 -- Inserción de usuarios
-INSERT INTO usuario (id, nombre, apellidos, username, correo, password, equipo_favorito_id, membresia_id, enabled, created_at) VALUES (gen_random_uuid(), 'Cristiano', 'Ronaldo', 'cr7', 'cr7@gmail.com', '{bcrypt}$2a$10$7QnBzDq6w.vZp/BfIxE9iOq5MyZ2jibXJQjvo6lKe6PCD1SpHf/QC', (SELECT id FROM equipo WHERE nombre='Real Madrid'), NULL, true, now());
+INSERT INTO usuario (id, nombre, apellidos, username, correo, password, equipo_favorito_id, membresia_id, enabled, created_at) VALUES (gen_random_uuid(), 'Cristiano', 'Ronaldo', 'cr7', 'cr7@gmail.com', '{bcrypt}$2a$12$bTQej0W8ifZQJNNzW7yofOEhwNODlXPCn9uQyZTduZ9Ph/rAMEVNe', (SELECT id FROM equipo WHERE nombre='Real Madrid'), NULL, true, now());
 INSERT INTO usuario (id, nombre, apellidos, username, correo, password, equipo_favorito_id, membresia_id, enabled, created_at) VALUES (gen_random_uuid(), 'Leo', 'Messi', 'messi', 'messi@gmail.com', '{bcrypt}$2a$10$3aG0Ydb9JhLxlf5fz9oNzeyQX/pEoHJyXJjZp7Nk8P7xP4BgWd/na', (SELECT id FROM equipo WHERE nombre='FC Barcelona'), NULL, true, now());
 --INSERTAR UN ADMIN
 INSERT INTO usuario (id, nombre, apellidos, username, correo, password, equipo_favorito_id, membresia_id, enabled, created_at) VALUES (gen_random_uuid(), 'Admin', 'Administradorez', 'admin', 'admin@lagrada.com', '{bcrypt}$2a$12$e1CQrst7qSuZbG/JQlUnBOKJz/uDjTXOFHofTLRPJWMddwTl/JRaa', NULL, NULL, true, now());
