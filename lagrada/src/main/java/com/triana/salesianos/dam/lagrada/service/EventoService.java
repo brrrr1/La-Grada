@@ -1,6 +1,7 @@
 package com.triana.salesianos.dam.lagrada.service;
 
 import com.triana.salesianos.dam.lagrada.dto.CreateEventoDto;
+import com.triana.salesianos.dam.lagrada.dto.GetEventoDto;
 import com.triana.salesianos.dam.lagrada.dto.UpdateEventoDto;
 import com.triana.salesianos.dam.lagrada.model.Entrada;
 import com.triana.salesianos.dam.lagrada.model.Equipo;
@@ -115,6 +116,15 @@ public class EventoService {
             throw new RuntimeException("Evento no encontrado");
         }
     }
+
+    public List<GetEventoDto> obtenerEventosFuturosPorEquipo(String equipo) {
+        LocalDateTime fechaActual = LocalDateTime.now();
+        return eventoRepository.findByEquipoAndFechaFutura(equipo, fechaActual)
+                .stream()
+                .map(GetEventoDto::from)
+                .toList();
+    }
+
 }
 
 
