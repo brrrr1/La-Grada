@@ -1,0 +1,1169 @@
+{
+	"info": {
+		"_postman_id": "ffe94f7c-562b-41cf-9267-377a6ae6f86d",
+		"name": "La Grada",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38617670"
+	},
+	"item": [
+		{
+			"name": "ADMIN",
+			"item": [
+				{
+					"name": "1.Registro-Validacion-Login-Refresco-Logout Copy",
+					"item": [
+						{
+							"name": "LOGIN ADMIN",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let response = pm.response.json(); // Parsea la respuesta JSON\r",
+											"\r",
+											"pm.environment.set(\"adminId\", response.id); // Guarda el id en una variable\r",
+											"pm.environment.set(\"adminToken\", response.token); // Guarda el token en una variable\r",
+											"pm.environment.set(\"adminRefreshToken\", response.refreshToken); // Guarda el refresh token en una variable"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/auth/login",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let response = pm.response.json(); // Parsea la respuesta JSON\r",
+											"\r",
+											"// Sobrescribe las variables de entorno o colección con los nuevos valores\r",
+											"pm.environment.set(\"token\", response.token); // Sobrescribe la variable token\r",
+											"pm.environment.set(\"refreshToken\", response.refreshToken); // Sobrescribe la variable refreshToken\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"refreshToken\": \"{{adminRefreshToken}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/auth/refresh/token",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"auth",
+										"refresh",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LOGOUT",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{adminToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/auth/logout",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "2.Equipo ADMIN",
+					"item": [
+						{
+							"name": "Crear equipo",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let response = pm.response.json(); // Parsea la respuesta JSON\r",
+											"\r",
+											"pm.environment.set(\"idEquipo2\", response.id); // Guarda el id del equipo en la variable idEquipo1"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{adminToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "postman-cloud:///1eff3b2d-a6fc-4120-851b-502f0727bd03"
+										},
+										{
+											"key": "file2",
+											"type": "file",
+											"src": "postman-cloud:///1eff3b41-a488-4d80-8ede-29d8893c3ef4"
+										},
+										{
+											"key": "equipo",
+											"type": "file",
+											"src": "postman-cloud:///1eff3bae-4e8b-4fa0-96eb-e4299f884493"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/equipo/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"equipo",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Crear equipo 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let response = pm.response.json(); // Parsea la respuesta JSON\r",
+											"\r",
+											"pm.environment.set(\"idEquipo1\", response.id); // Guarda el id del equipo en la variable idEquipo1"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{adminToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "postman-cloud:///1eff4282-6875-4fd0-8ce4-01534056007a"
+										},
+										{
+											"key": "file2",
+											"type": "file",
+											"src": "postman-cloud:///1eff4282-9ac1-4f70-ac80-9e12c021cf05"
+										},
+										{
+											"key": "equipo",
+											"type": "file",
+											"src": "postman-cloud:///1eff4280-7a07-4480-a4b5-97fdc26179d3"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/equipo/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"equipo",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "3.Evento ADMIN",
+					"item": [
+						{
+							"name": "Crear evento",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let response = pm.response.json(); // Parsea la respuesta JSON\r",
+											"\r",
+											"pm.environment.set(\"idEvento\", response.id); // Guarda el id del evento en la variable idEvento"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{adminToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"Final Champions League\",\r\n  \"descripcion\": \"La final del torneo más importante de Europa\",\r\n  \"fechaYHora\": \"2025-05-28T21:00:00\",\r\n  \"equipo1Id\": \"{{idEquipo1}}\",\r\n  \"equipo2Id\": \"{{idEquipo2}}\",\r\n  \"entradasTotales\": 450,\r\n  \"precio\": 150.0,\r\n  \"tipo\": \"FINAL\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/evento",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"evento"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{adminToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/evento/{{idEvento}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"evento",
+										"{{idEvento}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar Evento",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{adminToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"Sevilla - Getafe Final UCL\",\r\n  \"descripcion\": \"FINAL CHAMPIONS\",\r\n  \"fechaYHora\": \"2025-03-15T20:00:00\",\r\n  \"equipo1Id\": \"{{idEquipo1}}\",\r\n  \"equipo2Id\": \"{{idEquipo2}}\",\r\n  \"entradasTotales\": 200,\r\n  \"precio\": 12,\r\n  \"tipo\": \"FINAL\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/evento/{{idEvento}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"evento",
+										"{{idEvento}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "File",
+					"item": [
+						{
+							"name": "Download",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{adminToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/download/{{idFile}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"download",
+										"{{idFile}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upload File",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Guardar ID en variable\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.globals.set(\"idFile\", jsonData.id);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{adminToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"description": "Foto",
+											"type": "file",
+											"src": "postman-cloud:///1eff3ab6-da2f-4cd0-a6a4-95af4ddb1630"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/upload",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"upload"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ME ADMIN",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/me/admin",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"me",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SEARCH",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/search?search=nombre:Cristiano,apellidos:Ronaldo,correo:cr7@gmail.com",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"search"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "nombre:Cristiano,apellidos:Ronaldo,correo:cr7@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "USER",
+			"item": [
+				{
+					"name": "Registro-Validacion-Login-Refresco-Logout",
+					"item": [
+						{
+							"name": "Refresh Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let response = pm.response.json(); // Parsea la respuesta JSON\r",
+											"\r",
+											"// Sobrescribe las variables de entorno o colección con los nuevos valores\r",
+											"pm.environment.set(\"token\", response.token); // Sobrescribe la variable token\r",
+											"pm.environment.set(\"refreshToken\", response.refreshToken); // Sobrescribe la variable refreshToken\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"refreshToken\": \"{{refreshToken}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/auth/refresh/token",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"auth",
+										"refresh",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LOGOUT",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/auth/logout",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Usuario",
+					"item": [
+						{
+							"name": "Me",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/me",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Choose Favorite Team",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_URL}}/user/choose-favorite-team/550e8400-e29b-41d4-a716-446655440000",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"user",
+										"choose-favorite-team",
+										"550e8400-e29b-41d4-a716-446655440000"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Favorite Team",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_URL}}/user/change-favorite-team/550e8400-e29b-41d4-a716-446655440001",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"user",
+										"change-favorite-team",
+										"550e8400-e29b-41d4-a716-446655440001"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buy Ticket",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/user/buy-ticket/550e8400-e29b-41d4-a716-446655440005",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"user",
+										"buy-ticket",
+										"550e8400-e29b-41d4-a716-446655440005"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Proximos eventos equipo fav",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/user/favorite-team-events",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"user",
+										"favorite-team-events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Eventos Futuros",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/eventos-futuros",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"eventos-futuros"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Eventos Asistidos",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/eventos-pasados",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"eventos-pasados"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Info",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"Bruno\",\r\n  \"apellidos\": \"Delgado\",\r\n  \"correo\": \"delgado.hebru24@triana.salesianos.edu\",\r\n  \"equipoFavoritoId\": null\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/user/edit-info",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"user",
+										"edit-info"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Password",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"oldPassword\": \"12345678\",\r\n  \"newPassword\": \"contraseña_nueva\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/user/edit-password",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"user",
+										"edit-password"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "NO-AUTH",
+			"item": [
+				{
+					"name": "Evento",
+					"item": [
+						{
+							"name": "Próximos eventos",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/evento/proximos",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"evento",
+										"proximos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar por equipo",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/evento/equipo/Real Madrid",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"evento",
+										"equipo",
+										"Real Madrid"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Equipo",
+					"item": [
+						{
+							"name": "ALL Equipos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/equipo/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"equipo",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Equipo ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/equipo/{{idEquipo1}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"equipo",
+										"{{idEquipo1}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Registro-Validacion-Login-Refresco-Logout Copy",
+					"item": [
+						{
+							"name": "Register User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"correo\": \"delgado.hebru24@triana.salesianos.edu\",\n    \"username\": \"br1\",\n    \"password\": \"12345678\",\n    \"verifyPassword\": \"12345678\",\n    \"nombre\": \"Bruno\",\n    \"apellidos\": \"Delgado Herrero\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/auth/register",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login a la cuenta creada",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let response = pm.response.json(); // Parsea la respuesta JSON\r",
+											"\r",
+											"pm.environment.set(\"userId\", response.id); // Guarda el id en una variable\r",
+											"pm.environment.set(\"token\", response.token); // Guarda el token en una variable\r",
+											"pm.environment.set(\"refreshToken\", response.refreshToken); // Guarda el refresh token en una variable"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"br1\",\n    \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/auth/login",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Activate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let response = pm.response.json(); // Parsea la respuesta JSON\r",
+											"pm.environment.set(\"userId\", response.id); // Guarda el id en la variable de entorno"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"token\": \"2e396c11-7f87-4646-b46e-67483e752945\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/activate/account",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"activate",
+										"account"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login a una cuenta que ya existe",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let response = pm.response.json(); // Parsea la respuesta JSON\r",
+											"\r",
+											"pm.environment.set(\"userId2\", response.id); // Guarda el id en una variable\r",
+											"pm.environment.set(\"token2\", response.token); // Guarda el token en una variable\r",
+											"pm.environment.set(\"refreshToken2\", response.refreshToken); // Guarda el refresh token en una variable"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"cr7\",\n    \"password\": \"cr7\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/auth/login",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
