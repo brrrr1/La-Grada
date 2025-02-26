@@ -1,9 +1,8 @@
 # La Grada - API
-![logo 3](https://github.com/user-attachments/assets/a675300b-4891-4371-ab90-a3e2976efe47)
-
+![Logo La Grada](https://github.com/user-attachments/assets/92d38f74-acd4-4d58-805c-b2683bb3a525)
 ## Descripción
 
-La API de *La Grada* proporciona funcionalidades para gestionar eventos deportivos, equipos, usuarios y membresías en una plataforma de entretenimiento inmersivo. Permite la autenticación de usuarios y administradores, la gestión de eventos y equipos, la compra de entradas y la administración de membresías. Los usuarios pueden registrarse, seleccionar un equipo favorito, comprar entradas para eventos deportivos y consultar los próximos eventos de su equipo preferido... Además, pueden editar su información personal y gestionar su cuenta.
+La API de *La Grada* proporciona funcionalidades para gestionar eventos deportivos, equipos, usuarios y membresías en una plataforma de entretenimiento inmersivo. Permite la autenticación de usuarios y administradores, la gestión de eventos y equipos, la compra de entradas y la administración de membresías. Los usuarios pueden registrarse, seleccionar un equipo favorito, comprar entradas para eventos deportivos y consultar los próximos eventos de su equipo preferido. Además, pueden editar su información personal y gestionar su cuenta.
 
 ## Requisitos
 
@@ -73,6 +72,14 @@ http://localhost:8080/swagger-ui.html
 
 ## Notas
 
-- Se requiere autenticación con Bearer Tokens en la mayoría de los endpoints. 
+- Se requiere autenticación con tokens Bearer en la mayoría de los endpoints.
 - La API diferencia entre usuarios normales y administradores, proporcionando permisos adecuados a cada tipo de cuenta.
+
+
+## Figma
+El diseño de la aplicación está disponible en el siguiente enlace: [Diseño en Figma](https://www.figma.com/design/0kE1LwhCQsRSM8IFBq5KqO/LA-GRADA---M%C3%93VIL?node-id=0-1&t=ara9SiTSo5zwMQGD-1)
+
+
+![VIVE EL DEPORTE COMO NUNCA ANTES](https://github.com/user-attachments/assets/e4fea73b-fa87-4994-a83f-c8b6322771ff)
+
 
