@@ -40,13 +40,15 @@ public class EquipoService {
     }
 
     @Transactional
-    public Equipo save(CreateEquipoDto createEquipoDto, MultipartFile file) {
+    public Equipo save(CreateEquipoDto createEquipoDto, MultipartFile file, MultipartFile file2) {
         FileMetadata fileMetadata = storageService.store(file);
+        FileMetadata fileMetadata2 = storageService.store(file2);
 
         Equipo equipo = equipoRepository.save(
                 Equipo.builder()
                         .nombre(createEquipoDto.getNombre())
                         .fotoEscudo(fileMetadata.getFilename())
+                        .fotoFondo(fileMetadata2.getFilename())
                         .build()
         );
         return equipo;

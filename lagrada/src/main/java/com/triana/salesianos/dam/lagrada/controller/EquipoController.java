@@ -156,7 +156,7 @@ public class EquipoController {
                             schema = @Schema(implementation = CreateEquipoDto.class)))
             @RequestPart("equipo") CreateEquipoDto newEquipo
     ) {
-        Equipo equipo = equipoService.save(newEquipo, file);
+        Equipo equipo = equipoService.save(newEquipo, file, file2);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(GetEquipoDto.of(equipo));
     }
