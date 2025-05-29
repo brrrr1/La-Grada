@@ -39,6 +39,8 @@ services:
       pg:
         condition: service_healthy
     restart: on-failure
+    volumes:
+      - ./uploads:/app/uploads
 
 volumes:
   pgdata:

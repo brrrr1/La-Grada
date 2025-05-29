@@ -102,12 +102,36 @@ public class EventoController {
                                                 {
                                                     "nombre": "Clásico",
                                                     "descripcion": "Partido entre Madrid y Barcelona",
-                                                    "fechaYHora": "2025-03-05T11:51:54.022541"
+                                                    "fechaYHora": "2025-03-05T11:51:54.022541",
+                                                    "equipo1": {
+                                                        "id": "b8e30540-5025-4306-bc9f-ec425c58ffb5",
+                                                        "nombre": "Real Madrid CF",
+                                                        "fotoEscudo": "madrid.jpg",
+                                                        "fotoFondo": null
+                                                    },
+                                                    "equipo2": {
+                                                        "id": "4beb55b7-6bea-472d-ae67-428864202fea",
+                                                        "nombre": "FC Barcelona",
+                                                        "fotoEscudo": "barcelona.jpg",
+                                                        "fotoFondo": null
+                                                    }
                                                 },
                                                 {
                                                     "nombre": "Derbi",
                                                     "descripcion": "Partido entre Betis y Sevilla",
-                                                    "fechaYHora": "2025-03-05T11:51:54.022541"
+                                                    "fechaYHora": "2025-03-05T11:51:54.022541",
+                                                    "equipo1": {
+                                                        "id": "b8e30540-5025-4306-bc9f-ec425c58ffb5",
+                                                        "nombre": "Real Betis",
+                                                        "fotoEscudo": "betis.jpg",
+                                                        "fotoFondo": null
+                                                    },
+                                                    "equipo2": {
+                                                        "id": "4beb55b7-6bea-472d-ae67-428864202fea",
+                                                        "nombre": "Sevilla FC",
+                                                        "fotoEscudo": "sevilla.jpg",
+                                                        "fotoFondo": null
+                                                    }
                                                 }
                                             ]
                                             """

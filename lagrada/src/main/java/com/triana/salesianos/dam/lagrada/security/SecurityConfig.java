@@ -88,6 +88,15 @@ public class SecurityConfig {
                 .anyRequest().authenticated());*/
 
         http.authorizeHttpRequests(authz -> authz
+                // Permitir acceso público a Swagger UI y docs
+                .requestMatchers(
+                    "/swagger-ui.html",
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/api-docs/**"
+                ).permitAll()
+                // Permitir acceso público a descarga de imágenes
+                .requestMatchers(HttpMethod.GET, "/download/**").permitAll()
                 // Permitir acceso público a eventos de un equipo
                 .requestMatchers(HttpMethod.GET, "/evento/equipo/**").permitAll()
 
@@ -103,7 +112,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PUT, "/equipo/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/equipo/**").hasRole("ADMIN")
                 .requestMatchers("/evento/**").hasRole("ADMIN")
-                .requestMatchers("/upload/**", "/download/**").hasRole("ADMIN")
+                .requestMatchers("/upload/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/download/**").permitAll()
 
                 // Rutas autenticadas para usuarios normales
                 .requestMatchers("/me", "/auth/logout").authenticated()
@@ -115,33 +125,11 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
         );
 
-
-
-
-
-
-
-
-
-        //Provisional para que se pueda acceder a t0d0
-        /*http.authorizeHttpRequests(authz -> authz
-                .anyRequest().permitAll());*/
-
-
-
-
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
 
         http.headers(headers ->
                 headers.frameOptions(frameOptions -> frameOptions.disable()));
 
         return http.build();
     }
-
-
-
-
-
-
 }
