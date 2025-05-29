@@ -278,4 +278,23 @@ public class EventoController {
         return ResponseEntity.ok(eventoService.obtenerEventosFuturosPorEquipo(equipo));
     }
 
+    @Operation(summary = "Obtiene los detalles de un evento por su id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha encontrado el evento",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = GetEventoDetailDto.class)
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el evento",
+                    content = @Content),
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<GetEventoDetailDto> getEventoById(@PathVariable UUID id) {
+        return eventoService.findById(id)
+                .map(GetEventoDetailDto::from)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
 }

@@ -125,6 +125,10 @@ public class EventoService {
                 .toList();
     }
 
+    public Optional<Evento> findById(UUID id) {
+        return eventoRepository.findById(id);
+    }
+
 }
 
 
