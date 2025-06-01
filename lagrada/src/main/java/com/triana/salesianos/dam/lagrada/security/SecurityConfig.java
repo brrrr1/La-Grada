@@ -122,6 +122,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/user/choose-favorite-team/**", "/user/change-favorite-team/**", "/user/buy-ticket/**").authenticated()
                 .requestMatchers("/user/edit-info", "/user/edit-password").authenticated()
                 .requestMatchers("/user/favorite-team-events", "/eventos-futuros", "/eventos-pasados").authenticated()
+                .requestMatchers(HttpMethod.DELETE, "/user/remove-favorite-team").authenticated()
 
                 // Cualquier otra ruta requiere autenticación
                 .anyRequest().authenticated()

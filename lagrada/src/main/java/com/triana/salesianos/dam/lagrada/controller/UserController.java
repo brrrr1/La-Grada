@@ -642,6 +642,29 @@ public class UserController {
                 .toList();
     }
 
+    @Operation(summary = "Sirve para que un usuario quite su equipo favorito")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha quitado el equipo favorito",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ResponseEntity.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                
+                                            }
+                                            """
 
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha podido quitar el equipo favorito",
+                    content = @Content),
+    })
+    @DeleteMapping("/user/remove-favorite-team")
+    public ResponseEntity<?> removeFavoriteTeam(@AuthenticationPrincipal User user) {
+        userService.removeFavoriteTeam(user.getId());
+        return ResponseEntity.ok().build();
+    }
 
 }

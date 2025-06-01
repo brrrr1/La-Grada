@@ -237,6 +237,13 @@ public class UserService {
         return userRepository.findAll(where);
     }
 
+    public void removeFavoriteTeam(UUID userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe el usuario con id " + userId));
+        user.setEquipoFavorito(null);
+        userRepository.save(user);
+    }
+
 
 
 
