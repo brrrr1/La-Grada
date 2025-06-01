@@ -22,6 +22,16 @@ public interface EventoRepository extends JpaRepository<Evento, UUID> {
     @Query("SELECT e FROM Evento e WHERE (e.equipo1.nombre = :equipo OR e.equipo2.nombre = :equipo) AND e.fechaYHora > :fechaActual")
     List<Evento> findByEquipoAndFechaFutura(@Param("equipo") String equipo, @Param("fechaActual") LocalDateTime fechaActual);
 
+    @Query("SELECT e FROM Evento e WHERE e.fechaYHora > CURRENT_TIMESTAMP ORDER BY e.fechaYHora ASC")
+    List<Evento> findAllNextEvents();
 
+    @Query("SELECT e FROM Evento e WHERE e.fechaYHora > CURRENT_TIMESTAMP AND e.tipoEvento = 'COTIDIANO' ORDER BY e.fechaYHora ASC")
+    List<Evento> findAllNextEventsCotidianos();
+
+    @Query("SELECT e FROM Evento e WHERE e.fechaYHora > CURRENT_TIMESTAMP AND e.tipoEvento = 'IMPORTANTE' ORDER BY e.fechaYHora ASC")
+    List<Evento> findAllNextEventsImportantes();
+
+    @Query("SELECT e FROM Evento e WHERE e.fechaYHora > CURRENT_TIMESTAMP AND e.tipoEvento = 'FINAL' ORDER BY e.fechaYHora ASC")
+    List<Evento> findAllNextEventsFinales();
 
 }

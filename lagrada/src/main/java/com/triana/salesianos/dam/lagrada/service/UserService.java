@@ -127,6 +127,13 @@ public class UserService {
         entradaRepository.save(entrada);
         evento.setEntradasRestantes(evento.getEntradasRestantes() - 1);
         eventoRepository.save(evento);
+        
+        // Enviar email de confirmación de compra con QR
+        try {
+            mailService.sendTicketPurchaseEmailWithQR(user, evento);
+        } catch (Exception e) {
+            // Puedes loguear el error si lo deseas
+        }
     }
 
     /*@Transactional

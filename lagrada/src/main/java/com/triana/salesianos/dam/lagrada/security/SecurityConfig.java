@@ -102,6 +102,7 @@ public class SecurityConfig {
 
                 // Rutas públicas
                 .requestMatchers(HttpMethod.GET, "/evento/proximos").permitAll()
+                .requestMatchers(HttpMethod.GET, "/evento/proximos/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/evento/{id}").permitAll()
                 .requestMatchers(HttpMethod.GET, "/evento/*").permitAll()
                 .requestMatchers(HttpMethod.GET, "/equipo/**").permitAll()

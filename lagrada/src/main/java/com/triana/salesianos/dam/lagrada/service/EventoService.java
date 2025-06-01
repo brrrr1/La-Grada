@@ -74,6 +74,22 @@ public class EventoService {
         return eventoRepository.findNextEvents(pageable);
     }
 
+    public List<Evento> getAllNextEventsNoPage() {
+        return eventoRepository.findAllNextEvents();
+    }
+
+    public List<Evento> getAllNextEventsCotidianos() {
+        return eventoRepository.findAllNextEventsCotidianos();
+    }
+
+    public List<Evento> getAllNextEventsImportantes() {
+        return eventoRepository.findAllNextEventsImportantes();
+    }
+
+    public List<Evento> getAllNextEventsFinales() {
+        return eventoRepository.findAllNextEventsFinales();
+    }
+
     @Transactional
     public Evento updateEvento(UUID eventoId, UpdateEventoDto dto) {
         Optional<Evento> eventoOpt = eventoRepository.findById(eventoId);

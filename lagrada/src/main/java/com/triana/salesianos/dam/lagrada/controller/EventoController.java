@@ -155,6 +155,85 @@ public class EventoController {
         return ResponseEntity.ok(eventos);
     }
 
+    @Operation(summary = "Obtiene todos los próximos eventos sin paginación")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado los próximos eventos",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetEventoDto.class))
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado los próximos eventos",
+                    content = @Content),
+    })
+    @GetMapping("/proximos/all")
+    public ResponseEntity<List<GetEventoDto>> getAllNextEventsNoPage() {
+        List<GetEventoDto> eventos = eventoService.getAllNextEventsNoPage()
+                .stream()
+                .map(GetEventoDto::from)
+                .toList();
+        return ResponseEntity.ok(eventos);
+    }
+
+    @Operation(summary = "Obtiene todos los próximos eventos cotidianos")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado los próximos eventos cotidianos",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetEventoDto.class))
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado los próximos eventos cotidianos",
+                    content = @Content),
+    })
+    @GetMapping("/proximos/cotidianos")
+    public ResponseEntity<List<GetEventoDto>> getAllNextEventsCotidianos() {
+        List<GetEventoDto> eventos = eventoService.getAllNextEventsCotidianos()
+                .stream()
+                .map(GetEventoDto::from)
+                .toList();
+        return ResponseEntity.ok(eventos);
+    }
+
+    @Operation(summary = "Obtiene todos los próximos eventos importantes")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado los próximos eventos importantes",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetEventoDto.class))
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado los próximos eventos importantes",
+                    content = @Content),
+    })
+    @GetMapping("/proximos/importantes")
+    public ResponseEntity<List<GetEventoDto>> getAllNextEventsImportantes() {
+        List<GetEventoDto> eventos = eventoService.getAllNextEventsImportantes()
+                .stream()
+                .map(GetEventoDto::from)
+                .toList();
+        return ResponseEntity.ok(eventos);
+    }
+
+    @Operation(summary = "Obtiene todos los próximos eventos finales")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado los próximos eventos finales",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetEventoDto.class))
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado los próximos eventos finales",
+                    content = @Content),
+    })
+    @GetMapping("/proximos/finales")
+    public ResponseEntity<List<GetEventoDto>> getAllNextEventsFinales() {
+        List<GetEventoDto> eventos = eventoService.getAllNextEventsFinales()
+                .stream()
+                .map(GetEventoDto::from)
+                .toList();
+        return ResponseEntity.ok(eventos);
+    }
 
     @Operation(summary = "Método para editar la información de un evento")
     @ApiResponses(value = {
