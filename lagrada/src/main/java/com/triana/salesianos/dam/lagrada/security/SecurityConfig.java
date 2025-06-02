@@ -107,6 +107,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/evento/*").permitAll()
                 .requestMatchers(HttpMethod.GET, "/equipo/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/register", "/auth/login", "/auth/refresh/token", "/activate/account", "/error").permitAll()
+                .requestMatchers(HttpMethod.GET, "/auth/check-username", "/auth/check-email").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
 
                 // Acceso restringido a ADMIN

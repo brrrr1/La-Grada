@@ -667,4 +667,50 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(
+        summary = "Comprueba si un nombre de usuario ya está registrado",
+        description = "Devuelve true si el username ya existe, false si está disponible. Útil para validación en el registro."
+    )
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200",
+            description = "Resultado de la comprobación",
+            content = @Content(mediaType = "application/json",
+                examples = {
+                    @ExampleObject(name = "Username disponible", value = "false"),
+                    @ExampleObject(name = "Username ya existe", value = "true")
+                }
+            )
+        )
+    })
+    @GetMapping("/auth/check-username")
+    public ResponseEntity<Boolean> checkUsername(
+            @io.swagger.v3.oas.annotations.Parameter(description = "Nombre de usuario a comprobar", example = "br1")
+            @RequestParam String username) {
+        boolean exists = userService.existsByUsername(username);
+        return ResponseEntity.ok(exists);
+    }
+
+    @Operation(
+        summary = "Comprueba si un correo electrónico ya está registrado",
+        description = "Devuelve true si el correo ya existe, false si está disponible. Útil para validación en el registro."
+    )
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200",
+            description = "Resultado de la comprobación",
+            content = @Content(mediaType = "application/json",
+                examples = {
+                    @ExampleObject(name = "Correo disponible", value = "false"),
+                    @ExampleObject(name = "Correo ya existe", value = "true")
+                }
+            )
+        )
+    })
+    @GetMapping("/auth/check-email")
+    public ResponseEntity<Boolean> checkEmail(
+            @io.swagger.v3.oas.annotations.Parameter(description = "Correo electrónico a comprobar", example = "usuario@email.com")
+            @RequestParam String correo) {
+        boolean exists = userService.existsByCorreo(correo);
+        return ResponseEntity.ok(exists);
+    }
+
 }

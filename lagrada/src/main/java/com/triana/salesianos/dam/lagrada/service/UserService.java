@@ -251,6 +251,14 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    public boolean existsByCorreo(String correo) {
+        return userRepository.existsByCorreo(correo);
+    }
+
 
 
 
