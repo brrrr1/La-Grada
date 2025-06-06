@@ -1,6 +1,7 @@
 package com.triana.salesianos.dam.lagrada.service;
 
 import com.triana.salesianos.dam.lagrada.dto.CreateEventoDto;
+import com.triana.salesianos.dam.lagrada.dto.EventoFilterDto;
 import com.triana.salesianos.dam.lagrada.dto.GetEventoDto;
 import com.triana.salesianos.dam.lagrada.dto.UpdateEventoDto;
 import com.triana.salesianos.dam.lagrada.model.Entrada;
@@ -78,16 +79,48 @@ public class EventoService {
         return eventoRepository.findAllNextEvents();
     }
 
+    public List<Evento> getAllNextEventsNoPageFiltered(EventoFilterDto filter) {
+        return eventoRepository.findAllNextEventsFiltered(
+            filter.nombreEquipo(),
+            filter.nombreEvento(),
+            filter.tieneEntradasDisponibles()
+        );
+    }
+
     public List<Evento> getAllNextEventsCotidianos() {
         return eventoRepository.findAllNextEventsCotidianos();
+    }
+
+    public List<Evento> getAllNextEventsCotidianosFiltered(EventoFilterDto filter) {
+        return eventoRepository.findAllNextEventsCotidianosFiltered(
+            filter.nombreEquipo(),
+            filter.nombreEvento(),
+            filter.tieneEntradasDisponibles()
+        );
     }
 
     public List<Evento> getAllNextEventsImportantes() {
         return eventoRepository.findAllNextEventsImportantes();
     }
 
+    public List<Evento> getAllNextEventsImportantesFiltered(EventoFilterDto filter) {
+        return eventoRepository.findAllNextEventsImportantesFiltered(
+            filter.nombreEquipo(),
+            filter.nombreEvento(),
+            filter.tieneEntradasDisponibles()
+        );
+    }
+
     public List<Evento> getAllNextEventsFinales() {
         return eventoRepository.findAllNextEventsFinales();
+    }
+
+    public List<Evento> getAllNextEventsFinalesFiltered(EventoFilterDto filter) {
+        return eventoRepository.findAllNextEventsFinalesFiltered(
+            filter.nombreEquipo(),
+            filter.nombreEvento(),
+            filter.tieneEntradasDisponibles()
+        );
     }
 
     @Transactional

@@ -169,8 +169,13 @@ public class EventoController {
                     content = @Content),
     })
     @GetMapping("/proximos/all")
-    public ResponseEntity<List<GetEventoDto>> getAllNextEventsNoPage() {
-        List<GetEventoDto> eventos = eventoService.getAllNextEventsNoPage()
+    public ResponseEntity<List<GetEventoDto>> getAllNextEventsNoPage(
+            @RequestParam(required = false) String nombreEquipo,
+            @RequestParam(required = false) String nombreEvento,
+            @RequestParam(required = false) Boolean tieneEntradasDisponibles) {
+        
+        EventoFilterDto filter = new EventoFilterDto(nombreEquipo, nombreEvento, tieneEntradasDisponibles);
+        List<GetEventoDto> eventos = eventoService.getAllNextEventsNoPageFiltered(filter)
                 .stream()
                 .map(GetEventoDto::from)
                 .toList();
@@ -189,8 +194,13 @@ public class EventoController {
                     content = @Content),
     })
     @GetMapping("/proximos/cotidianos")
-    public ResponseEntity<List<GetEventoDto>> getAllNextEventsCotidianos() {
-        List<GetEventoDto> eventos = eventoService.getAllNextEventsCotidianos()
+    public ResponseEntity<List<GetEventoDto>> getAllNextEventsCotidianos(
+            @RequestParam(required = false) String nombreEquipo,
+            @RequestParam(required = false) String nombreEvento,
+            @RequestParam(required = false) Boolean tieneEntradasDisponibles) {
+        
+        EventoFilterDto filter = new EventoFilterDto(nombreEquipo, nombreEvento, tieneEntradasDisponibles);
+        List<GetEventoDto> eventos = eventoService.getAllNextEventsCotidianosFiltered(filter)
                 .stream()
                 .map(GetEventoDto::from)
                 .toList();
@@ -209,8 +219,13 @@ public class EventoController {
                     content = @Content),
     })
     @GetMapping("/proximos/importantes")
-    public ResponseEntity<List<GetEventoDto>> getAllNextEventsImportantes() {
-        List<GetEventoDto> eventos = eventoService.getAllNextEventsImportantes()
+    public ResponseEntity<List<GetEventoDto>> getAllNextEventsImportantes(
+            @RequestParam(required = false) String nombreEquipo,
+            @RequestParam(required = false) String nombreEvento,
+            @RequestParam(required = false) Boolean tieneEntradasDisponibles) {
+        
+        EventoFilterDto filter = new EventoFilterDto(nombreEquipo, nombreEvento, tieneEntradasDisponibles);
+        List<GetEventoDto> eventos = eventoService.getAllNextEventsImportantesFiltered(filter)
                 .stream()
                 .map(GetEventoDto::from)
                 .toList();
@@ -229,8 +244,13 @@ public class EventoController {
                     content = @Content),
     })
     @GetMapping("/proximos/finales")
-    public ResponseEntity<List<GetEventoDto>> getAllNextEventsFinales() {
-        List<GetEventoDto> eventos = eventoService.getAllNextEventsFinales()
+    public ResponseEntity<List<GetEventoDto>> getAllNextEventsFinales(
+            @RequestParam(required = false) String nombreEquipo,
+            @RequestParam(required = false) String nombreEvento,
+            @RequestParam(required = false) Boolean tieneEntradasDisponibles) {
+        
+        EventoFilterDto filter = new EventoFilterDto(nombreEquipo, nombreEvento, tieneEntradasDisponibles);
+        List<GetEventoDto> eventos = eventoService.getAllNextEventsFinalesFiltered(filter)
                 .stream()
                 .map(GetEventoDto::from)
                 .toList();
