@@ -3,6 +3,7 @@ package com.triana.salesianos.dam.lagrada.controller;
 import com.triana.salesianos.dam.lagrada.dto.*;
 import com.triana.salesianos.dam.lagrada.model.Evento;
 import com.triana.salesianos.dam.lagrada.service.EventoService;
+import com.triana.salesianos.dam.lagrada.util.MailService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,6 +27,7 @@ import java.util.UUID;
 public class EventoController {
 
     private final EventoService eventoService;
+    private final MailService mailService;
 
 
     @Operation(summary = "Método para crear un evento")
@@ -371,7 +373,7 @@ public class EventoController {
     @GetMapping("/{id}")
     public ResponseEntity<GetEventoDetailDto> getEventoById(@PathVariable UUID id) {
         return eventoService.findById(id)
-                .map(GetEventoDetailDto::from)
+                .map(evento -> GetEventoDetailDto.from(evento, mailService))
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }

@@ -2,6 +2,7 @@ package com.triana.salesianos.dam.lagrada.dto;
 
 import com.triana.salesianos.dam.lagrada.model.Evento;
 import com.triana.salesianos.dam.lagrada.model.TipoEvento;
+import com.triana.salesianos.dam.lagrada.util.MailService;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -20,7 +21,7 @@ public record GetEventoDetailDto(
         TipoEvento tipoEvento,
         List<GetEntradaDto> entradas
 ) {
-    public static GetEventoDetailDto from(Evento e) {
+    public static GetEventoDetailDto from(Evento e, MailService mailService) {
         return new GetEventoDetailDto(
                 e.getId(),
                 e.getNombre(),
@@ -32,7 +33,11 @@ public record GetEventoDetailDto(
                 e.getEntradasTotales(),
                 e.getPrecio(),
                 e.getTipoEvento(),
-                e.getEntradas() != null ? e.getEntradas().stream().map(GetEntradaDto::from).collect(Collectors.toList()) : List.of()
+                e.getEntradas() != null ? e.getEntradas().stream().map(entrada -> GetEntradaDto.from(entrada, mailService)).collect(Collectors.toList()) : List.of()
         );
+    }
+
+    public static GetEventoDetailDto from(Evento e) {
+        throw new UnsupportedOperationException("Debes usar from(Evento, MailService) para incluir los QR en las entradas");
     }
 } 

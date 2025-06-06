@@ -23,7 +23,7 @@ INSERT INTO usuario (id, nombre, apellidos, username, correo, password, equipo_f
 INSERT INTO usuario (id, nombre, apellidos, username, correo, password, equipo_favorito_id, membresia_id, enabled, created_at) VALUES ('550e8400-e29b-41d4-a716-446655440003', 'Leo', 'Messi', 'messi', 'messi@gmail.com', '{bcrypt}$2a$10$3aG0Ydb9JhLxlf5fz9oNzeyQX/pEoHJyXJjZp7Nk8P7xP4BgWd/na', '550e8400-e29b-41d4-a716-446655440001', NULL, true, now());
 -- INSERTAR UN ADMIN
 INSERT INTO usuario (id, nombre, apellidos, username, correo, password, equipo_favorito_id, membresia_id, enabled, created_at) VALUES ('550e8400-e29b-41d4-a716-446655440004', 'Admin', 'Administradorez', 'admin', 'admin@lagrada.com', '{bcrypt}$2a$12$e1CQrst7qSuZbG/JQlUnBOKJz/uDjTXOFHofTLRPJWMddwTl/JRaa', NULL, NULL, true, now());
-
+INSERT INTO usuario (id, nombre, apellidos, username, correo, password, equipo_favorito_id, membresia_id, enabled, created_at) VALUES ('550e8400-e29b-41d4-a716-446655440026', 'Bruno', 'Delgado', 'delgado.hebru24@triana.salesianos.edu', 'delgado.hebru24@triana.salesianos.edu', '{bcrypt}$2a$12$c9DFBYq6S7fmun1UKvQN2OHhk0ZwPKCIOW0MCIoGlPwjRd4GNNbQ6', '550e8400-e29b-41d4-a716-446655440000', NULL, true, now());
 -- Inserción de evento
 INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440005', 'Clásico', 'Partido entre Madrid y Barcelona', '2026-05-11 21:00:00', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440001', 500, 500, 12.0, 'FINAL');
 
@@ -41,6 +41,7 @@ INSERT INTO usuario (id, nombre, apellidos, username, correo, password, equipo_f
 INSERT INTO user_roles (roles, user_id) VALUES (0, '550e8400-e29b-41d4-a716-446655440002');
 INSERT INTO user_roles (roles, user_id) VALUES (0, '550e8400-e29b-41d4-a716-446655440003');
 INSERT INTO user_roles (roles, user_id) VALUES (1, '550e8400-e29b-41d4-a716-446655440004');
+INSERT INTO user_roles (roles, user_id) VALUES (0, '550e8400-e29b-41d4-a716-446655440026');
 
 -- Jornada 1
 INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440030', 'Athletic Club vs Atlético de Madrid', 'Partido de la jornada 1 de LaLiga que enfrenta a Athletic Club y Atlético de Madrid.', '2026-05-12 21:00:00', '550e8400-e29b-41d4-a716-446655440010', '550e8400-e29b-41d4-a716-446655440011', 500, 500, 12.0, 'COTIDIANO');

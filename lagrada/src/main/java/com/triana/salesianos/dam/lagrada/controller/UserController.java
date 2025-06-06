@@ -713,4 +713,38 @@ public class UserController {
         return ResponseEntity.ok(exists);
     }
 
+    @Operation(summary = "Obtiene las entradas futuras del usuario (con QR)")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado las entradas futuras del usuario",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetEntradaDto.class))
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado entradas futuras",
+                    content = @Content),
+    })
+    @GetMapping("/user/entradas/futuras")
+    public ResponseEntity<List<GetEntradaDto>> obtenerEntradasFuturas(@AuthenticationPrincipal User user) {
+        List<GetEntradaDto> entradas = userService.obtenerEntradasFuturasUsuario(user);
+        return ResponseEntity.ok(entradas);
+    }
+
+    @Operation(summary = "Obtiene las entradas pasadas del usuario (con QR)")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado las entradas pasadas del usuario",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetEntradaDto.class))
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado entradas pasadas",
+                    content = @Content),
+    })
+    @GetMapping("/user/entradas/pasadas")
+    public ResponseEntity<List<GetEntradaDto>> obtenerEntradasPasadas(@AuthenticationPrincipal User user) {
+        List<GetEntradaDto> entradas = userService.obtenerEntradasPasadasUsuario(user);
+        return ResponseEntity.ok(entradas);
+    }
+
 }

@@ -3,6 +3,7 @@ package com.triana.salesianos.dam.lagrada.service;
 import com.triana.salesianos.dam.lagrada.dto.CreateUserRequest;
 import com.triana.salesianos.dam.lagrada.dto.EditUserInfoDto;
 import com.triana.salesianos.dam.lagrada.dto.EditUserPasswordDto;
+import com.triana.salesianos.dam.lagrada.dto.GetEntradaDto;
 import com.triana.salesianos.dam.lagrada.error.ActivationExpiredException;
 import com.triana.salesianos.dam.lagrada.model.*;
 import com.triana.salesianos.dam.lagrada.query.UserSpecificationBuilder;
@@ -198,6 +199,21 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public List<GetEntradaDto> obtenerEntradasFuturasUsuario(User usuario) {
+        LocalDateTime ahora = LocalDateTime.now();
+        List<Entrada> entradasFuturas = entradaRepository.findByUsuarioAndEventoFechaYHoraAfter(usuario, ahora);
+        return entradasFuturas.stream()
+                .map(e -> GetEntradaDto.from(e, mailService))
+                .toList();
+    }
+
+    public List<GetEntradaDto> obtenerEntradasPasadasUsuario(User usuario) {
+        LocalDateTime ahora = LocalDateTime.now();
+        List<Entrada> entradasPasadas = entradaRepository.findByUsuarioAndEventoFechaYHoraBefore(usuario, ahora);
+        return entradasPasadas.stream()
+                .map(e -> GetEntradaDto.from(e, mailService))
+                .toList();
+    }
 
     public User updateUserInfo(UUID userId, EditUserInfoDto editUserInfoDto) {
         User user = userRepository.findById(userId)
