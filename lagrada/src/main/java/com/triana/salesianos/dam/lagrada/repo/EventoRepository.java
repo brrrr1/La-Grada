@@ -73,4 +73,7 @@ public interface EventoRepository extends JpaRepository<Evento, UUID> {
             @Param("nombreEquipo") String nombreEquipo,
             @Param("nombreEvento") String nombreEvento,
             @Param("tieneEntradasDisponibles") Boolean tieneEntradasDisponibles);
+
+    @Query("SELECT e FROM Evento e ORDER BY e.fechaYHora ASC")
+    List<Evento> findAllEvents();
 }

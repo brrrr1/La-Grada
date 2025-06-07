@@ -178,6 +178,10 @@ public class EventoService {
         return eventoRepository.findById(id);
     }
 
+    public List<Evento> getAllEvents() {
+        return eventoRepository.findAllEvents();
+    }
+
 }
 
 

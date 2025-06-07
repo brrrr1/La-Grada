@@ -379,6 +379,84 @@ public class EventoController {
         return ResponseEntity.ok(eventoService.obtenerEventosFuturosPorEquipo(equipo));
     }
 
+    @Operation(
+            summary = "Obtiene todos los eventos sin filtrar por fecha",
+            description = "Este endpoint devuelve una lista de todos los eventos en el sistema, tanto pasados como futuros, " +
+                    "ordenados por fecha y hora de forma ascendente. Incluye todos los detalles de cada evento, " +
+                    "incluyendo información completa de los equipos participantes, entradas disponibles y tipo de evento."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado todos los eventos",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetEventoCompletoDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                {
+                                                    "id": "b8e30540-5025-4306-bc9f-ec425c58ffb5",
+                                                    "nombre": "Clásico",
+                                                    "descripcion": "Partido entre Madrid y Barcelona",
+                                                    "fechaYHora": "2025-03-05T11:51:54.022541",
+                                                    "equipo1": {
+                                                        "id": "b8e30540-5025-4306-bc9f-ec425c58ffb5",
+                                                        "nombre": "Real Madrid CF",
+                                                        "fotoEscudo": "madrid.jpg",
+                                                        "fotoFondo": null
+                                                    },
+                                                    "equipo2": {
+                                                        "id": "4beb55b7-6bea-472d-ae67-428864202fea",
+                                                        "nombre": "FC Barcelona",
+                                                        "fotoEscudo": "barcelona.jpg",
+                                                        "fotoFondo": null
+                                                    },
+                                                    "entradasRestantes": 450,
+                                                    "entradasTotales": 500,
+                                                    "precio": 150.0,
+                                                    "tipoEvento": "IMPORTANTE"
+                                                },
+                                                {
+                                                    "id": "4beb55b7-6bea-472d-ae67-428864202fea",
+                                                    "nombre": "Derbi",
+                                                    "descripcion": "Partido entre Betis y Sevilla",
+                                                    "fechaYHora": "2025-03-06T11:51:54.022541",
+                                                    "equipo1": {
+                                                        "id": "b8e30540-5025-4306-bc9f-ec425c58ffb5",
+                                                        "nombre": "Real Betis",
+                                                        "fotoEscudo": "betis.jpg",
+                                                        "fotoFondo": null
+                                                    },
+                                                    "equipo2": {
+                                                        "id": "4beb55b7-6bea-472d-ae67-428864202fea",
+                                                        "nombre": "Sevilla FC",
+                                                        "fotoEscudo": "sevilla.jpg",
+                                                        "fotoFondo": null
+                                                    },
+                                                    "entradasRestantes": 300,
+                                                    "entradasTotales": 400,
+                                                    "precio": 100.0,
+                                                    "tipoEvento": "COTIDIANO"
+                                                }
+                                            ]
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se han encontrado eventos",
+                    content = @Content),
+            @ApiResponse(responseCode = "500",
+                    description = "Error interno del servidor",
+                    content = @Content)
+    })
+    @GetMapping("/todos")
+    public ResponseEntity<List<GetEventoCompletoDto>> getAllEvents() {
+        List<GetEventoCompletoDto> eventos = eventoService.getAllEvents()
+                .stream()
+                .map(GetEventoCompletoDto::from)
+                .toList();
+        return ResponseEntity.ok(eventos);
+    }
+
     @Operation(summary = "Obtiene los detalles de un evento por su id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
