@@ -26,11 +26,6 @@ INSERT INTO usuario (id, nombre, apellidos, username, correo, password, equipo_f
 -- INSERTAR UN ADMIN
 INSERT INTO usuario (id, nombre, apellidos, username, correo, password, equipo_favorito_id, membresia_id, enabled, created_at) VALUES ('550e8400-e29b-41d4-a716-446655440004', 'Admin', 'Administradorez', 'admin', 'admin@lagrada.com', '{bcrypt}$2a$12$e1CQrst7qSuZbG/JQlUnBOKJz/uDjTXOFHofTLRPJWMddwTl/JRaa', NULL, NULL, true, now());
 INSERT INTO usuario (id, nombre, apellidos, username, correo, password, equipo_favorito_id, membresia_id, enabled, created_at) VALUES ('550e8400-e29b-41d4-a716-446655440026', 'Bruno', 'Delgado', 'br1', 'delgado.hebru24@triana.salesianos.edu', '{bcrypt}$2a$12$c9DFBYq6S7fmun1UKvQN2OHhk0ZwPKCIOW0MCIoGlPwjRd4GNNbQ6', '550e8400-e29b-41d4-a716-446655440000', NULL, true, now());
--- Inserción de evento
-
--- Inserción de entradas
-INSERT INTO entrada (id, usuario_id, evento_id) VALUES ('550e8400-e29b-41d4-a716-446655440006', '550e8400-e29b-41d4-a716-446655440002', '550e8400-e29b-41d4-a716-446655440005');
-INSERT INTO entrada (id, usuario_id, evento_id) VALUES ('550e8400-e29b-41d4-a716-446655440007', '550e8400-e29b-41d4-a716-446655440003', '550e8400-e29b-41d4-a716-446655440005');
 
 -- Inserción de membresía
 INSERT INTO membresia (membresias_restantes, precio, equipo_id, id, tipo_membresia, descripcion, nombre, tipo) VALUES (100, 150.0, '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440008', 'PLUS', 'Entradas gratis para los partidos cotidianos del Real Madrid', 'Membresía Básica Real Madrid', 'BASICA');
@@ -49,12 +44,6 @@ INSERT INTO user_roles (roles, user_id) VALUES (0, '550e8400-e29b-41d4-a716-4466
 -- Entradas para admin en eventos pasados
 INSERT INTO entrada (id, usuario_id, evento_id) VALUES ('550e8400-e29b-41d4-a716-446655440060', '550e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655440050');
 INSERT INTO entrada (id, usuario_id, evento_id) VALUES ('550e8400-e29b-41d4-a716-446655440061', '550e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655440051');
-
--- Jornada 1 (2025-2026)
-
--- Comienzo de los 380 partidos de LaLiga 2025-2026
--- Generado automáticamente: 38 jornadas, 10 partidos por jornada, fechas entre 2025-08-16 y 2026-06-14
--- Los IDs de evento comienzan en '550e8400-e29b-41d4-a716-446655441000'
 
 -- Jornada 1 de LaLiga
 INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655441000', 'Real Madrid vs Atlético de Madrid', 'Jornada 1 de LaLiga', '2025-08-16 21:00:00', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440011', 500, 500, 8.0, 'IMPORTANTE');
@@ -79,8 +68,6 @@ INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id,
 INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655441011', 'Alavés vs Leganés', 'Jornada 2 de LaLiga', '2025-08-23 21:00:00', '550e8400-e29b-41d4-a716-446655440021', '550e8400-e29b-41d4-a716-446655440023', 500, 500, 5.0, 'COTIDIANO');
 INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655441012', 'Valladolid vs Las Palmas', 'Jornada 2 de LaLiga', '2025-08-23 21:00:00', '550e8400-e29b-41d4-a716-446655440024', '550e8400-e29b-41d4-a716-446655440025', 500, 500, 5.0, 'COTIDIANO');
 INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655441013', 'Getafe CF vs Real Madrid', 'Jornada 2 de LaLiga', '2025-08-23 21:00:00', '550e8400-e29b-41d4-a716-446655440026', '550e8400-e29b-41d4-a716-446655440000', 500, 500, 5.0, 'COTIDIANO');
-
--- ... (se omiten por brevedad las jornadas 3 a 37: seguir mismo patrón, alternando local/visitante, sin repetir partidos de ida y vuelta en la misma vuelta)
 
 -- Jornada 38 de LaLiga
 INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-44665544176c', 'Atlético de Madrid vs Real Madrid', 'Jornada 38 de LaLiga', '2026-06-14 21:00:00', '550e8400-e29b-41d4-a716-446655440011', '550e8400-e29b-41d4-a716-446655440000', 500, 500, 8.0, 'IMPORTANTE');
