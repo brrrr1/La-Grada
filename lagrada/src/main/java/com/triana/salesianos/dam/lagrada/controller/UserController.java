@@ -747,4 +747,103 @@ public class UserController {
         return ResponseEntity.ok(entradas);
     }
 
+    @Operation(summary = "Obtiene la lista de todos los usuarios (solo para administradores)")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha obtenido la lista de usuarios correctamente",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = UserListResponse.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                {
+                                                    "id": "2458c026-22ab-4799-98c3-553b36267ea5",
+                                                    "username": "usuario1",
+                                                    "nombre": "Juan",
+                                                    "apellidos": "Pérez",
+                                                    "correo": "juan@example.com",
+                                                    "equipoFavorito": "Real Madrid",
+                                                    "enabled": true
+                                                }
+                                            ]
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "403",
+                    description = "No tienes permisos para acceder a este recurso",
+                    content = @Content),
+    })
+    @GetMapping("/admin/users")
+    public List<UserListResponse> getAllUsers() {
+        return userService.findAllUsers().stream()
+                .map(UserListResponse::of)
+                .collect(Collectors.toList());
+    }
+
+    @Operation(summary = "Desactiva un usuario (solo para administradores)")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha desactivado el usuario correctamente",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserListResponse.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                "id": "2458c026-22ab-4799-98c3-553b36267ea5",
+                                                "username": "usuario1",
+                                                "nombre": "Juan",
+                                                "apellidos": "Pérez",
+                                                "correo": "juan@example.com",
+                                                "equipoFavorito": "Real Madrid",
+                                                "enabled": false
+                                            }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "403",
+                    description = "No tienes permisos para acceder a este recurso",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "Usuario no encontrado",
+                    content = @Content)
+    })
+    @PostMapping("/admin/users/disable")
+    public UserListResponse disableUser(@RequestBody @Valid DisableUserRequest request) {
+        User disabledUser = userService.disableUser(request.userId());
+        return UserListResponse.of(disabledUser);
+    }
+
+    @Operation(summary = "Habilita un usuario (solo para administradores)")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha habilitado el usuario correctamente",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserListResponse.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                "id": "2458c026-22ab-4799-98c3-553b36267ea5",
+                                                "username": "usuario1",
+                                                "nombre": "Juan",
+                                                "apellidos": "Pérez",
+                                                "correo": "juan@example.com",
+                                                "equipoFavorito": "Real Madrid",
+                                                "enabled": true
+                                            }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "403",
+                    description = "No tienes permisos para acceder a este recurso",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "Usuario no encontrado",
+                    content = @Content)
+    })
+    @PostMapping("/admin/users/enable")
+    public UserListResponse enableUser(@RequestBody @Valid EnableUserRequest request) {
+        User enabledUser = userService.enableUser(request.userId());
+        return UserListResponse.of(enabledUser);
+    }
+
 }

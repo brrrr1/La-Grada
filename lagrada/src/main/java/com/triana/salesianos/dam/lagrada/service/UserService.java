@@ -275,10 +275,26 @@ public class UserService {
         return userRepository.existsByCorreo(correo);
     }
 
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
+    }
 
+    @Transactional
+    public User disableUser(UUID userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+        
+        user.setEnabled(false);
+        return userRepository.save(user);
+    }
 
-
-
-
+    @Transactional
+    public User enableUser(UUID userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+        
+        user.setEnabled(true);
+        return userRepository.save(user);
+    }
 
 }

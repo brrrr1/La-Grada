@@ -17,13 +17,15 @@ INSERT INTO equipo (id, nombre, foto_escudo, foto_fondo) VALUES ('550e8400-e29b-
 INSERT INTO equipo (id, nombre, foto_escudo, foto_fondo) VALUES ('550e8400-e29b-41d4-a716-446655440023', 'Leganés', 'foto_Escudo_leganes.png', 'foto_Fondo_leganes.jpg');
 INSERT INTO equipo (id, nombre, foto_escudo, foto_fondo) VALUES ('550e8400-e29b-41d4-a716-446655440024', 'Valladolid', 'foto_Escudo_valladolid.png', 'foto_Fondo_valladolid.jpg');
 INSERT INTO equipo (id, nombre, foto_escudo, foto_fondo) VALUES ('550e8400-e29b-41d4-a716-446655440025', 'Las Palmas', 'foto_Escudo_laspalmas.png', 'foto_Fondo_laspalmas.jpg');
+INSERT INTO equipo (id, nombre, foto_escudo, foto_fondo) VALUES ('550e8400-e29b-41d4-a716-446655440026', 'Getafe CF', 'foto_Escudo_getafe.png', 'foto_Fondo_getafe.jpg');
+INSERT INTO equipo (id, nombre, foto_escudo, foto_fondo) VALUES ('550e8400-e29b-41d4-a716-446655440027', 'Sevilla FC', 'foto_Escudo_sevilla.png', 'foto_Fondo_sevilla.jpg');
 
 -- Inserción de usuarios
 INSERT INTO usuario (id, nombre, apellidos, username, correo, password, equipo_favorito_id, membresia_id, enabled, created_at) VALUES ('550e8400-e29b-41d4-a716-446655440002', 'Cristiano', 'Ronaldo', 'cr7', 'cr7@gmail.com', '{bcrypt}$2a$12$bTQej0W8ifZQJNNzW7yofOEhwNODlXPCn9uQyZTduZ9Ph/rAMEVNe', '550e8400-e29b-41d4-a716-446655440000', NULL, true, now());
 INSERT INTO usuario (id, nombre, apellidos, username, correo, password, equipo_favorito_id, membresia_id, enabled, created_at) VALUES ('550e8400-e29b-41d4-a716-446655440003', 'Leo', 'Messi', 'messi', 'messi@gmail.com', '{bcrypt}$2a$10$3aG0Ydb9JhLxlf5fz9oNzeyQX/pEoHJyXJjZp7Nk8P7xP4BgWd/na', '550e8400-e29b-41d4-a716-446655440001', NULL, true, now());
 -- INSERTAR UN ADMIN
 INSERT INTO usuario (id, nombre, apellidos, username, correo, password, equipo_favorito_id, membresia_id, enabled, created_at) VALUES ('550e8400-e29b-41d4-a716-446655440004', 'Admin', 'Administradorez', 'admin', 'admin@lagrada.com', '{bcrypt}$2a$12$e1CQrst7qSuZbG/JQlUnBOKJz/uDjTXOFHofTLRPJWMddwTl/JRaa', NULL, NULL, true, now());
-INSERT INTO usuario (id, nombre, apellidos, username, correo, password, equipo_favorito_id, membresia_id, enabled, created_at) VALUES ('550e8400-e29b-41d4-a716-446655440026', 'Bruno', 'Delgado', 'delgado.hebru24@triana.salesianos.edu', 'delgado.hebru24@triana.salesianos.edu', '{bcrypt}$2a$12$c9DFBYq6S7fmun1UKvQN2OHhk0ZwPKCIOW0MCIoGlPwjRd4GNNbQ6', '550e8400-e29b-41d4-a716-446655440000', NULL, true, now());
+INSERT INTO usuario (id, nombre, apellidos, username, correo, password, equipo_favorito_id, membresia_id, enabled, created_at) VALUES ('550e8400-e29b-41d4-a716-446655440026', 'Bruno', 'Delgado', 'br1', 'delgado.hebru24@triana.salesianos.edu', '{bcrypt}$2a$12$c9DFBYq6S7fmun1UKvQN2OHhk0ZwPKCIOW0MCIoGlPwjRd4GNNbQ6', '550e8400-e29b-41d4-a716-446655440000', NULL, true, now());
 -- Inserción de evento
 INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440005', 'Clásico', 'Partido entre Madrid y Barcelona', '2026-05-11 21:00:00', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440001', 500, 500, 12.0, 'FINAL');
 
@@ -43,26 +45,6 @@ INSERT INTO user_roles (roles, user_id) VALUES (0, '550e8400-e29b-41d4-a716-4466
 INSERT INTO user_roles (roles, user_id) VALUES (1, '550e8400-e29b-41d4-a716-446655440004');
 INSERT INTO user_roles (roles, user_id) VALUES (0, '550e8400-e29b-41d4-a716-446655440026');
 
--- Jornada 1
-INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440030', 'Athletic Club vs Atlético de Madrid', 'Partido de la jornada 1 de LaLiga que enfrenta a Athletic Club y Atlético de Madrid.', '2026-05-12 21:00:00', '550e8400-e29b-41d4-a716-446655440010', '550e8400-e29b-41d4-a716-446655440011', 500, 500, 12.0, 'COTIDIANO');
-INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440031', 'Villarreal vs Real Betis', 'Partido de la jornada 1 de LaLiga que enfrenta a Villarreal y Real Betis.', '2026-05-12 21:00:00', '550e8400-e29b-41d4-a716-446655440012', '550e8400-e29b-41d4-a716-446655440013', 500, 500, 12.0, 'COTIDIANO');
-INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440032', 'Real Sociedad vs Valencia', 'Partido de la jornada 1 de LaLiga que enfrenta a Real Sociedad y Valencia.', '2026-05-12 21:00:00', '550e8400-e29b-41d4-a716-446655440014', '550e8400-e29b-41d4-a716-446655440015', 500, 500, 12.0, 'COTIDIANO');
-INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440033', 'Celta de Vigo vs Rayo Vallecano', 'Partido de la jornada 1 de LaLiga que enfrenta a Celta de Vigo y Rayo Vallecano.', '2026-05-12 21:00:00', '550e8400-e29b-41d4-a716-446655440016', '550e8400-e29b-41d4-a716-446655440017', 500, 500, 12.0, 'COTIDIANO');
-INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440034', 'Osasuna vs Mallorca', 'Partido de la jornada 1 de LaLiga que enfrenta a Osasuna y Mallorca.', '2026-05-12 21:00:00', '550e8400-e29b-41d4-a716-446655440018', '550e8400-e29b-41d4-a716-446655440019', 500, 500, 12.0, 'COTIDIANO');
-INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440035', 'Girona vs Alavés', 'Partido de la jornada 1 de LaLiga que enfrenta a Girona y Alavés.', '2026-05-12 21:00:00', '550e8400-e29b-41d4-a716-446655440020', '550e8400-e29b-41d4-a716-446655440021', 500, 500, 12.0, 'COTIDIANO');
-INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440036', 'Espanyol vs Leganés', 'Partido de la jornada 1 de LaLiga que enfrenta a Espanyol y Leganés.', '2026-05-12 21:00:00', '550e8400-e29b-41d4-a716-446655440022', '550e8400-e29b-41d4-a716-446655440023', 500, 500, 12.0, 'COTIDIANO');
-INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440037', 'Valladolid vs Las Palmas', 'Partido de la jornada 1 de LaLiga que enfrenta a Valladolid y Las Palmas.', '2026-05-12 21:00:00', '550e8400-e29b-41d4-a716-446655440024', '550e8400-e29b-41d4-a716-446655440025', 500, 500, 12.0, 'COTIDIANO');
-
--- Jornada 2
-INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440040', 'Atlético de Madrid vs Villarreal', 'Partido de la jornada 2 de LaLiga que enfrenta a Atlético de Madrid y Villarreal.', '2026-05-19 21:00:00', '550e8400-e29b-41d4-a716-446655440011', '550e8400-e29b-41d4-a716-446655440012', 500, 500, 12.0, 'COTIDIANO');
-INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440041', 'Real Betis vs Real Sociedad', 'Partido de la jornada 2 de LaLiga que enfrenta a Real Betis y Real Sociedad.', '2026-05-19 21:00:00', '550e8400-e29b-41d4-a716-446655440013', '550e8400-e29b-41d4-a716-446655440014', 500, 500, 12.0, 'COTIDIANO');
-INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440042', 'Valencia vs Celta de Vigo', 'Partido de la jornada 2 de LaLiga que enfrenta a Valencia y Celta de Vigo.', '2026-05-19 21:00:00', '550e8400-e29b-41d4-a716-446655440015', '550e8400-e29b-41d4-a716-446655440016', 500, 500, 12.0, 'COTIDIANO');
-INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440043', 'Rayo Vallecano vs Osasuna', 'Partido de la jornada 2 de LaLiga que enfrenta a Rayo Vallecano y Osasuna.', '2026-05-19 21:00:00', '550e8400-e29b-41d4-a716-446655440017', '550e8400-e29b-41d4-a716-446655440018', 500, 500, 12.0, 'COTIDIANO');
-INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440044', 'Mallorca vs Girona', 'Partido de la jornada 2 de LaLiga que enfrenta a Mallorca y Girona.', '2026-05-19 21:00:00', '550e8400-e29b-41d4-a716-446655440019', '550e8400-e29b-41d4-a716-446655440020', 500, 500, 12.0, 'COTIDIANO');
-INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440045', 'Alavés vs Espanyol', 'Partido de la jornada 2 de LaLiga que enfrenta a Alavés y Espanyol.', '2026-05-19 21:00:00', '550e8400-e29b-41d4-a716-446655440021', '550e8400-e29b-41d4-a716-446655440022', 500, 500, 12.0, 'COTIDIANO');
-INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440046', 'Leganés vs Valladolid', 'Partido de la jornada 2 de LaLiga que enfrenta a Leganés y Valladolid.', '2026-05-19 21:00:00', '550e8400-e29b-41d4-a716-446655440023', '550e8400-e29b-41d4-a716-446655440024', 500, 500, 12.0, 'COTIDIANO');
-INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440047', 'Las Palmas vs Athletic Club', 'Partido de la jornada 2 de LaLiga que enfrenta a Las Palmas y Athletic Club.', '2026-05-19 21:00:00', '550e8400-e29b-41d4-a716-446655440025', '550e8400-e29b-41d4-a716-446655440010', 500, 500, 12.0, 'COTIDIANO');
-
 -- Eventos pasados para admin
 INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440050', 'Madrid vs Betis (2022)', 'Partido jugado en 2022', '2022-05-11 21:00:00', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440013', 0, 500, 15.0, 'COTIDIANO');
 INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440051', 'Barça vs Atlético (2023)', 'Partido jugado en 2023', '2023-03-15 20:00:00', '550e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440011', 0, 500, 18.0, 'COTIDIANO');
@@ -70,3 +52,120 @@ INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id,
 -- Entradas para admin en eventos pasados
 INSERT INTO entrada (id, usuario_id, evento_id) VALUES ('550e8400-e29b-41d4-a716-446655440060', '550e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655440050');
 INSERT INTO entrada (id, usuario_id, evento_id) VALUES ('550e8400-e29b-41d4-a716-446655440061', '550e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655440051');
+
+-- Jornada 1 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440100', 'Real Madrid vs Getafe', 'Primera jornada de LaLiga', '2025-08-16 21:00:00', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440026', 500, 500, 5.0, 'COTIDIANO');
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440101', 'Barcelona vs Sevilla', 'Primera jornada de LaLiga', '2025-08-17 18:30:00', '550e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440027', 500, 500, 5.0, 'COTIDIANO');
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440102', 'Atlético Madrid vs Athletic', 'Primera jornada de LaLiga', '2025-08-17 21:00:00', '550e8400-e29b-41d4-a716-446655440011', '550e8400-e29b-41d4-a716-446655440010', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 2 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440103', 'Sevilla vs Real Madrid', 'Segunda jornada de LaLiga', '2025-08-23 21:00:00', '550e8400-e29b-41d4-a716-446655440027', '550e8400-e29b-41d4-a716-446655440000', 500, 500, 5.0, 'COTIDIANO');
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440104', 'Getafe vs Barcelona', 'Segunda jornada de LaLiga', '2025-08-24 18:30:00', '550e8400-e29b-41d4-a716-446655440026', '550e8400-e29b-41d4-a716-446655440001', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 3 (2025-2026) - Primer Clásico
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440105', 'Real Madrid vs Barcelona', 'Primer Clásico de la temporada', '2025-08-30 21:00:00', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440001', 500, 500, 12.0, 'FINAL');
+
+-- Jornada 4 (2025-2026) - Derbi Madrileño
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440106', 'Atlético Madrid vs Real Madrid', 'Derbi Madrileño', '2025-09-14 21:00:00', '550e8400-e29b-41d4-a716-446655440011', '550e8400-e29b-41d4-a716-446655440000', 500, 500, 8.0, 'IMPORTANTE');
+
+-- Jornada 5 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440107', 'Barcelona vs Atlético Madrid', 'Quinta jornada de LaLiga', '2025-09-21 21:00:00', '550e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440011', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 6 (2025-2026) - Derbi Sevillano
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440108', 'Sevilla vs Betis', 'Derbi Sevillano', '2025-09-28 21:00:00', '550e8400-e29b-41d4-a716-446655440027', '550e8400-e29b-41d4-a716-446655440013', 500, 500, 8.0, 'IMPORTANTE');
+
+-- Jornada 7 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440109', 'Real Madrid vs Sevilla', 'Séptima jornada de LaLiga', '2025-10-05 21:00:00', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440027', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 8 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440110', 'Barcelona vs Real Madrid', 'Segundo Clásico de la temporada', '2025-10-26 21:00:00', '550e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440000', 500, 500, 12.0, 'FINAL');
+
+-- Jornada 9 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440111', 'Getafe vs Atlético Madrid', 'Novena jornada de LaLiga', '2025-11-02 21:00:00', '550e8400-e29b-41d4-a716-446655440026', '550e8400-e29b-41d4-a716-446655440011', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 10 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440112', 'Real Madrid vs Getafe', 'Décima jornada de LaLiga', '2025-11-09 21:00:00', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440026', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 11 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440113', 'Real Madrid vs Atlético Madrid', 'Derbi Madrileño', '2025-11-23 21:00:00', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440011', 500, 500, 8.0, 'IMPORTANTE');
+
+-- Jornada 12 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440114', 'Barcelona vs Sevilla', 'Duodécima jornada de LaLiga', '2025-11-30 21:00:00', '550e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440027', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 13 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440115', 'Sevilla vs Getafe', 'Decimotercera jornada de LaLiga', '2025-12-07 21:00:00', '550e8400-e29b-41d4-a716-446655440027', '550e8400-e29b-41d4-a716-446655440026', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 14 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440116', 'Atlético Madrid vs Barcelona', 'Decimocuarta jornada de LaLiga', '2025-12-14 21:00:00', '550e8400-e29b-41d4-a716-446655440011', '550e8400-e29b-41d4-a716-446655440001', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 15 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440117', 'Betis vs Sevilla', 'Derbi Sevillano', '2025-12-21 21:00:00', '550e8400-e29b-41d4-a716-446655440013', '550e8400-e29b-41d4-a716-446655440027', 500, 500, 8.0, 'IMPORTANTE');
+
+-- Jornada 16 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440118', 'Getafe vs Real Madrid', 'Decimosexta jornada de LaLiga', '2026-01-04 21:00:00', '550e8400-e29b-41d4-a716-446655440026', '550e8400-e29b-41d4-a716-446655440000', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 17 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440119', 'Barcelona vs Getafe', 'Decimoséptima jornada de LaLiga', '2026-01-11 21:00:00', '550e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440026', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 18 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440120', 'Sevilla vs Barcelona', 'Decimoctava jornada de LaLiga', '2026-01-18 21:00:00', '550e8400-e29b-41d4-a716-446655440027', '550e8400-e29b-41d4-a716-446655440001', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 19 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440121', 'Real Madrid vs Sevilla', 'Decimonovena jornada de LaLiga', '2026-01-25 21:00:00', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440027', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 20 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440122', 'Real Madrid vs Barcelona', 'Tercer Clásico de la temporada', '2026-02-01 21:00:00', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440001', 500, 500, 12.0, 'FINAL');
+
+-- Jornada 21 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440123', 'Getafe vs Sevilla', 'Vigésima primera jornada de LaLiga', '2026-02-08 21:00:00', '550e8400-e29b-41d4-a716-446655440026', '550e8400-e29b-41d4-a716-446655440027', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 22 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440124', 'Atlético Madrid vs Real Madrid', 'Derbi Madrileño', '2026-02-15 21:00:00', '550e8400-e29b-41d4-a716-446655440011', '550e8400-e29b-41d4-a716-446655440000', 500, 500, 8.0, 'IMPORTANTE');
+
+-- Jornada 23 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440125', 'Barcelona vs Atlético Madrid', 'Vigésima tercera jornada de LaLiga', '2026-02-22 21:00:00', '550e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440011', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 24 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440126', 'Sevilla vs Betis', 'Derbi Sevillano', '2026-03-01 21:00:00', '550e8400-e29b-41d4-a716-446655440027', '550e8400-e29b-41d4-a716-446655440013', 500, 500, 8.0, 'IMPORTANTE');
+
+-- Jornada 25 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440127', 'Real Madrid vs Getafe', 'Vigésima quinta jornada de LaLiga', '2026-03-08 21:00:00', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440026', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 26 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440128', 'Barcelona vs Sevilla', 'Vigésima sexta jornada de LaLiga', '2026-03-15 21:00:00', '550e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440027', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 27 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440129', 'Sevilla vs Real Madrid', 'Vigésima séptima jornada de LaLiga', '2026-03-22 21:00:00', '550e8400-e29b-41d4-a716-446655440027', '550e8400-e29b-41d4-a716-446655440000', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 28 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440130', 'Getafe vs Barcelona', 'Vigésima octava jornada de LaLiga', '2026-04-05 21:00:00', '550e8400-e29b-41d4-a716-446655440026', '550e8400-e29b-41d4-a716-446655440001', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 29 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440131', 'Real Madrid vs Atlético Madrid', 'Vigésima novena jornada de LaLiga', '2026-04-12 21:00:00', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440011', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 30 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440132', 'Barcelona vs Getafe', 'Trigésima jornada de LaLiga', '2026-04-19 21:00:00', '550e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440026', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 31 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440133', 'Sevilla vs Real Madrid', 'Trigésima primera jornada de LaLiga', '2026-04-26 21:00:00', '550e8400-e29b-41d4-a716-446655440027', '550e8400-e29b-41d4-a716-446655440000', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 32 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440134', 'Barcelona vs Real Madrid', 'Cuarto Clásico de la temporada', '2026-05-03 21:00:00', '550e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440000', 500, 500, 12.0, 'FINAL');
+
+-- Jornada 33 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440135', 'Getafe vs Sevilla', 'Trigésima tercera jornada de LaLiga', '2026-05-10 21:00:00', '550e8400-e29b-41d4-a716-446655440026', '550e8400-e29b-41d4-a716-446655440027', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 34 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440136', 'Real Madrid vs Getafe', 'Trigésima cuarta jornada de LaLiga', '2026-05-17 21:00:00', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440026', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 35 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440137', 'Barcelona vs Sevilla', 'Trigésima quinta jornada de LaLiga', '2026-05-24 21:00:00', '550e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440027', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 36 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440138', 'Sevilla vs Real Madrid', 'Trigésima sexta jornada de LaLiga', '2026-05-31 21:00:00', '550e8400-e29b-41d4-a716-446655440027', '550e8400-e29b-41d4-a716-446655440000', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 37 (2025-2026)
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440139', 'Getafe vs Barcelona', 'Trigésima séptima jornada de LaLiga', '2026-06-07 21:00:00', '550e8400-e29b-41d4-a716-446655440026', '550e8400-e29b-41d4-a716-446655440001', 500, 500, 5.0, 'COTIDIANO');
+
+-- Jornada 38 (2025-2026) - Última jornada
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655440140', 'Real Madrid vs Barcelona', 'Último Clásico de la temporada', '2026-06-14 21:00:00', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440001', 500, 500, 12.0, 'FINAL');

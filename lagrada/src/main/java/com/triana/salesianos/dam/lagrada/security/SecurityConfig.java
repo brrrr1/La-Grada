@@ -112,6 +112,7 @@ public class SecurityConfig {
 
                 // Acceso restringido a ADMIN
                 .requestMatchers("/me/admin", "/search").hasRole("ADMIN")
+                .requestMatchers("/admin/users").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/equipo/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/equipo/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/equipo/**").hasRole("ADMIN")
