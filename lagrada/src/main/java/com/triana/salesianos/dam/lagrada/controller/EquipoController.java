@@ -75,7 +75,7 @@ public class EquipoController {
         );
     }
 
-    // Ver todos los equipos
+
     @Operation(summary = "Obtiene todos los equipos")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -116,7 +116,7 @@ public class EquipoController {
         return ResponseEntity.ok(
                 equipoService.findAll()
                         .stream()
-                        .map(GetEquipoDto::of) // Ya maneja el ID
+                        .map(GetEquipoDto::of) 
                         .toList()
         );
     }
@@ -161,6 +161,47 @@ public class EquipoController {
                 .body(GetEquipoDto.of(equipo));
     }
 
-
+    @Operation(summary = "Método para actualizar un equipo")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha actualizado el equipo",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = GetEquipoDto.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                               {
+                                                   "id": "c76e77b6-9894-4e51-80b2-77978f0817d9",
+                                                   "nombre": "Sevilla FC",
+                                                   "fotoEscudo": "nuevo_escudo.jpg",
+                                                   "fotoFondo": "nuevo_fondo.jpg"
+                                               } 
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el equipo",
+                    content = @Content),
+    })
+    @PutMapping("/{id}")
+    public ResponseEntity<GetEquipoDto> update(
+            @PathVariable UUID id,
+            @Parameter(description = "Imagen del escudo", required = false)
+            @RequestPart(value = "file", required = false) MultipartFile file,
+            @Parameter(description = "Imagen del estadio", required = false)
+            @RequestPart(value = "file2", required = false) MultipartFile file2,
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Datos del equipo en JSON",
+                    required = true,
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CreateEquipoDto.class)))
+            @RequestPart("equipo") CreateEquipoDto updateEquipo
+    ) {
+        try {
+            Equipo equipo = equipoService.update(id, updateEquipo, file, file2);
+            return ResponseEntity.ok(GetEquipoDto.of(equipo));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 
 }

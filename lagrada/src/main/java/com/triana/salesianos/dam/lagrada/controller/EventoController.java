@@ -72,7 +72,7 @@ public class EventoController {
     @PostMapping
     public ResponseEntity<Evento> createEvento(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Cuerpo del usuario a editar", required = true,
+                    description = "Cuerpo del evento a editar", required = true,
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CreateEventoDto.class),
                             examples = @ExampleObject(value = """
@@ -262,7 +262,7 @@ public class EventoController {
             @ApiResponse(responseCode = "200",
                     description = "Se ha editado el evento",
                     content = {@Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Evento.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = GetEventoCompletoDto.class)),
                             examples = {@ExampleObject("""
                                             {
                                                 "id": "89efbfe3-8284-49a7-9adc-0a5a171b8d51",
@@ -297,7 +297,7 @@ public class EventoController {
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Evento> updateEvento(@PathVariable UUID id,
+    public ResponseEntity<GetEventoCompletoDto> updateEvento(@PathVariable UUID id,
                                                @io.swagger.v3.oas.annotations.parameters.RequestBody(
                                                        description = "Cuerpo del usuario a editar", required = true,
                                                        content = @Content(mediaType = "application/json",
@@ -318,7 +318,7 @@ public class EventoController {
                                                @RequestBody UpdateEventoDto dto) {
         try {
             Evento updatedEvento = eventoService.updateEvento(id, dto);
-            return ResponseEntity.ok(updatedEvento);
+            return ResponseEntity.ok(GetEventoCompletoDto.from(updatedEvento));
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }

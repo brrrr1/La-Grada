@@ -53,4 +53,26 @@ public class EquipoService {
         );
         return equipo;
     }
+
+    @Transactional
+    public Equipo update(UUID id, CreateEquipoDto updateEquipoDto, MultipartFile file, MultipartFile file2) {
+        Equipo equipo = equipoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
+
+        // Actualizar nombre
+        equipo.setNombre(updateEquipoDto.getNombre());
+
+        // Actualizar imágenes solo si se proporcionan nuevas
+        if (file != null && !file.isEmpty()) {
+            FileMetadata fileMetadata = storageService.store(file);
+            equipo.setFotoEscudo(fileMetadata.getFilename());
+        }
+
+        if (file2 != null && !file2.isEmpty()) {
+            FileMetadata fileMetadata2 = storageService.store(file2);
+            equipo.setFotoFondo(fileMetadata2.getFilename());
+        }
+
+        return equipoRepository.save(equipo);
+    }
 }
