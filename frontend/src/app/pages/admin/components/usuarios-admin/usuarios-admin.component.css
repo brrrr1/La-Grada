@@ -1,0 +1,144 @@
+.usuarios-admin-container {
+  width: 95%;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  overflow-x: auto;
+  margin-top: 1.5rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.action-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  min-width: 150px;
+}
+
+.action-btn.delete {
+  background: rgba(244, 67, 54, 0.15);
+}
+
+.action-btn.delete:hover,
+.action-btn.delete.delete-mode {
+  background: #f44336;
+  color: #fff;
+  box-shadow: 0 0 8px 2px rgba(244,67,54,0.25);
+  animation: pulseDelete 0.7s infinite alternate;
+}
+
+@keyframes pulseDelete {
+  from { box-shadow: 0 0 8px 2px rgba(244,67,54,0.25); }
+  to { box-shadow: 0 0 16px 4px rgba(244,67,54,0.45); }
+}
+
+.action-btn.add {
+  background: rgba(76, 175, 80, 0.15);
+}
+
+.action-btn.add:hover,
+.action-btn.add.add-mode {
+  background: #4caf50;
+  color: #fff;
+  box-shadow: 0 0 8px 2px rgba(76,175,80,0.25);
+  animation: pulseAdd 0.7s infinite alternate;
+}
+
+@keyframes pulseAdd {
+  from { box-shadow: 0 0 8px 2px rgba(76,175,80,0.25); }
+  to { box-shadow: 0 0 16px 4px rgba(76,175,80,0.45); }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #fff;
+}
+
+th, td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+th {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 2rem;
+  color: #fff;
+}
+
+.error {
+  color: #f44336;
+}
+
+@media (max-width: 768px) {
+  th, td {
+    padding: 0.8rem;
+  }
+}
+
+.usuarios-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.usuarios-header h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.usuarios-admin-container tr.selectable {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.usuarios-admin-container tr.selectable:hover {
+  background: rgba(244, 67, 54, 0.08);
+}
+
+.usuarios-admin-container.enable-mode tr.selectable:hover {
+  background: rgba(76, 175, 80, 0.12);
+}
+
+.usuarios-admin-container tr.selected {
+  background: rgba(244, 67, 54, 0.18) !important;
+  font-weight: bold;
+  color: #fff;
+}
+
+.usuarios-admin-container.enable-mode tr.selected {
+  background: rgba(76, 175, 80, 0.18) !important;
+}
+
+.usuarios-admin-container tr.disabled-row {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}

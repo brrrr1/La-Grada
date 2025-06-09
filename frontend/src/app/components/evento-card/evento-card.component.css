@@ -1,0 +1,125 @@
+.evento-card {
+  flex: 0 0 340px;
+  width: 340px;
+  background: none;
+  border-radius: 12px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.10);
+  padding: 0.2rem 1.2rem;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 180px;
+  height: 180px;
+  position: relative;
+  justify-content: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.evento-card-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  z-index: 0;
+}
+
+.evento-card-bg-half {
+  width: 50%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.evento-card-bg-half.left {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.evento-card-bg-half.right {
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.evento-nombre, .evento-escudos {
+  position: relative;
+  z-index: 1;
+}
+
+.evento-nombre {
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.evento-tipo {
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.evento-escudos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.evento-escudo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.evento-vs {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0 0.5rem;
+}
+
+.evento-fondo-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(8px) brightness(0.7);
+  opacity: 0.5;
+  z-index: 1;
+  border-radius: 12px;
+  pointer-events: none;
+  box-shadow: 0 25px 25px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.evento-fondo-blur.left {
+  left: 0;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.evento-fondo-blur.right {
+  left: 50%;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.evento-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+}

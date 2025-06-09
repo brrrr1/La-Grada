@@ -1,0 +1,39 @@
+<div class="about-container" (keydown)="handleKeydown($event)">
+  <div class="about-content">
+    <div class="logo-section">
+      <img src="assets/logo-lagrada.png" alt="La Grada Logo" class="logo" 
+           [style.transform]="'scale(' + logoScale + ')'"
+           [style.opacity]="logoOpacity">
+    </div>
+    
+    <div class="text-section glass-card">
+      <h1>Sobre Nosotros</h1>
+      <p>
+        En la actualidad, los aficionados al deporte en España se enfrentan a opciones limitadas para disfrutar de los eventos en directo fuera del estadio. Bares deportivos y retransmisiones en casa ofrecen una experiencia parcial, pero carecen de la emoción y la atmósfera auténtica que sólo un estadio puede proporcionar. Esta desconexión reduce la intensidad de vivir un partido, donde la pasión y el ambiente juegan un papel fundamental.
+      </p>
+      <p>
+        LA GRADA es un proyecto que pretende revolucionar esta realidad, trayendo a España la experiencia definitiva para vivir el deporte en directo. Con una pantalla 8K de 1000 pulgadas, gradas que replican la atmósfera del estadio, y una oferta completa de comida y bebida, La Grada sumerge al espectador en una situación nunca antes vista en nuestro país. Además, una cámara en el estadio conecta en tiempo real con la acción, creando una experiencia envolvente que traslada la emoción del terreno de juego a la ciudad.
+      </p>
+      <p>
+        Este concepto innovador no solo ofrece una nueva forma de disfrutar del deporte, sino que también transforma la manera en que los aficionados se conectan con sus equipos y eventos favoritos.
+      </p>
+    </div>
+
+    <div class="images-section">
+      <div class="image-grid">
+        <div class="image-card glass-card" *ngFor="let image of images; let i = index" (click)="openGallery(i)">
+          <img [src]="image.src" [alt]="image.alt" class="feature-image">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gallery-modal" *ngIf="showGallery" (click)="closeGallery()">
+    <div class="gallery-content" (click)="$event.stopPropagation()">
+      <button class="gallery-close" (click)="closeGallery()">&times;</button>
+      <button class="gallery-nav prev" (click)="previousImage()">❮</button>
+      <img [src]="images[currentImageIndex].src" [alt]="images[currentImageIndex].alt" class="gallery-image">
+      <button class="gallery-nav next" (click)="nextImage()">❯</button>
+    </div>
+  </div>
+</div> 

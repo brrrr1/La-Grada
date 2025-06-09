@@ -1,0 +1,212 @@
+.entrada-card {
+  position: relative;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.entrada-card:hover {
+  transform: translateY(-2px);
+}
+
+.entrada-fondo-blur {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(4px);
+  opacity: 0.3;
+  z-index: 1;
+}
+
+.entrada-fondo-blur.left {
+  left: 0;
+}
+
+.entrada-fondo-blur.right {
+  right: 0;
+}
+
+.entrada-info {
+  position: relative;
+  padding: 20px;
+  text-align: center;
+  z-index: 2;
+}
+
+.evento-nombre {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.evento-escudos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.evento-escudo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.evento-vs {
+  font-weight: bold;
+  color: #fff;
+}
+
+.evento-fecha {
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.entrada-qr {
+  padding: 15px;
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+.qr-img {
+  width: 100px;
+  height: 100px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  z-index: 4;
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 8px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: scaleIn 0.3s ease-out;
+}
+
+.entrada-card-modal {
+  position: relative;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 500px;
+}
+
+.entrada-card-modal .entrada-fondo-blur {
+  filter: blur(2px);
+  opacity: 0.4;
+  z-index: 1;
+}
+
+.entrada-card-modal .entrada-info {
+  padding: 30px;
+  z-index: 2;
+  position: relative;
+}
+
+.entrada-card-modal .evento-nombre {
+  font-size: 1.5rem;
+  margin-bottom: 25px;
+}
+
+.entrada-card-modal .evento-escudo {
+  width: 100px;
+  height: 100px;
+}
+
+.entrada-card-modal .evento-vs {
+  font-size: 1.2rem;
+}
+
+.entrada-card-modal .entrada-qr {
+  z-index: 3;
+  position: relative;
+}
+
+.entrada-card-modal .qr-img {
+  width: 150px;
+  height: 150px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  z-index: 4;
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.entrada-fondo-blur-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.entrada-fondo-blur-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.0) 80%);
+}
+
+.entrada-card::after,
+.entrada-card-modal::after {
+  content: none;
+} 

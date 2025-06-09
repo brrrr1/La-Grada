@@ -1,0 +1,82 @@
+html, body { height: 100%; }
+body {
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Arial', sans-serif;
+  color: #fff;
+  transition: background 0.5s;
+  overflow-x: hidden;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  left: 0; right: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: radial-gradient(ellipse at 60% 40%, #243b55 0%, #141e30 100%);
+  pointer-events: none;
+}
+
+body::before {
+  top: 0;
+}
+
+body::after {
+  top: 100vh;
+  transform: scaleY(-1);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #fff;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.main-container, .register-container, .login-container, .activate-container {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+button, .login-btn, .register-btn {
+  background: none;
+  color: #fff;
+  border: none;
+  font-size: 1.1rem;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none !important;
+  margin-top: 1rem;
+}
+
+button:hover, .login-btn:hover, .register-btn:hover {
+  color: #fff;
+}
+
+input, select, textarea {
+  background: rgba(255,255,255,0.15);
+  border: 1.5px solid #fff;
+  color: #fff;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid #fff;
+  background: rgba(255,255,255,0.25);
+}
+
+.error {
+  color: #ff5252;
+}
+
+.success {
+  color: #baff7b;
+}

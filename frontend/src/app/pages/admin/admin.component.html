@@ -1,0 +1,45 @@
+<div class="admin-container">
+  <div class="admin-header">
+    <h1>Panel de Administración</h1>
+  </div>
+
+  <div class="admin-content">
+    <div class="admin-sidebar">
+      <button 
+        [class.active]="activeSection === 'usuarios'"
+        (click)="setActiveSection('usuarios')"
+        class="admin-nav-btn">
+        <i class="fas fa-users"></i>
+        Usuarios
+      </button>
+      <button 
+        [class.active]="activeSection === 'equipos'"
+        (click)="setActiveSection('equipos')"
+        class="admin-nav-btn">
+        <i class="fas fa-shield-alt"></i>
+        Equipos
+      </button>
+      <button 
+        [class.active]="activeSection === 'eventos'"
+        (click)="setActiveSection('eventos')"
+        class="admin-nav-btn">
+        <i class="fas fa-calendar-alt"></i>
+        Eventos
+      </button>
+    </div>
+
+    <div class="admin-main">
+      <div *ngIf="activeSection === 'usuarios'" class="admin-section">
+        <app-usuarios-admin></app-usuarios-admin>
+      </div>
+
+      <div *ngIf="activeSection === 'equipos'" class="admin-section">
+        <app-equipos-admin></app-equipos-admin>
+      </div>
+
+      <div *ngIf="activeSection === 'eventos'" class="admin-section">
+        <app-eventos-admin></app-eventos-admin>
+      </div>
+    </div>
+  </div>
+</div> 

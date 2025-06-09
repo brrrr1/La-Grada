@@ -1,0 +1,56 @@
+.qr-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.qr-img {
+  width: 250px;
+  height: 250px;
+  object-fit: contain;
+  border: 2px solid #eee;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.eventos-page-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 90px;
+}
+
+.eventos-title {
+  color: #fff;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-left: 0.5rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: -1px;
+  text-align: center;
+}
+
+.eventos-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 2.5rem 2.5rem;
+  overflow: visible !important;
+  padding-bottom: 1.5rem;
+  margin-top: 2.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  scrollbar-width: thin;
+  scrollbar-color: #fff #141e30;
+}
+
+.evento-grid-item {
+  flex: 0 0 340px;
+  margin-bottom: 0;
+}
+
+.error {
+  color: #ff5252;
+  text-align: center;
+  margin-top: 1rem;
+} 

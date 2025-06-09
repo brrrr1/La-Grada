@@ -1,0 +1,107 @@
+<div class="equipos-admin-container">
+  <div class="equipos-header">
+    <h2>Gestión de Equipos</h2>
+    <div class="action-buttons">
+      <button class="action-btn add" (click)="onAddClick()">
+        Añadir Equipo
+      </button>
+      <button class="action-btn edit" [class.edit-mode]="editMode" (click)="onEditarClick()">
+        {{ editMode ? 'Cancelar' : 'Editar Equipo' }}
+      </button>
+      <button class="action-btn delete" [class.error]="showNotification && notificationType === 'error'" (click)="onEliminarClick()">
+        Eliminar Equipo
+      </button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <div *ngIf="loading" class="loading">
+      Cargando equipos...
+    </div>
+
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+
+    <table *ngIf="!loading && !error">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Escudo</th>
+          <th>Fondo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let equipo of equipos"
+            [class.selectable]="deleteMode || editMode"
+            [class.edit-hover]="editMode"
+            [class.selected]="isEquipoSeleccionado(equipo)"
+            (click)="seleccionarEquipo(equipo)">
+          <td>{{ equipo.id }}</td>
+          <td>{{ equipo.nombre }}</td>
+          <td>{{ equipo.fotoEscudo }}</td>
+          <td>{{ equipo.fotoFondo }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <app-notification
+    *ngIf="showNotification"
+    [message]="notificationMessage"
+    [type]="notificationType"
+    [show]="showNotification"
+    (closed)="showNotification = false">
+  </app-notification>
+
+  <app-edit-modal
+    [titulo]="'Editar equipo'"
+    [confirmText]="'Guardar'"
+    [cancelText]="'Cancelar'"
+    [show]="showEditModal && !!equipoSeleccionado"
+    (confirm)="onEditModalConfirm()"
+    (cancel)="onEditModalCancel()"
+  >
+    <form [formGroup]="equipoForm" class="edit-form">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" formControlName="nombre" />
+      </div>
+      <div class="form-group">
+        <label for="escudo">Escudo</label>
+        <input id="escudo" type="file" accept="image/*" (change)="onEscudoFileSelected($event)" />
+      </div>
+      <div class="form-group">
+        <label for="fondo">Fondo</label>
+        <input id="fondo" type="file" accept="image/*" (change)="onFondoFileSelected($event)" />
+      </div>
+      <p class="info-text">Si no subes una foto, permanecerá la foto actual</p>
+    </form>
+  </app-edit-modal>
+
+  <app-edit-modal
+    [titulo]="'Crear equipo'"
+    [confirmText]="'Crear'"
+    [cancelText]="'Cancelar'"
+    [show]="showCreateModal"
+    (confirm)="onCreateModalConfirm()"
+    (cancel)="onCreateModalCancel()"
+  >
+    <form [formGroup]="equipoForm" class="edit-form">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" formControlName="nombre" />
+      </div>
+      <div class="form-group">
+        <label for="escudo">Escudo</label>
+        <input id="escudo" type="file" accept="image/*" (change)="onEscudoFileSelected($event)" required />
+      </div>
+      <div class="form-group">
+        <label for="fondo">Fondo</label>
+        <input id="fondo" type="file" accept="image/*" (change)="onFondoFileSelected($event)" required />
+      </div>
+      <p class="info-text">Todos los campos son obligatorios</p>
+    </form>
+  </app-edit-modal>
+</div> 

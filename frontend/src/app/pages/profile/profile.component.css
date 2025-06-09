@@ -1,0 +1,272 @@
+.profile-card-redesign {
+  margin: 60px auto 0 auto;
+  background: rgba(36, 40, 50, 0.55);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  border: 1.5px solid rgba(255,255,255,0.22);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  color: #fff;
+  overflow: hidden;
+  padding: 2.5rem 2rem 2rem 2rem;
+  gap: 16px;
+  transition: max-width 0.6s cubic-bezier(0.4,0,0.2,1), min-height 0.6s cubic-bezier(0.4,0,0.2,1), max-height 0.6s cubic-bezier(0.4,0,0.2,1);
+  min-height: 420px;
+  max-height: 420px;
+  width: 380px;
+}
+.profile-card-redesign.edit-mode {
+  max-width: 600px;
+  min-height: 420px;
+  max-height: 1000px;
+  transition: max-width 0.6s cubic-bezier(0.4,0,0.2,1), min-height 0.6s cubic-bezier(0.4,0,0.2,1), max-height 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+.profile-card-redesign::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.85;
+  background-image: url('data:image/svg+xml;utf8,<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="2.2" numOctaves="8" seed="13"/></filter><rect width="80" height="80" filter="url(%23grain)"/></svg>');
+  background-size: 60px 60px;
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+}
+.profile-avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 0.2rem;
+}
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #3f51b5 60%, #1e88e5 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.7rem;
+  box-shadow: 0 2px 12px rgba(63,81,181,0.15);
+}
+.profile-avatar-icon {
+  font-size: 3.2rem;
+  color: #fff;
+}
+.profile-nombre {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.2rem;
+  text-align: center;
+}
+.profile-username {
+  font-size: 1rem;
+  color: #b3cfff;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.profile-info-list {
+  width: 100%;
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.profile-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.13);
+  font-size: 1.08rem;
+}
+.profile-info-label {
+  color: #b0b8c9;
+  font-weight: 500;
+}
+.profile-info-value {
+  color: #fff;
+  font-weight: 600;
+}
+.edit-btn-floating {
+  display: block;
+  margin: 1.5rem auto 0 auto;
+  background: rgba(30,136,229,0.18);
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.22);
+  border-radius: 8px;
+  padding: 0.7rem 2.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(30,136,229,0.10);
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, border 0.2s;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+.edit-btn-floating:hover {
+  background: #1e88e5;
+  border: 1.5px solid #90caf9;
+  box-shadow: 0 0 12px #90caf9;
+  color: #fff;
+  text-decoration: none;
+}
+.profile-edit-form {
+  width: 100%;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.7rem;
+}
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #b3cfff;
+}
+.form-group input, .form-group select {
+  padding: 7px 12px;
+  border: 1px solid #b3cfff44;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: #fff;
+  background: rgba(36, 40, 50, 0.35);
+}
+.form-group input::placeholder, .form-group select:invalid {
+  color: #b0b8c9;
+  opacity: 1;
+}
+.edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.7rem;
+  margin-top: 1.8rem;
+  position: relative;
+  z-index: 2;
+}
+.save-btn, .cancel-btn {
+  background: rgba(30,136,229,0.18);
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.22);
+  border-radius: 8px;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, border 0.2s;
+  box-shadow: 0 2px 8px rgba(30,136,229,0.10);
+  text-decoration: none;
+  letter-spacing: 1px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  font-size: 1rem;
+}
+.save-btn:hover {
+  background: #1e88e5;
+  border: 1.5px solid #90caf9;
+  box-shadow: 0 0 12px #90caf9;
+  color: #fff;
+}
+.cancel-btn {
+  background: rgba(120,130,150,0.18);
+  box-shadow: 0 2px 8px rgba(120,130,150,0.10);
+  margin-left: 0.5rem;
+}
+.cancel-btn:hover {
+  background: #607d8b;
+  border: 1.5px solid #b0bec5;
+  box-shadow: 0 0 12px #b0bec5;
+  color: #fff;
+}
+.form-row {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  width: 100%;
+  justify-content: space-between;
+}
+.form-row .form-group {
+  flex: 1 1 0;
+  min-width: 0;
+}
+@media (max-width: 700px) {
+  .profile-card-redesign, .profile-card-redesign.edit-mode {
+    max-width: 98vw;
+    min-width: 0;
+    padding: 1.2rem 0.5rem;
+  }
+  .form-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+.password-btn {
+  display: block;
+  margin: 1.1rem auto 0 auto;
+  background: rgba(30,136,229,0.10);
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.18);
+  border-radius: 8px;
+  padding: 0.7rem 2.2rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(30,136,229,0.08);
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, border 0.2s;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+.password-btn:hover {
+  background: #1976d2;
+  border: 1.5px solid #90caf9;
+  box-shadow: 0 0 12px #90caf9;
+  color: #fff;
+}
+.main-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+.profile-card-redesign.show-password-form {
+  max-height: none !important;
+  overflow: visible !important;
+}
+.password-form-container {
+  width: 100%;
+  margin-top: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.password-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.error-message {
+  color: #ff5252;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+.success-message {
+  color: #4caf50;
+  margin-top: 0.5rem;
+  text-align: center;
+} 

@@ -1,0 +1,246 @@
+.equipos-admin-container {
+  width: 100%;
+}
+
+.equipos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.equipos-header h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.8rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.action-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  min-width: 150px;
+}
+
+.action-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.action-btn.add:hover {
+  background: rgba(76, 175, 80, 0.2);
+}
+
+.action-btn.edit:hover {
+  background: rgba(255, 193, 7, 0.2);
+}
+
+.action-btn.edit.edit-mode {
+  background: #ffc107;
+  color: #000;
+  box-shadow: 0 0 8px 2px rgba(255,193,7,0.25);
+  animation: pulseEdit 0.7s infinite alternate;
+}
+
+@keyframes pulseEdit {
+  from { box-shadow: 0 0 8px 2px rgba(255,193,7,0.25); }
+  to { box-shadow: 0 0 16px 4px rgba(255,193,7,0.45); }
+}
+
+.action-btn.delete {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  min-width: 150px;
+}
+
+.action-btn.delete:hover {
+  background: rgba(244, 67, 54, 0.2);
+}
+
+.action-btn.delete.error {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  background: rgba(244, 67, 54, 0.2);
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.table-container {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #fff;
+}
+
+th, td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+th {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+tbody tr:hover,
+tr.selectable:hover {
+  background-color: transparent !important;
+}
+
+tr.selectable {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+tr.selectable.edit-hover:hover {
+  background-color: rgba(255, 193, 7, 0.1) !important;
+}
+
+tr.selected {
+  background-color: rgba(255, 193, 7, 0.15);
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 2rem;
+  color: #fff;
+}
+
+.error {
+  color: #f44336;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  color: #fff;
+  font-weight: 500;
+}
+
+.form-group input[type="text"] {
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 1rem;
+}
+
+.form-group input[type="file"] {
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.form-group input[type="file"]::file-selector-button {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.form-group input[type="file"]::file-selector-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.info-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  font-style: italic;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .equipos-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .action-btn {
+    width: 100%;
+  }
+
+  th, td {
+    padding: 0.8rem;
+  }
+} 

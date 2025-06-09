@@ -1,0 +1,211 @@
+<div class="eventos-admin-container">
+  <div class="eventos-header">
+    <h2>Gestión de Eventos</h2>
+    <div class="action-buttons">
+      <button class="action-btn add" (click)="onAddClick()">
+        Añadir Evento
+      </button>
+      <button class="action-btn edit" [class.edit-mode]="editMode" (click)="onEditarClick()">
+        {{ editMode ? 'Cancelar' : 'Editar Evento' }}
+      </button>
+      <button class="action-btn delete" [class.delete-mode]="deleteMode" (click)="onEliminarClick()">
+        {{ deleteMode ? 'Cancelar' : 'Eliminar Evento' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <div *ngIf="loading" class="loading">
+      Cargando eventos...
+    </div>
+
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+
+    <table *ngIf="!loading && !error">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Fecha y Hora</th>
+          <th>Equipo 1</th>
+          <th>Equipo 2</th>
+          <th>Entradas Restantes</th>
+          <th>Entradas Totales</th>
+          <th>Precio</th>
+          <th>Tipo de Evento</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let evento of eventos"
+            [class.selectable]="deleteMode || editMode"
+            [class.edit-hover]="editMode"
+            [class.selected]="isEventoSeleccionado(evento)"
+            (click)="seleccionarEvento(evento)">
+          <td>{{ evento.id }}</td>
+          <td>{{ evento.nombre }}</td>
+          <td>{{ evento.descripcion }}</td>
+          <td>{{ evento.fechaYHora }}</td>
+          <td>{{ evento.equipo1?.nombre }}</td>
+          <td>{{ evento.equipo2?.nombre }}</td>
+          <td>{{ evento.entradasRestantes }}</td>
+          <td>{{ evento.entradasTotales }}</td>
+          <td>{{ evento.precio }}</td>
+          <td>{{ evento.tipoEvento }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <app-modal
+    *ngIf="showDeleteModal && eventoSeleccionado"
+    [titulo]="'Eliminar evento'"
+    [texto]="'¿Estás seguro de que quieres eliminar el evento ' + eventoSeleccionado.nombre + '?'"
+    [confirmText]="'Eliminar'"
+    [cancelText]="'Cancelar'"
+    (confirm)="onDeleteModalConfirm()"
+    (cancel)="onDeleteModalCancel()"
+  ></app-modal>
+
+  <app-edit-modal
+    [titulo]="'Editar evento'"
+    [confirmText]="'Guardar'"
+    [cancelText]="'Cancelar'"
+    [show]="showEditModal && !!eventoSeleccionado"
+    (confirm)="onEditModalConfirm()"
+    (cancel)="onEditModalCancel()"
+  >
+    <form [formGroup]="eventoForm" class="edit-form">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" formControlName="nombre" />
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" formControlName="descripcion"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="fechaYHora">Fecha y Hora</label>
+        <div class="datetime-wrapper">
+          <input id="fechaYHora" type="datetime-local" formControlName="fechaYHora" />
+          <svg class="custom-calendar-icon" fill="#fff" viewBox="0 0 24 24">
+            <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zm0-13H5V6h14v1z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="equipo1Id">Equipo 1</label>
+        <select id="equipo1Id" formControlName="equipo1Id">
+          <option value="">Selecciona un equipo</option>
+          <option *ngFor="let equipo of equipos" [value]="equipo.id">{{ equipo.nombre }}</option>
+        </select>
+        <div *ngIf="eventoForm.hasError('sameTeam')" class="error-message">
+          No puedes seleccionar el mismo equipo en ambos lados
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="equipo2Id">Equipo 2</label>
+        <select id="equipo2Id" formControlName="equipo2Id">
+          <option value="">Selecciona un equipo</option>
+          <option *ngFor="let equipo of equipos" [value]="equipo.id">{{ equipo.nombre }}</option>
+        </select>
+        <div *ngIf="eventoForm.hasError('sameTeam')" class="error-message">
+          No puedes seleccionar el mismo equipo en ambos lados
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="entradasTotales">Entradas Totales</label>
+        <input id="entradasTotales" type="number" formControlName="entradasTotales" min="1" />
+        <div *ngIf="eventoForm.get('entradasTotales')?.errors && eventoForm.get('entradasTotales')?.touched" class="error-message">
+          {{ getErrorMessage('entradasTotales') }}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="precio">Precio</label>
+        <input id="precio" type="number" formControlName="precio" min="0.01" step="0.01" />
+        <div *ngIf="eventoForm.get('precio')?.errors && eventoForm.get('precio')?.touched" class="error-message">
+          {{ getErrorMessage('precio') }}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="tipo">Tipo de Evento</label>
+        <select id="tipo" formControlName="tipo">
+          <option value="">Selecciona un tipo</option>
+          <option value="COTIDIANO">Cotidiano</option>
+          <option value="IMPORTANTE">Importante</option>
+          <option value="FINAL">Final</option>
+        </select>
+      </div>
+    </form>
+  </app-edit-modal>
+
+  <app-edit-modal
+    [titulo]="'Crear evento'"
+    [confirmText]="'Crear'"
+    [cancelText]="'Cancelar'"
+    [show]="showCreateModal"
+    (confirm)="onCreateModalConfirm()"
+    (cancel)="onCreateModalCancel()"
+  >
+    <form [formGroup]="eventoForm" class="edit-form">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" formControlName="nombre" />
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" formControlName="descripcion"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="fechaYHora">Fecha y Hora</label>
+        <div class="datetime-wrapper">
+        <input id="fechaYHora" type="datetime-local" formControlName="fechaYHora" />
+          <svg class="custom-calendar-icon" fill="#fff" viewBox="0 0 24 24">
+            <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zm0-13H5V6h14v1z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="equipo1Id">Equipo 1</label>
+        <select id="equipo1Id" formControlName="equipo1Id">
+          <option value="">Selecciona un equipo</option>
+          <option *ngFor="let equipo of equipos" [value]="equipo.id">{{ equipo.nombre }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="equipo2Id">Equipo 2</label>
+        <select id="equipo2Id" formControlName="equipo2Id">
+          <option value="">Selecciona un equipo</option>
+          <option *ngFor="let equipo of equipos" [value]="equipo.id">{{ equipo.nombre }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="entradasTotales">Entradas Totales</label>
+        <input id="entradasTotales" type="number" formControlName="entradasTotales" min="1" />
+      </div>
+      <div class="form-group">
+        <label for="precio">Precio</label>
+        <input id="precio" type="number" formControlName="precio" min="0" step="0.01" />
+      </div>
+      <div class="form-group">
+        <label for="tipo">Tipo de Evento</label>
+        <select id="tipo" formControlName="tipo">
+          <option value="">Selecciona un tipo</option>
+          <option value="COTIDIANO">Cotidiano</option>
+          <option value="IMPORTANTE">Importante</option>
+          <option value="FINAL">Final</option>
+        </select>
+      </div>
+    </form>
+  </app-edit-modal>
+
+  <app-notification
+    *ngIf="showNotification"
+    [message]="notificationMessage"
+    [type]="notificationType"
+    [show]="showNotification"
+    (closed)="showNotification = false">
+  </app-notification>
+</div> 

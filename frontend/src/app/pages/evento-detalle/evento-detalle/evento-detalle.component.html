@@ -1,0 +1,65 @@
+<div *ngIf="cargando" class="evento-loader">Cargando evento...</div>
+<div *ngIf="error" class="evento-error">{{ error }}</div>
+<div *ngIf="evento && !cargando && !error" class="evento-detalle">
+  <div class="evento-banner">
+    <div class="banner-mitad banner-mitad-izq" [ngStyle]="{ 'background-image': fondo1Url ? 'url(' + fondo1Url + ')' : 'none' }">
+      <div class="banner-escudo-nombre">
+        <img *ngIf="escudo1Url" [src]="escudo1Url" [alt]="evento.equipo1.nombre + ' escudo'" class="banner-escudo" (click)="irADetalleEquipo1()" style="cursor:pointer" />
+        <div class="banner-nombre">{{ evento.equipo1.nombre }}</div>
+      </div>
+    </div>
+    <div class="banner-centro">
+      <div class="banner-nombre-tipo">
+        <div class="banner-titulo">{{ evento.nombre }}</div>
+        <div class="banner-tipo-evento">{{ evento.tipoEvento }}</div>
+      </div>
+    </div>
+    <div class="banner-mitad banner-mitad-der" [ngStyle]="{ 'background-image': fondo2Url ? 'url(' + fondo2Url + ')' : 'none' }">
+      <div class="banner-escudo-nombre">
+        <img *ngIf="escudo2Url" [src]="escudo2Url" [alt]="evento.equipo2.nombre + ' escudo'" class="banner-escudo" (click)="irADetalleEquipo2()" style="cursor:pointer" />
+        <div class="banner-nombre">{{ evento.equipo2.nombre }}</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="evento-glass-card">
+    <div class="evento-glass-left">
+      <div class="evento-descripcion">
+        {{ evento.descripcion }}
+      </div>
+      <button class="youtube-btn" (click)="buscarEnYoutube()">
+        <i class="fab fa-youtube"></i> Buscar en YouTube
+      </button>
+    </div>
+    <div class="evento-glass-right">
+      <div class="entradas-restantes">
+        Entradas restantes: <b>{{ evento.entradasRestantes }}</b>
+      </div>
+      <button class="shadow__btn" [disabled]="!isLoggedIn || yaTieneEntrada || evento.entradasRestantes <= 0 || comprando" (click)="intentarComprarEntrada()">
+        <ng-container *ngIf="evento.entradasRestantes <= 0">Entradas agotadas</ng-container>
+        <ng-container *ngIf="evento.entradasRestantes > 0">
+          <ng-container *ngIf="yaTieneEntrada">Ya tienes entrada</ng-container>
+          <ng-container *ngIf="!yaTieneEntrada && comprando">Comprando...</ng-container>
+          <ng-container *ngIf="!yaTieneEntrada && !comprando">Comprar entrada {{ evento.precio | currency:'EUR':'symbol':'1.2-2' }}</ng-container>
+        </ng-container>
+      </button>
+    </div>
+  </div>
+</div>
+<app-modal
+  *ngIf="showBuyModal"
+  [titulo]="'Comprar entrada'"
+  [texto]="modalTexto"
+  [confirmText]="'Comprar'"
+  [cancelText]="'Atrás'"
+  (confirm)="confirmarCompraEntrada()"
+  (cancel)="cancelarCompraEntrada()"
+></app-modal>
+<app-notification
+  [message]="notification.message"
+  [type]="notification.type"
+  [show]="notification.show"
+  [duration]="3000"
+  [actionButton]="notification.actionButton"
+  (closed)="hideNotification()"
+></app-notification>

@@ -1,0 +1,59 @@
+.evento-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.evento-card:hover {
+  transform: translateY(-2px);
+}
+
+.evento-nombre {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.evento-escudos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.evento-escudo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.evento-vs {
+  font-weight: bold;
+  color: #666;
+}
+
+.evento-card-modal {
+  background: white;
+  border-radius: 8px;
+  padding: 30px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.evento-card-modal .evento-nombre {
+  font-size: 1.5rem;
+  margin-bottom: 25px;
+}
+
+.evento-card-modal .evento-escudo {
+  width: 100px;
+  height: 100px;
+}
+
+.evento-card-modal .evento-vs {
+  font-size: 1.2rem;
+} 

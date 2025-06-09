@@ -1,0 +1,52 @@
+<div class="main-container">
+  <div class="profile-card-redesign">
+    <div class="profile-card-content">
+      <h2 style="margin-bottom: 1.5rem; color: #fff;">Registro</h2>
+      <form (ngSubmit)="onSubmit()" class="profile-edit-form">
+        <div class="form-col">
+          <div class="form-group">
+            <label for="nombre">Nombre *</label>
+            <input type="text" id="nombre" name="nombre" [(ngModel)]="nombre" required placeholder="Nombre" />
+          </div>
+          <div class="form-group">
+            <label for="correo">Correo *</label>
+            <input type="email" id="correo" name="correo" [(ngModel)]="correo" required placeholder="Correo" />
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña *</label>
+            <input type="password" id="password" name="password" [(ngModel)]="password" required placeholder="Contraseña" />
+          </div>
+        </div>
+        <div class="form-col">
+          <div class="form-group">
+            <label for="apellidos">Apellidos</label>
+            <input type="text" id="apellidos" name="apellidos" [(ngModel)]="apellidos" required placeholder="Apellidos" />
+          </div>
+          <div class="form-group">
+            <label for="username">Usuario *</label>
+            <input type="text" id="username" name="username" [(ngModel)]="username" required placeholder="Usuario" />
+          </div>
+          <div class="form-group">
+            <label for="verifyPassword">Repetir Contraseña *</label>
+            <input type="password" id="verifyPassword" name="verifyPassword" [(ngModel)]="verifyPassword" required placeholder="Repetir Contraseña" />
+          </div>
+        </div>
+        <div class="form-group full-width">
+          <label for="equipoFavoritoId">Equipo favorito</label>
+          <select id="equipoFavoritoId" name="equipoFavoritoId" [(ngModel)]="equipoFavoritoId">
+            <option [ngValue]="null">Ninguno</option>
+            <option *ngFor="let equipo of equipos" [ngValue]="equipo.id">{{ equipo.nombre }}</option>
+          </select>
+        </div>
+        <div class="edit-actions">
+          <button type="submit" class="save-btn" [disabled]="loading">Registrarse</button>
+        </div>
+        <div *ngIf="errorList && errorList.length" class="error-message">
+          <div *ngFor="let err of errorList" style="text-align: left; padding-left: 0.5em;">{{ err }}</div>
+        </div>
+        <div *ngIf="successMsg" class="success-message">{{ successMsg }}</div>
+      </form>
+      <button class="login-btn" (click)="goToLogin()">¿Ya tienes cuenta? <span style="font-weight: bold;">Inicia sesión</span></button>
+    </div>
+  </div>
+</div>

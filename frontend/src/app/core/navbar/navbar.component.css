@@ -1,0 +1,250 @@
+.navbar {
+  width: 100vw;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: rgba(30, 30, 30, 0.22);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  padding: 0 2rem;
+  box-sizing: border-box;
+  overflow: visible;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.navbar-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-left, .navbar-right {
+  min-width: 180px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.navbar-right {
+  min-width: 180px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.logo {
+  height: 40px;
+  max-height: 100%;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2.5rem;
+  font-family: inherit;
+  cursor: pointer;
+  text-transform: lowercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  line-height: 70px;
+  text-decoration: none;
+}
+.menu-btn:hover {
+  color: #fff;
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(30, 30, 30, 0.92);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 2000;
+}
+.menu-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.menu-content {
+  text-align: center;
+}
+.menu-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.menu-content li {
+  margin: 2rem 0;
+}
+.menu-content a {
+  color: #fff;
+  font-size: 2.2rem;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.menu-content a:hover {
+  color: #fff;
+}
+.close-btn {
+  position: absolute;
+  top: 1px;
+  right: 2rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2.5rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+.close-btn:hover {
+  color: #fff;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 700;
+  margin-top: 1rem;
+  transition: color 0.2s;
+}
+.logout-btn:hover {
+  color: #ff5252;
+}
+
+.login-navbar-btn, .user-navbar-name {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  font-family: inherit;
+  cursor: pointer;
+  font-weight: 700;
+  margin-top: 0;
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  height: 70px;
+}
+.login-navbar-btn:hover {
+  color: #fff;
+}
+.user-navbar-name {
+  cursor: default;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  height: 70px;
+  padding-right: 20px;
+}
+.user-navbar-name:hover {
+  text-shadow: 0 0 8px rgba(255,255,255,0.7), 0 0 2px #fff;
+}
+
+.user-navbar-link {
+  color: #fff;
+  font-size: 1rem;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  height: 70px;
+  background: none;
+  border: none;
+  box-sizing: border-box;
+  white-space: nowrap;
+  padding: 0 20px;
+}
+.user-navbar-link:hover {
+  color: inherit;
+  text-shadow: none;
+  text-decoration: none;
+}
+
+.user-navbar-options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .logo {
+    height: 90px;
+  }
+  .menu-content a {
+    font-size: 1.5rem;
+  }
+}
+
+body {
+  padding-top: 70px;
+}
+
+.navbar::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, rgba(30,30,30,0.38) 0%, rgba(30,30,30,0.12) 100%);
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.navbar::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -18px; height: 18px;
+  background: linear-gradient(180deg, rgba(30,30,30,0.18) 0%, rgba(30,30,30,0) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.navbar > * {
+  position: relative;
+  z-index: 2;
+}
+
+.login-navbar-btn {
+  text-decoration: none !important;
+}

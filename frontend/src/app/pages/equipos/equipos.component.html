@@ -1,0 +1,12 @@
+<div class="equipos-page-container">
+  <h2 class="equipos-title">Todos los equipos</h2>
+  <div *ngIf="loading">Cargando equipos...</div>
+  <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+  <div class="equipos-list-vertical">
+    <div class="equipos-list-vertical-inner">
+      <div *ngFor="let equipo of equipos" style="cursor:pointer;">
+        <app-equipo-card [equipo]="equipo"></app-equipo-card>
+      </div>
+    </div>
+  </div>
+</div>

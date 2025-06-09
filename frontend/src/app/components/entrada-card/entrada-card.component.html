@@ -1,0 +1,45 @@
+<div class="entrada-card" (click)="openModal()">
+  <div class="entrada-fondo-blur-wrapper">
+    <img *ngIf="entrada.evento.equipo1?.fondoUrl" [src]="entrada.evento.equipo1.fondoUrl" alt="Fondo 1" class="entrada-fondo-blur left" />
+    <img *ngIf="entrada.evento.equipo2?.fondoUrl" [src]="entrada.evento.equipo2.fondoUrl" alt="Fondo 2" class="entrada-fondo-blur right" />
+  </div>
+  <div class="entrada-info">
+    <div class="evento-nombre">{{ entrada.evento.nombre }}</div>
+    <div class="evento-escudos">
+      <img *ngIf="entrada.evento.equipo1?.escudoUrl" [src]="entrada.evento.equipo1.escudoUrl" [alt]="entrada.evento.equipo1.nombre + ' escudo'" class="evento-escudo" />
+      <span class="evento-vs">vs</span>
+      <img *ngIf="entrada.evento.equipo2?.escudoUrl" [src]="entrada.evento.equipo2.escudoUrl" [alt]="entrada.evento.equipo2.nombre + ' escudo'" class="evento-escudo" />
+    </div>
+    <div class="evento-fecha">{{ entrada.evento.fechaYHora | date:'medium' }}</div>
+  </div>
+  <div class="entrada-qr">
+    <img [src]="getSafeQrUrl(entrada.qrBase64)" alt="QR Entrada" class="qr-img" />
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="isModalOpen" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="entrada-card-modal">
+      <div class="entrada-fondo-blur-wrapper">
+        <img *ngIf="entrada.evento.equipo1?.fondoUrl" [src]="entrada.evento.equipo1.fondoUrl" alt="Fondo 1" class="entrada-fondo-blur left" />
+        <img *ngIf="entrada.evento.equipo2?.fondoUrl" [src]="entrada.evento.equipo2.fondoUrl" alt="Fondo 2" class="entrada-fondo-blur right" />
+      </div>
+      <div class="entrada-info">
+        <div class="evento-nombre">
+          <a [routerLink]="['/eventos', entrada.evento.id]" (click)="$event.stopPropagation()" style="color:inherit;text-decoration:none;cursor:pointer;">
+            {{ entrada.evento.nombre }}
+          </a>
+        </div>
+        <div class="evento-escudos">
+          <img *ngIf="entrada.evento.equipo1?.escudoUrl" [src]="entrada.evento.equipo1.escudoUrl" [alt]="entrada.evento.equipo1.nombre + ' escudo'" class="evento-escudo" />
+          <span class="evento-vs">vs</span>
+          <img *ngIf="entrada.evento.equipo2?.escudoUrl" [src]="entrada.evento.equipo2.escudoUrl" [alt]="entrada.evento.equipo2.nombre + ' escudo'" class="evento-escudo" />
+        </div>
+        <div class="evento-fecha">{{ entrada.evento.fechaYHora | date:'medium' }}</div>
+      </div>
+      <div class="entrada-qr">
+        <img [src]="getSafeQrUrl(entrada.qrBase64)" alt="QR Entrada" class="qr-img" (click)="downloadQr();$event.stopPropagation()" />
+      </div>
+    </div>
+  </div>
+</div> 

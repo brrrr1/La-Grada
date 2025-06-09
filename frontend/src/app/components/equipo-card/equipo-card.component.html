@@ -1,0 +1,5 @@
+<div class="equipo-card glass" (click)="onCardClick()">
+  <img *ngIf="equipo.fondoUrl" [src]="equipo.fondoUrl" alt="Fondo equipo" class="equipo-fondo-blur" />
+  <img *ngIf="equipo.escudoUrl" [src]="equipo.escudoUrl" [alt]="equipo.nombre + ' escudo'" class="equipo-escudo-glass" />
+  <div class="equipo-nombre-glass">{{ equipo.nombre }}</div>
+</div>

@@ -1,0 +1,51 @@
+<div class="main-container">
+  <h2 class="equipos-title"><a routerLink="/equipos" style="color:inherit;text-decoration:none;cursor:pointer;">Equipos</a></h2>
+  <div *ngIf="loading">Cargando equipos...</div>
+  <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+
+  <div class="equipos-outer">
+    <div class="equipos-scroll">
+      <div class="equipos-grid">
+        <app-equipo-card *ngFor="let equipo of equipos" [equipo]="equipo"></app-equipo-card>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="eventos-title"><a routerLink="/eventos" style="color:inherit;text-decoration:none;cursor:pointer;">Eventos</a></h2>
+  <div *ngIf="loadingEventos">Cargando eventos...</div>
+  <div *ngIf="errorEventos" class="error">{{ errorEventos }}</div>
+
+  <div class="eventos-outer">
+    <div class="eventos-scroll">
+      <div class="eventos-grid">
+        <app-evento-card *ngFor="let evento of eventos" [evento]="evento"></app-evento-card>
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="auth.isLoggedIn() && eventosFuturos.length > 0">
+    <h2 class="eventos-title">Tus próximos eventos</h2>
+    <div *ngIf="loadingEventosFuturos">Cargando tus eventos...</div>
+    <div *ngIf="errorEventosFuturos" class="error">{{ errorEventosFuturos }}</div>
+    <div class="eventos-outer">
+      <div class="eventos-scroll">
+        <div class="eventos-grid">
+          <app-evento-card *ngFor="let evento of eventosFuturos" [evento]="evento"></app-evento-card>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="auth.isLoggedIn() && eventosEquipoFavorito.length > 0">
+    <h2 class="eventos-title">Próximos eventos de tu equipo favorito</h2>
+    <div *ngIf="loadingEventosEquipoFavorito">Cargando eventos de tu equipo favorito...</div>
+    <div *ngIf="errorEventosEquipoFavorito" class="error">{{ errorEventosEquipoFavorito }}</div>
+    <div class="eventos-outer">
+      <div class="eventos-scroll">
+        <div class="eventos-grid">
+          <app-evento-card *ngFor="let evento of eventosEquipoFavorito" [evento]="evento"></app-evento-card>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

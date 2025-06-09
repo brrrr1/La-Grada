@@ -1,0 +1,41 @@
+<div class="eventos-page-container">
+  <h2 class="eventos-title">Próximos eventos</h2>
+  
+  <div class="filters-container">
+    <div class="filter-group">
+      <input type="text" 
+             [(ngModel)]="nombreEquipo" 
+             (ngModelChange)="onFilterChange()"
+             placeholder="Buscar por equipo..."
+             class="filter-input">
+      
+      <input type="text" 
+             [(ngModel)]="nombreEvento" 
+             (ngModelChange)="onFilterChange()"
+             placeholder="Buscar por evento..."
+             class="filter-input">
+      
+      <label class="checkbox-label">
+        <input type="checkbox" 
+               [(ngModel)]="tieneEntradasDisponibles" 
+               (ngModelChange)="onFilterChange()">
+        Solo eventos con entradas disponibles
+      </label>
+    </div>
+  </div>
+
+  <div class="eventos-tabs" style="display: flex; gap: 1em; margin-bottom: 1em;">
+    <button *ngFor="let tab of tabs"
+            (click)="onTabChange(tab.value)"
+            [class.active-tab]="activeTab === tab.value">
+      {{ tab.label }}
+    </button>
+  </div>
+  
+  <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+  <div class="eventos-grid">
+    <div *ngFor="let evento of eventos" class="evento-grid-item" (click)="onEventoClick(evento)">
+      <app-evento-card [evento]="evento"></app-evento-card>
+    </div>
+  </div>
+</div>

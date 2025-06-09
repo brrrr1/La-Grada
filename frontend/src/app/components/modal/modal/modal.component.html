@@ -1,0 +1,14 @@
+<div class="modal-overlay">
+  <div class="modal-glass-card">
+    <div class="modal-header">
+      <h2>{{ titulo }}</h2>
+    </div>
+    <div class="modal-body">
+      <p>{{ texto }}</p>
+    </div>
+    <div class="modal-actions">
+      <button class="shadow__btn cancel" (click)="onCancel()">{{ cancelText }}</button>
+      <button class="shadow__btn confirm" (click)="onConfirm()">{{ confirmText }}</button>
+    </div>
+  </div>
+</div>

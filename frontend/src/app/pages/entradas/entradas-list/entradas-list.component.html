@@ -1,0 +1,9 @@
+<div class="eventos-page-container">
+  <h2 class="eventos-title">Tus próximas entradas</h2>
+  <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+  <div class="eventos-grid">
+    <div *ngFor="let entrada of entradas" class="evento-grid-item">
+      <app-entrada-card [entrada]="entrada"></app-entrada-card>
+    </div>
+  </div>
+</div> 

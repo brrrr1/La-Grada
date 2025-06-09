@@ -1,0 +1,49 @@
+<nav class="navbar">
+  <div class="navbar-left">
+    <ng-container *ngIf="!isLoggedIn(); else userNameBlock">
+      <button class="login-navbar-btn" (click)="goToLogin()">Iniciar sesión</button>
+    </ng-container>
+    <ng-template #userNameBlock>
+      <span class="user-navbar-name" (click)="toggleUserMenu()" style="cursor:pointer">{{ userName }}</span>
+      <ng-container *ngIf="userMenuOpen">
+        <span class="user-navbar-options" @userMenuAnimation>
+          <a class="user-navbar-link" (click)="goTo('/perfil')">Perfil</a>
+          <a class="user-navbar-link" (click)="goTo('/entradas')">Entradas</a>
+          <a class="user-navbar-link" (click)="goTo('/historial')">Historial</a>
+          <a class="user-navbar-link" (click)="logout()">Cerrar sesión</a>
+        </span>
+      </ng-container>
+    </ng-template>
+  </div>
+  <div class="navbar-center">
+    <a routerLink="/main">
+      <img src="assets/logo-lagrada.png" alt="La Grada Logo" class="logo" />
+    </a>
+  </div>
+  <div class="navbar-right">
+    <button class="menu-btn" (click)="toggleMenu()">&#9776;</button>
+  </div>
+</nav>
+
+<div class="menu-overlay" [class.open]="menuOpen">
+  <div class="menu-content">
+    <button class="close-btn" (click)="toggleMenu()">✕</button>
+    <ul>
+      <li><a routerLink="/main" (click)="toggleMenu()">Inicio</a></li>
+      <li><a routerLink="/equipos" (click)="toggleMenu()">Equipos</a></li>
+      <li><a routerLink="/eventos" (click)="toggleMenu()">Eventos</a></li>
+      <li><a routerLink="/sobre-nosotros" (click)="toggleMenu()">Sobre Nosotros</a></li>
+      <li *ngIf="isAdmin"><a routerLink="/admin" (click)="toggleMenu()">Administración</a></li>
+    </ul>
+  </div>
+</div>
+
+<app-modal
+  *ngIf="showLogoutModal"
+  [titulo]="'Cerrar sesión'"
+  [texto]="'¿Estás seguro de que quieres cerrar sesión?'"
+  [confirmText]="'Cerrar sesión'"
+  [cancelText]="'Atrás'"
+  (confirm)="confirmLogout()"
+  (cancel)="cancelLogout()"
+></app-modal>

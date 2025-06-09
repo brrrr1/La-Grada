@@ -1,0 +1,71 @@
+<div class="usuarios-header">
+  <h2>Gestión de Usuarios</h2>
+  <div class="action-buttons">
+    <button class="action-btn add" [class.add-mode]="enableMode" (click)="onEnableClick()">
+      {{ enableMode ? 'Cancelar' : 'Habilitar usuario' }}
+    </button>
+    <button class="action-btn delete" [class.delete-mode]="disableMode" (click)="onDisableClick()">
+      {{ disableMode ? 'Cancelar' : 'Deshabilitar usuario' }}
+    </button>
+  </div>
+</div>
+<div class="usuarios-admin-container" [class.enable-mode]="enableMode">
+  <div *ngIf="loading">Cargando usuarios...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <table *ngIf="!loading && !error">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Usuario</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Correo</th>
+        <th>Equipo Favorito</th>
+        <th>Activo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios"
+          [class.selectable]="(disableMode && usuario.enabled) || (enableMode && !usuario.enabled)"
+          [class.selected]="isUsuarioSeleccionado(usuario)"
+          [class.disabled-row]="(disableMode && !usuario.enabled) || (enableMode && usuario.enabled)"
+          (click)="seleccionarUsuario(usuario)">
+        <td>{{ usuario.id }}</td>
+        <td>{{ usuario.username }}</td>
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.apellidos }}</td>
+        <td>{{ usuario.correo }}</td>
+        <td>{{ usuario.equipoFavorito }}</td>
+        <td>{{ usuario.enabled ? 'Sí' : 'No' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <app-modal
+    *ngIf="showDisableModal && usuarioSeleccionado"
+    [titulo]="'Deshabilitar usuario'"
+    [texto]="'¿Estás seguro de que quieres deshabilitar al usuario ' + usuarioSeleccionado.username + '?'"
+    [confirmText]="'Deshabilitar'"
+    [cancelText]="'Cancelar'"
+    (confirm)="onDisableModalConfirm()"
+    (cancel)="onDisableModalCancel()"
+  ></app-modal>
+
+  <app-modal
+    *ngIf="showEnableModal && usuarioSeleccionado"
+    [titulo]="'Habilitar usuario'"
+    [texto]="'¿Estás seguro de que quieres habilitar al usuario ' + usuarioSeleccionado.username + '?'"
+    [confirmText]="'Habilitar'"
+    [cancelText]="'Cancelar'"
+    (confirm)="onEnableModalConfirm()"
+    (cancel)="onEnableModalCancel()"
+  ></app-modal>
+
+  <app-notification
+    *ngIf="showNotification"
+    [message]="notificationMessage"
+    [type]="notificationType"
+    [show]="showNotification"
+    (closed)="showNotification = false">
+  </app-notification>
+</div>

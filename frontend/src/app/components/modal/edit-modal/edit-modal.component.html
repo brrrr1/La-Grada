@@ -1,0 +1,14 @@
+<div class="modal-overlay" *ngIf="show">
+  <div class="modal-glass-card edit-modal-wide">
+    <div class="modal-header">
+      <h2>{{ titulo }}</h2>
+    </div>
+    <div class="modal-body">
+      <ng-content></ng-content>
+    </div>
+    <div class="modal-actions">
+      <button class="shadow__btn cancel" (click)="cancel.emit()">{{ cancelText }}</button>
+      <button class="shadow__btn confirm" (click)="confirm.emit()">{{ confirmText }}</button>
+    </div>
+  </div>
+</div> 

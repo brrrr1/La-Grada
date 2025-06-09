@@ -1,0 +1,21 @@
+<div class="main-container">
+  <div class="profile-card-redesign">
+    <div class="profile-card-content">
+      <h2 style="margin-bottom: 1.5rem; color: #fff;">Activar Cuenta</h2>
+      <form (ngSubmit)="onSubmit()" class="profile-edit-form">
+        <div class="form-col">
+          <div class="form-group">
+            <label for="token">Código de verificación</label>
+            <input type="text" id="token" name="token" [(ngModel)]="token" required placeholder="Código de verificación" />
+          </div>
+        </div>
+        <div class="edit-actions">
+          <button type="submit" class="save-btn" [disabled]="loading">Activar</button>
+        </div>
+        <div *ngIf="errorMsg" class="error-message">{{ errorMsg }}</div>
+        <div *ngIf="successMsg" class="success-message">{{ successMsg }}</div>
+      </form>
+      <button class="login-btn" (click)="goToLogin()">Ir a Login</button>
+    </div>
+  </div>
+</div>
