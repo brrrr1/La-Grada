@@ -9,6 +9,7 @@ import com.triana.salesianos.dam.lagrada.security.jwt.refresh.RefreshTokenReques
 import com.triana.salesianos.dam.lagrada.security.jwt.refresh.RefreshTokenService;
 import com.triana.salesianos.dam.lagrada.service.EventoService;
 import com.triana.salesianos.dam.lagrada.service.UserService;
+import com.triana.salesianos.dam.lagrada.util.MailService;
 import com.triana.salesianos.dam.lagrada.util.SearchCriteria;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -18,6 +19,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -52,6 +54,7 @@ public class UserController {
     private final JwtService jwtService;
     private final RefreshTokenService refreshTokenService;
     private final EventoService eventoService;
+    private final MailService mailService;
 
     @Operation(summary = "Sirve para que un usuario se registre en la aplicación")
     @ApiResponses(value = {
@@ -131,13 +134,29 @@ public class UserController {
                                             }
                                     
 """)))
-            @RequestBody LoginRequest loginRequest) {
+            @RequestBody LoginRequest loginRequest,
+            HttpServletRequest request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         User user = (User) authentication.getPrincipal();
         String accessToken = jwtService.generateAccessToken(user);
         RefreshToken refreshToken = refreshTokenService.create(user);
+
+        // Get client IP address
+        String ipAddress = request.getRemoteAddr();
+        if (request.getHeader("X-Forwarded-For") != null) {
+            ipAddress = request.getHeader("X-Forwarded-For").split(",")[0];
+        }
+
+        // Send login notification email
+        try {
+            mailService.sendLoginNotificationEmail(user.getCorreo(), ipAddress);
+        } catch (Exception e) {
+            // Log the error but don't fail the login
+            log.warning("Error sending login notification email: " + e.getMessage());
+        }
+
         return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.of(user, accessToken, refreshToken.getToken()));
     }
 

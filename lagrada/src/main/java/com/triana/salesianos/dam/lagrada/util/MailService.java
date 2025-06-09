@@ -86,5 +86,24 @@ public class MailService {
         }
     }
 
+    public void sendLoginNotificationEmail(String toEmail, String ipAddress) {
+        String htmlMsg = "<h2>Nuevo inicio de sesión detectado</h2>" +
+                "<p>Se ha detectado un nuevo inicio de sesión en tu cuenta desde la IP: " + ipAddress + "</p>" +
+                "<p>Si no has sido tú, te recomendamos cambiar tu contraseña inmediatamente.</p>" +
+                "<p>Puedes cambiar tu contraseña haciendo clic en el siguiente enlace:</p>" +
+                "<p><a href='http://localhost:4200/perfil'>Cambiar contraseña</a></p>";
+
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setTo(toEmail);
+            helper.setSubject("Notificación de inicio de sesión");
+            helper.setText(htmlMsg, true);
+            mailSender.send(message);
+        } catch (MessagingException e) {
+            throw new RuntimeException("Error enviando el email de notificación de inicio de sesión", e);
+        }
+    }
+
 }
 
