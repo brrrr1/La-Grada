@@ -57,6 +57,12 @@ public class UserService {
                 .activationToken(generateRandomActivationCode())
                 .build();
 
+        if (createUserRequest.equipoFavoritoId() != null) {
+            Equipo equipo = equipoRepository.findById(createUserRequest.equipoFavoritoId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe el equipo con id " + createUserRequest.equipoFavoritoId()));
+            user.setEquipoFavorito(equipo);
+        }
+
         log.info("Activation token %s".formatted(user.getActivationToken()));
 
         try {
