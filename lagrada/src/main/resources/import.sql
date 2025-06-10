@@ -80,3 +80,13 @@ INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id,
 INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655441773', 'Girona vs Alavés', 'Jornada 38 de LaLiga', '2026-06-14 21:00:00', '550e8400-e29b-41d4-a716-446655440020', '550e8400-e29b-41d4-a716-446655440021', 500, 500, 5.0, 'COTIDIANO');
 INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655441774', 'Leganés vs Valladolid', 'Jornada 38 de LaLiga', '2026-06-14 21:00:00', '550e8400-e29b-41d4-a716-446655440023', '550e8400-e29b-41d4-a716-446655440024', 500, 500, 5.0, 'COTIDIANO');
 INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655441775', 'Las Palmas vs Getafe CF', 'Jornada 38 de LaLiga', '2026-06-14 21:00:00', '550e8400-e29b-41d4-a716-446655440025', '550e8400-e29b-41d4-a716-446655440026', 500, 500, 5.0, 'COTIDIANO');
+
+-- Clásicos
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655441800', 'Clásico', 'Clásico de LaLiga', '2026-03-15 21:00:00', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440001', 0, 500, 12.0, 'FINAL');
+INSERT INTO evento (id, nombre, descripcion, fechayhora, equipo1_id, equipo2_id, entradas_restantes, entradas_totales, precio, tipo_evento) VALUES ('550e8400-e29b-41d4-a716-446655441801', 'Clásico', 'Clásico de LaLiga', '2025-03-15 21:00:00', '550e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440000', 500, 500, 12.0, 'FINAL');
+
+-- Entradas para los clásicos
+INSERT INTO entrada (id, usuario_id, evento_id) VALUES ('550e8400-e29b-41d4-a716-446655441802', '550e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655441800');
+INSERT INTO entrada (id, usuario_id, evento_id) VALUES ('550e8400-e29b-41d4-a716-446655441803', '550e8400-e29b-41d4-a716-446655440026', '550e8400-e29b-41d4-a716-446655441800');
+INSERT INTO entrada (id, usuario_id, evento_id) VALUES ('550e8400-e29b-41d4-a716-446655441804', '550e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655441801');
+INSERT INTO entrada (id, usuario_id, evento_id) VALUES ('550e8400-e29b-41d4-a716-446655441805', '550e8400-e29b-41d4-a716-446655440026', '550e8400-e29b-41d4-a716-446655441801');
