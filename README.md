@@ -46,6 +46,12 @@ http://localhost:8080/swagger-ui.html
 - **Ver eventos por equipo** (`GET /evento/equipo/{nombreEquipo}`)
 - **Obtener detalles de un equipo** (`GET /equipo/{equipoId}`)
 - **Obtener todos los equipos** (`GET /equipo/`)
+- **Comprobar disponibilidad de username** (GET /auth/check-username)
+- **Comprobar disponibilidad de email** (GET /auth/check-email)
+- **Ver todos los eventos sin filtrar** (GET /evento/todos)
+- **Ver próximos eventos cotidianos** (GET /evento/proximos/cotidianos)
+- **Ver próximos eventos importantes** (GET /evento/proximos/importantes)
+- **Ver próximos eventos finales** (GET /evento/proximos/finales)
 
 ### Funcionalidades para usuarios autenticados
 - **Refrescar token** (`POST /auth/refresh/token`)
@@ -59,6 +65,9 @@ http://localhost:8080/swagger-ui.html
 - **Ver próximos eventos de su equipo favorito** (`GET /user/favorite-team-events`)
 - **Ver eventos futuros para los que tiene entrada** (`GET /user/eventos-futuros`)
 - **Ver eventos a los que ya ha asistido** (`GET /user/eventos-pasados`)
+- **Quitar equipo favorito** (DELETE /user/remove-favorite-team)
+- **Ver entradas futuras con QR** (GET /user/entradas/futuras)
+- **Ver entradas pasadas con QR** (GET /user/entradas/pasadas)
 
 ### Funcionalidades para administradores
 - **Crear equipo** (`POST /equipo/`)
@@ -69,6 +78,10 @@ http://localhost:8080/swagger-ui.html
 - **Buscar usuarios** (`GET /search?search=nombre:...,apellidos:...,correo:...`)
 - **Subir archivo** (`POST /upload`)
 - **Descargar archivo** (`GET /download/{idFile}`)
+- **Actualizar equipo** (PUT /equipo/{id})
+- **Obtener lista de todos los usuarios** (GET /admin/users)
+- **Desactivar usuario** (POST /admin/users/disable)
+- **Habilitar usuario** (POST /admin/users/enable)
 
 ## Notas
 
