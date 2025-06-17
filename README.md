@@ -85,4 +85,7 @@ El diseño de la aplicación está disponible en el siguiente enlace: [Diseño e
 
 ![VIVE EL DEPORTE COMO NUNCA ANTES](https://github.com/user-attachments/assets/e4fea73b-fa87-4994-a83f-c8b6322771ff)
 
+## Proyecto Front-End
+Enlace: https://github.com/brrrr1/La-Grada-FRONT
+
 
