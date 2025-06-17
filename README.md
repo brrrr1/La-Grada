@@ -36,6 +36,12 @@ La documentación de la API está disponible mediante Swagger en:
 http://localhost:8080/swagger-ui.html
 ```
 
+## Usuarios de ejemplo
+admin admin (ADMIN)
+cr7 cr7 (USER)
+
+Se recomienda crear un usuario para probar el envío de emails.
+
 ## Funcionalidades Principales
 
 ### Funcionalidades sin autenticación
