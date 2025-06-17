@@ -1,7 +1,7 @@
 package com.triana.salesianos.dam.lagrada.security;
 
+import com.triana.salesianos.dam.lagrada.security.exceptionhandling.CustomAuthenticationEntryPoint;
 import com.triana.salesianos.dam.lagrada.security.exceptionhandling.JwtAccessDeniedHandler;
-import com.triana.salesianos.dam.lagrada.security.exceptionhandling.JwtAuthenticationEntryPoint;
 import com.triana.salesianos.dam.lagrada.security.jwt.access.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -26,12 +27,11 @@ public class SecurityConfig {
     private final PasswordEncoder passwordEncoder;
     private final UserDetailsService userDetailsService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final JwtAuthenticationEntryPoint authenticationEntryPoint;
     private final JwtAccessDeniedHandler accessDeniedHandler;
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     @Bean
     AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-
         AuthenticationManagerBuilder authenticationManagerBuilder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
 
@@ -45,47 +45,21 @@ public class SecurityConfig {
     @Bean
     DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider p = new DaoAuthenticationProvider();
-
         p.setUserDetailsService(userDetailsService);
         p.setPasswordEncoder(passwordEncoder);
         return p;
-
     }
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         http.csrf(csrf -> csrf.disable());
         http.cors(Customizer.withDefaults());
         http.sessionManagement((session) -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.exceptionHandling(excepz -> excepz
-                .authenticationEntryPoint(authenticationEntryPoint)
+                .authenticationEntryPoint(customAuthenticationEntryPoint)
                 .accessDeniedHandler(accessDeniedHandler)
         );
-        /*http.authorizeHttpRequests(authz -> authz
-                .requestMatchers(HttpMethod.POST, "/auth/register", "/auth/login", "/auth/refresh/token","activate/account", "/error").permitAll()
-                .requestMatchers("/me/admin").hasRole("ADMIN")
-                .requestMatchers("/me", "/auth/logout").authenticated()
-                .requestMatchers("/h2-console/**").permitAll()
-                .anyRequest().authenticated());*/
-
-        /*http.authorizeHttpRequests(authz -> authz
-                .requestMatchers(HttpMethod.GET, "/evento/proximos").permitAll() // Permitir acceso público a eventos futuros
-                .requestMatchers(HttpMethod.GET, "/equipo/**").permitAll() // Permitir acceso público a equipos (todos y por ID)
-                .requestMatchers(HttpMethod.POST, "/auth/register", "/auth/login", "/auth/refresh/token", "/activate/account", "/error").permitAll()
-                .requestMatchers("/me/admin", "/search").hasRole("ADMIN")
-                .requestMatchers("/me", "/auth/logout").authenticated()
-                .requestMatchers("/h2-console/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/user/choose-favorite-team/{teamId}", "/user/change-favorite-team/{newTeamId}", "/user/buy-ticket/{eventId}")
-                .authenticated()
-                .requestMatchers("/user/edit-info", "/user/edit-password").authenticated()
-                .requestMatchers("/user/favorite-team-events", "/eventos-futuros", "/eventos-pasados").authenticated()
-                .requestMatchers("/equipo/**").hasRole("ADMIN") // Solo los administradores pueden crear, editar y borrar equipos (POST, PUT, DELETE)
-                .requestMatchers(HttpMethod.GET, "/equipo/**").permitAll() // Todos pueden ver los equipos (GET)
-                .requestMatchers("/evento/**").hasRole("ADMIN")
-                .requestMatchers("/upload/**", "/download/**").hasRole("ADMIN") // Restringir upload y download a ADMIN
-                .anyRequest().authenticated());*/
 
         http.authorizeHttpRequests(authz -> authz
                 // Permitir acceso público a Swagger UI y docs
@@ -118,7 +92,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.DELETE, "/equipo/**").hasRole("ADMIN")
                 .requestMatchers("/evento/**").hasRole("ADMIN")
                 .requestMatchers("/upload/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.GET, "/download/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/download/**").hasRole("ADMIN")
 
                 // Rutas autenticadas para usuarios normales
                 .requestMatchers("/me", "/auth/logout").authenticated()

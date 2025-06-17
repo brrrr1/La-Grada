@@ -290,6 +290,10 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
         
+        if (user.getRoles().contains(UserRole.ADMIN)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "No se puede deshabilitar un usuario administrador");
+        }
+        
         user.setEnabled(false);
         return userRepository.save(user);
     }
