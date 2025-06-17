@@ -19,7 +19,7 @@ public interface EventoRepository extends JpaRepository<Evento, UUID> {
     @Query("SELECT e FROM Evento e WHERE e.fechaYHora > CURRENT_TIMESTAMP ORDER BY e.fechaYHora ASC")
     List<Evento> findNextEvents(Pageable pageable);
 
-    @Query("SELECT e FROM Evento e WHERE (e.equipo1.nombre = :equipo OR e.equipo2.nombre = :equipo) AND e.fechaYHora > :fechaActual")
+    @Query("SELECT e FROM Evento e WHERE (LOWER(e.equipo1.nombre) = LOWER(:equipo) OR LOWER(e.equipo2.nombre) = LOWER(:equipo)) AND e.fechaYHora > :fechaActual")
     List<Evento> findByEquipoAndFechaFutura(@Param("equipo") String equipo, @Param("fechaActual") LocalDateTime fechaActual);
 
     @Query("SELECT e FROM Evento e WHERE e.fechaYHora > CURRENT_TIMESTAMP ORDER BY e.fechaYHora ASC")
@@ -35,8 +35,8 @@ public interface EventoRepository extends JpaRepository<Evento, UUID> {
     List<Evento> findAllNextEventsFinales();
 
     @Query("SELECT e FROM Evento e WHERE e.fechaYHora > CURRENT_TIMESTAMP " +
-           "AND (:nombreEquipo IS NULL OR e.equipo1.nombre LIKE %:nombreEquipo% OR e.equipo2.nombre LIKE %:nombreEquipo%) " +
-           "AND (:nombreEvento IS NULL OR e.nombre LIKE %:nombreEvento%) " +
+           "AND (:nombreEquipo IS NULL OR LOWER(e.equipo1.nombre) LIKE LOWER(CONCAT('%', :nombreEquipo, '%')) OR LOWER(e.equipo2.nombre) LIKE LOWER(CONCAT('%', :nombreEquipo, '%'))) " +
+           "AND (:nombreEvento IS NULL OR LOWER(e.nombre) LIKE LOWER(CONCAT('%', :nombreEvento, '%'))) " +
            "AND (:tieneEntradasDisponibles IS NULL OR :tieneEntradasDisponibles = false OR e.entradasRestantes > 0) " +
            "ORDER BY e.fechaYHora ASC")
     List<Evento> findAllNextEventsFiltered(
@@ -45,8 +45,8 @@ public interface EventoRepository extends JpaRepository<Evento, UUID> {
             @Param("tieneEntradasDisponibles") Boolean tieneEntradasDisponibles);
 
     @Query("SELECT e FROM Evento e WHERE e.fechaYHora > CURRENT_TIMESTAMP AND e.tipoEvento = 'COTIDIANO' " +
-           "AND (:nombreEquipo IS NULL OR e.equipo1.nombre LIKE %:nombreEquipo% OR e.equipo2.nombre LIKE %:nombreEquipo%) " +
-           "AND (:nombreEvento IS NULL OR e.nombre LIKE %:nombreEvento%) " +
+           "AND (:nombreEquipo IS NULL OR LOWER(e.equipo1.nombre) LIKE LOWER(CONCAT('%', :nombreEquipo, '%')) OR LOWER(e.equipo2.nombre) LIKE LOWER(CONCAT('%', :nombreEquipo, '%'))) " +
+           "AND (:nombreEvento IS NULL OR LOWER(e.nombre) LIKE LOWER(CONCAT('%', :nombreEvento, '%'))) " +
            "AND (:tieneEntradasDisponibles IS NULL OR :tieneEntradasDisponibles = false OR e.entradasRestantes > 0) " +
            "ORDER BY e.fechaYHora ASC")
     List<Evento> findAllNextEventsCotidianosFiltered(
@@ -55,8 +55,8 @@ public interface EventoRepository extends JpaRepository<Evento, UUID> {
             @Param("tieneEntradasDisponibles") Boolean tieneEntradasDisponibles);
 
     @Query("SELECT e FROM Evento e WHERE e.fechaYHora > CURRENT_TIMESTAMP AND e.tipoEvento = 'IMPORTANTE' " +
-           "AND (:nombreEquipo IS NULL OR e.equipo1.nombre LIKE %:nombreEquipo% OR e.equipo2.nombre LIKE %:nombreEquipo%) " +
-           "AND (:nombreEvento IS NULL OR e.nombre LIKE %:nombreEvento%) " +
+           "AND (:nombreEquipo IS NULL OR LOWER(e.equipo1.nombre) LIKE LOWER(CONCAT('%', :nombreEquipo, '%')) OR LOWER(e.equipo2.nombre) LIKE LOWER(CONCAT('%', :nombreEquipo, '%'))) " +
+           "AND (:nombreEvento IS NULL OR LOWER(e.nombre) LIKE LOWER(CONCAT('%', :nombreEvento, '%'))) " +
            "AND (:tieneEntradasDisponibles IS NULL OR :tieneEntradasDisponibles = false OR e.entradasRestantes > 0) " +
            "ORDER BY e.fechaYHora ASC")
     List<Evento> findAllNextEventsImportantesFiltered(
@@ -65,8 +65,8 @@ public interface EventoRepository extends JpaRepository<Evento, UUID> {
             @Param("tieneEntradasDisponibles") Boolean tieneEntradasDisponibles);
 
     @Query("SELECT e FROM Evento e WHERE e.fechaYHora > CURRENT_TIMESTAMP AND e.tipoEvento = 'FINAL' " +
-           "AND (:nombreEquipo IS NULL OR e.equipo1.nombre LIKE %:nombreEquipo% OR e.equipo2.nombre LIKE %:nombreEquipo%) " +
-           "AND (:nombreEvento IS NULL OR e.nombre LIKE %:nombreEvento%) " +
+           "AND (:nombreEquipo IS NULL OR LOWER(e.equipo1.nombre) LIKE LOWER(CONCAT('%', :nombreEquipo, '%')) OR LOWER(e.equipo2.nombre) LIKE LOWER(CONCAT('%', :nombreEquipo, '%'))) " +
+           "AND (:nombreEvento IS NULL OR LOWER(e.nombre) LIKE LOWER(CONCAT('%', :nombreEvento, '%'))) " +
            "AND (:tieneEntradasDisponibles IS NULL OR :tieneEntradasDisponibles = false OR e.entradasRestantes > 0) " +
            "ORDER BY e.fechaYHora ASC")
     List<Evento> findAllNextEventsFinalesFiltered(
