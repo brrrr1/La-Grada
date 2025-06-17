@@ -107,4 +107,10 @@ El diseño de la aplicación está disponible en el siguiente enlace: [Diseño e
 ## Proyecto Front-End
 Enlace: https://github.com/brrrr1/La-Grada-FRONT
 
+## PowerPoint resumen
+Enlace: https://docs.google.com/presentation/d/1TBbe6J2-Z6oKHqHPN0k1oNSz0P3087SVS5fF-QXTfN0/edit?usp=sharing
+
+## Documentación adicional
+Enlace: https://docs.google.com/document/d/1MkGBZOaepc4jdsV4TH6qsEaVp0Mq45F3xwEbGwDzA08/edit?usp=sharing
+
 
