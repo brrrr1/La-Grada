@@ -61,15 +61,12 @@ public class MailService {
     public void sendTicketPurchaseEmailWithQR(User user, Evento evento) {
         String qrContent = evento.getId() + ":" + user.getId();
         String qrBase64 = generateQRCodeBase64(qrContent, 250, 250);
-        System.out.println("QR base64 FULL: " + qrBase64);
-        System.out.println("QR base64 preview: " + qrBase64.substring(0, Math.min(50, qrBase64.length())));
         String htmlMsg = "<h2>Has comprado una entrada para el evento: " + evento.getNombre() + "</h2>" +
                 "<p>Descripción: " + evento.getDescripcion() + "<br>" +
                 "Fecha y hora: " + evento.getFechaYHora() + "<br>" +
                 "Equipos: " + (evento.getEquipo1() != null ? evento.getEquipo1().getNombre() : "") + " vs " + (evento.getEquipo2() != null ? evento.getEquipo2().getNombre() : "") + "<br>" +
                 "Precio: " + evento.getPrecio() + "€<br><br>" +
-                "<b>Este es tu código QR de acceso:</b><br>" +
-                "<img src='data:image/png;base64," + qrBase64 + "' width='250' height='250'/><br><br>" +
+                "<b>Tu código QR de acceso está adjunto a este correo.</b><br><br>" +
                 "¡Gracias por tu compra!</p>";
         try {
             MimeMessage message = mailSender.createMimeMessage();
