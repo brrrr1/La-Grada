@@ -35,6 +35,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import lombok.extern.java.Log;
 import java.io.IOException;
 import java.security.Principal;
@@ -838,16 +839,24 @@ public class UserController {
                             )}
                     )}),
             @ApiResponse(responseCode = "403",
-                    description = "No tienes permisos para acceder a este recurso",
+                    description = "No tienes permisos para acceder a este recurso o no se puede deshabilitar un administrador",
                     content = @Content),
             @ApiResponse(responseCode = "404",
                     description = "Usuario no encontrado",
                     content = @Content)
     })
     @PostMapping("/admin/users/disable")
-    public UserListResponse disableUser(@RequestBody @Valid DisableUserRequest request) {
-        User disabledUser = userService.disableUser(request.userId());
-        return UserListResponse.of(disabledUser);
+    public ResponseEntity<?> disableUser(@RequestBody @Valid DisableUserRequest request) {
+        try {
+            User disabledUser = userService.disableUser(request.userId());
+            return ResponseEntity.ok(UserListResponse.of(disabledUser));
+        } catch (ResponseStatusException e) {
+            Map<String, Object> body = new HashMap<>();
+            body.put("status", e.getStatusCode().value());
+            body.put("error", e.getStatusCode().toString());
+            body.put("message", e.getReason());
+            return ResponseEntity.status(e.getStatusCode()).body(body);
+        }
     }
 
     @Operation(summary = "Habilita un usuario (solo para administradores)")
