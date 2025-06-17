@@ -3,6 +3,7 @@ package com.triana.salesianos.dam.lagrada.controller;
 import com.triana.salesianos.dam.lagrada.dto.*;
 import com.triana.salesianos.dam.lagrada.model.Evento;
 import com.triana.salesianos.dam.lagrada.model.User;
+import com.triana.salesianos.dam.lagrada.security.exceptionhandling.AuthenticationExceptionHandler;
 import com.triana.salesianos.dam.lagrada.security.jwt.access.JwtService;
 import com.triana.salesianos.dam.lagrada.security.jwt.refresh.RefreshToken;
 import com.triana.salesianos.dam.lagrada.security.jwt.refresh.RefreshTokenRequest;
@@ -25,23 +26,30 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.web.bind.annotation.*;
 import lombok.extern.java.Log;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import jakarta.servlet.ServletException;
 
 import static org.hibernate.query.sqm.tree.SqmNode.log;
-
 
 @RestController
 @RequiredArgsConstructor
@@ -55,6 +63,7 @@ public class UserController {
     private final RefreshTokenService refreshTokenService;
     private final EventoService eventoService;
     private final MailService mailService;
+    private final AuthenticationFailureHandler authenticationFailureHandler;
 
     @Operation(summary = "Sirve para que un usuario se registre en la aplicación")
     @ApiResponses(value = {
@@ -123,41 +132,50 @@ public class UserController {
     })
     @PostMapping("/auth/login")
     public ResponseEntity<?> login(
-            @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Cuerpo del usuario al que se va a hacer login", required = true,
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = LoginRequest.class),
-                            examples = @ExampleObject(value = """
-                                            {   
-                                                    "username": "br1",
-                                                    "password": "12345678"
-                                            }
-                                    
-""")))
             @RequestBody LoginRequest loginRequest,
             HttpServletRequest request) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        User user = (User) authentication.getPrincipal();
-        String accessToken = jwtService.generateAccessToken(user);
-        RefreshToken refreshToken = refreshTokenService.create(user);
-
-        // Get client IP address
-        String ipAddress = request.getRemoteAddr();
-        if (request.getHeader("X-Forwarded-For") != null) {
-            ipAddress = request.getHeader("X-Forwarded-For").split(",")[0];
-        }
-
-        // Send login notification email
         try {
-            mailService.sendLoginNotificationEmail(user.getCorreo(), ipAddress);
-        } catch (Exception e) {
-            // Log the error but don't fail the login
-            log.warning("Error sending login notification email: " + e.getMessage());
-        }
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            User user = (User) authentication.getPrincipal();
+            String accessToken = jwtService.generateAccessToken(user);
+            RefreshToken refreshToken = refreshTokenService.create(user);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.of(user, accessToken, refreshToken.getToken()));
+            // Get client IP address
+            String ipAddress = request.getRemoteAddr();
+            if (request.getHeader("X-Forwarded-For") != null) {
+                ipAddress = request.getHeader("X-Forwarded-For").split(",")[0];
+            }
+
+            // Send login notification email
+            try {
+                mailService.sendLoginNotificationEmail(user.getCorreo(), ipAddress);
+            } catch (Exception e) {
+                // Log the error but don't fail the login
+                log.warning("Error sending login notification email: " + e.getMessage());
+            }
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.of(user, accessToken, refreshToken.getToken()));
+        } catch (AuthenticationException e) {
+            Map<String, Object> body = new HashMap<>();
+            body.put("status", HttpStatus.UNAUTHORIZED.value());
+            body.put("error", "Unauthorized");
+            
+            String message;
+            if (e instanceof BadCredentialsException) {
+                message = "Credenciales incorrectas. Por favor, verifica tu usuario y contraseña.";
+            } else if (e instanceof DisabledException) {
+                message = "Tu cuenta está deshabilitada. Por favor, contacta con nosotros: lagrada.8k@gmail.com";
+            } else {
+                message = e.getMessage();
+            }
+            
+            body.put("message", message);
+            body.put("path", request.getServletPath());
+            
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(body);
+        }
     }
 
     @Operation(summary = "Sirve para que un usuario refresque su token de acceso")
